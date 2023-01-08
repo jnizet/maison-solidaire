@@ -11,8 +11,8 @@ test.describe('Navbar and permissions', () => {
     await test.expect(page.locator('#navbar a:has-text("Utilisateurs")')).toBeVisible();
   });
 
-  test('should not have export link when not admin', async ({ page }) => {
-    await login(page, 'lansana@gmail.com');
+  test('should not have users link when not admin', async ({ page }) => {
+    await login(page, 'clairebrucy@gmail.com');
     await test.expect(page.locator('#navbar a:has-text("Utilisateurs")')).toBeHidden();
   });
 });
