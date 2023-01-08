@@ -1,0 +1,18 @@
+<div *ngFor="let channel of channels" class="row gx-2 align-items-center">
+  <div class="col-auto">
+    <ms-icon [icon]="channel.icon"></ms-icon>
+    <span class="visually-hidden">{{ channel.description }}</span>
+  </div>
+  <div class="col">
+    <a [href]="channel.href">{{ channel.label }}</a>
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-link btn-sm py-0" (click)="copy(channel.label)">
+      <ms-icon [icon]="icons.copy"></ms-icon>
+      <span class="visually-hidden">Copier dans le presse-papier</span>
+    </button>
+  </div>
+</div>
+<div *ngIf="channels.length === 0" class="text-danger">
+  Aucun moyen configuré pour contacter {{ contact.name }}
+</div>

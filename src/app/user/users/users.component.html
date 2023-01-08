@@ -1,0 +1,66 @@
+<ms-page-title title="Utilisateurs"></ms-page-title>
+<div class="row justify-content-md-center">
+  <div class="col col-md-8 col-lg-6">
+    <div class="row align-items-center mb-4">
+      <div class="col">
+        <h1 class="fs-4">Utilisateurs</h1>
+      </div>
+      <div class="col-auto">
+        <a routerLink="new" class="btn btn-outline-secondary">
+          <ms-icon class="me-1" [icon]="icons.addUser"></ms-icon>
+          Créer un utilisateur
+        </a>
+      </div>
+    </div>
+
+    <ng-container *ngIf="users$ | async as users; else loading">
+      <div *ngFor="let user of users" class="card mb-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h2 class="fs-5" [class.disabled]="user.disabled">{{ user.displayName }}</h2>
+              <div class="text-muted">{{ user.email }}</div>
+              <div>
+                <button type="button" class="btn btn-link btn-sm" (click)="copyEmail(user)">
+                  <ms-icon [icon]="icons.resetPasswordEmail" class="me-1"></ms-icon>
+                  Choix du mot de passe
+                </button>
+              </div>
+            </div>
+            <div class="col">
+              <div *ngIf="user.admin">
+                <ms-icon [icon]="icons.admin" class="me-1"></ms-icon>
+                Administrateur
+              </div>
+              <div *ngIf="user.disabled">
+                <ms-icon [icon]="icons.disabled" class="me-1"></ms-icon>
+                Utilisateur désactivé
+              </div>
+            </div>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-secondary btn-sm" [routerLink]="['/users', user.uid, 'edit']">
+              <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
+              Modifier
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <ms-loading-spinner></ms-loading-spinner>
+    </ng-template>
+  </div>
+</div>
+
+<div role="alert" aria-live="polite" aria-atomic="true">
+  <div
+    class="email-copied-toast bg-dark text-light border rounded p-2 text-center"
+    [class.active]="copied | async"
+  >
+    <ng-container *ngIf="copied | async">
+      <ms-icon [icon]="icons.copied" class="mr-1"></ms-icon>
+      Email copié dans le presse-papier&nbsp;!
+    </ng-container>
+  </div>
+</div>
