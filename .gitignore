@@ -50,3 +50,4 @@ Thumbs.db
 /e2e/test-results/
 playwright-report/
 .sdkmanrc
+/functions/src/populate.ts
