@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
+  CLOTHES,
   COORDINATION,
   FOOD,
   FRENCH,
@@ -21,6 +22,7 @@ interface ViewModel {
   transport: Responsibility;
   food: Responsibility;
   french: Responsibility;
+  clothes: Responsibility;
 }
 
 @Component({
@@ -41,15 +43,17 @@ export class LodgingComponent {
       responsibilityService.getBySlug(TRANSPORT),
       responsibilityService.getBySlug(FOOD),
       responsibilityService.getBySlug(FRENCH),
-      responsibilityService.getBySlug(COORDINATION)
+      responsibilityService.getBySlug(COORDINATION),
+      responsibilityService.getBySlug(CLOTHES)
     ]).pipe(
-      map(([lodging, phones, transport, food, french, coordination]) => ({
+      map(([lodging, phones, transport, food, french, coordination, clothes]) => ({
         lodging,
         phones,
         transport,
         food,
         french,
-        coordination
+        coordination,
+        clothes
       }))
     );
   }

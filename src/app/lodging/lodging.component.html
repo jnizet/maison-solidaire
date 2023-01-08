@@ -29,19 +29,28 @@
 
   <h2>Rendez-vous récurrents</h2>
 
-  <h3 class="fs-5">Colis alimentaires</h3>
+  <h3 class="fs-5">Colis alimentaires et produits d'hygiène</h3>
   <p>
-    Pour obtenir leur colis alimentaire hebdomadaire, les jeunes doivent se rendre à la Maison
-    Solidaire, chaque mercredi, entre 14h00 et 18h00.
+    Pour obtenir leur colis alimentaire hebdomadaire et leurs produits d'hygiène, les jeunes doivent
+    se rendre à la Maison Solidaire, chaque mercredi, entre 16h00 et 18h30.
     <br />
     En cas de problème, ils peuvent contacter l'un des responsables:
+  </p>
+  <ms-responsibility [responsibility]="vm.food"></ms-responsibility>
+
+  <h3 class="fs-5">Vêtements</h3>
+  <p>
+    S'ils ont besoin de vêtements, les jeunes peuvent se rendre à la Maison Solidaire les mercredis
+    et vendredis entre 16h00 et 17h00.
+    <br />
+    Les responsables du vestiaires à contacter sont:
   </p>
   <ms-responsibility [responsibility]="vm.food"></ms-responsibility>
 
   <h3 class="fs-5">Recharge des cartes de téléphone</h3>
   <p>
     Pour recharger leur carte de téléphone, les jeunes doivent se rendre à la Maison Solidaire, les
-    premiers mercredi du mois entre 14h00 et 18h00.
+    premiers mercredi du mois entre 16h00 et 18h30. TODO est-ce correct?
     <br />
     En cas de problème, ils peuvent contacter l'un des responsables:
   </p>
@@ -50,7 +59,7 @@
   <h3 class="fs-5">Recharge des cartes de transport</h3>
   <p>
     Pour recharger leur carte de transport en commun, les jeunes doivent se rendre à la Maison
-    Solidaire, les premiers mercredi du mois entre 14h00 et 18h00.
+    Solidaire, les derniers mercredi du mois entre 14h00 et 16h00. TODO est-ce correct?
     <br />
     En cas de problème, ils peuvent contacter l'un des responsables:
   </p>
@@ -59,13 +68,29 @@
   <h3 class="fs-5">Cours de français</h3>
   <p>
     Si le jeune que vous hébergez suit les cours de français de la Maison Solidaire, ils ont lieu,
-    sauf contre-indication, à l'amicale Michelet le ... à ...
+    sauf contre-indication, à l'Amicale Laïque Michelet (41, rue des Passementiers) les mardi,
+    mercredi et vendredi de 14h00 à 16h00.
     <br />
-    En général, sauf contre-indication, les cours sont suspendus pendant les vacances scolaires.
+    Pendant les vacances scolaires, certains cours ne sont pas assurés.
     <br />
     Pour toute question, contacter l'un des responsables:
   </p>
   <ms-responsibility [responsibility]="vm.french"></ms-responsibility>
+
+  <p>
+    En outre, sauf contre-indication de Valentin, des cours de français sont aussi assurés pour les
+    jeunes non scolarisés du lundi au vendredi, de 9h00 à 11h00 à la Maison Solidaire.
+    <br />
+    Contactez le coordinateur pour toute question à se sujet:
+  </p>
+  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+
+  <h3 class="fs-5">Demandes concernant les papiers</h3>
+  <p>
+    Si le jeune veut poser des questions relatives à ses papiers au coordinateur, il doit prendre
+    rendez-vous au préalable avec lui en envoyant un message pasr Whatsapp ou SMS:
+  </p>
+  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
 
   <h2>Comment communiquer entre nous&nbsp;?</h2>
   <p>
