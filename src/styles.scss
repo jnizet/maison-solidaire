@@ -15,12 +15,6 @@ body {
   height: 1em;
 }
 
-.info-card {
-  background-color: $cyan-200;
-  border: 1px solid $cyan-500;
-}
-
-.text-bg-pink {
-  background-color: $pink;
-  color: $color-contrast-light;
+.btn-link:focus-visible {
+  outline: 1.5px solid $link-color;
 }
