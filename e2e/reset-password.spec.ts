@@ -10,6 +10,6 @@ test.describe('Reset password', () => {
 
     await test.expect(page.locator('text=Adresse email')).toBeHidden();
     await test.expect(page.locator('text=Réinitialiser')).toBeHidden();
-    await test.expect(page.locator('text=Un email vous a été envoyé')).toBeVisible();
+    await test.expect(page.locator(`text=Un email t'a été envoyé`)).toBeVisible();
   });
 });
