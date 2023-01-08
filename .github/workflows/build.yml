@@ -1,0 +1,56 @@
+name: Build
+
+on: [push]
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Setup frontend
+        run: yarn
+      - name: Lint frontend
+        run: yarn lint
+      - name: Build frontend
+        run: yarn build
+
+      - name: Setup functions
+        working-directory: ./functions
+        run: yarn
+      - name: Lint functions
+        working-directory: ./functions
+        run: yarn lint
+      - name: Build functions
+        working-directory: ./functions
+        run: yarn build
+
+      - name: Check format
+        run: yarn format:check
+
+  Test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Setup frontend
+        run: yarn
+      - name: Setup functions
+        working-directory: ./functions
+        run: yarn
+      - name: Build functions
+        working-directory: ./functions
+        run: yarn build
+
+      - name: Install Playwright
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: yarn e2e:ci

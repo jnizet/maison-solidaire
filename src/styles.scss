@@ -1,0 +1,26 @@
+@import 'custom-bootstrap';
+
+body {
+  padding-top: $navbar-height;
+}
+
+.invalid-feedback {
+  display: block;
+}
+
+.bi {
+  display: inline-block;
+  vertical-align: -0.125em;
+  width: 1em;
+  height: 1em;
+}
+
+.info-card {
+  background-color: $cyan-200;
+  border: 1px solid $cyan-500;
+}
+
+.text-bg-pink {
+  background-color: $pink;
+  color: $color-contrast-light;
+}

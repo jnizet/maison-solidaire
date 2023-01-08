@@ -1,0 +1,23 @@
+@import 'bootstrap/scss/functions';
+
+// make the placeholders lighter
+$input-placeholder-color: #dcdedf;
+// remove decoration of links
+$link-decoration: none;
+
+$form-label-margin-bottom: 0.2rem;
+$form-label-font-weight: 500;
+$enable-shadows: true;
+
+$primary: #0075bf;
+$dark: darken($primary, 20%);
+$dropdown-dark-bg: darken($dark, 3%);
+
+$headings-color: $dark;
+
+$navbar-height: 60px;
+
+@import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/maps';
+@import 'bootstrap/scss/mixins';
+@import 'bootstrap/scss/utilities';

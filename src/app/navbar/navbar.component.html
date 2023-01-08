@@ -1,0 +1,79 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-0" *ngIf="vm$ | async as vm">
+  <div class="container-fluid">
+    <a class="navbar-brand" routerLink="/">
+      <span class="visually-hidden">Accueil</span>
+      <img src="/assets/logo.png" style="width: 50px; height: 50px" alt="" />
+    </a>
+    <button
+      *ngIf="vm.user"
+      class="navbar-toggler"
+      type="button"
+      aria-controls="navbar"
+      [attr.aria-expanded]="expanded"
+      aria-label="Afficher ou masquer la navigation"
+      (click)="toggle()"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar" [ngbCollapse]="!expanded">
+      <ul *ngIf="vm.user" class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/lodging" (click)="collapse()">
+            <ms-icon [icon]="icons.lodging"></ms-icon>
+            Hébergeurs
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/association" (click)="collapse()">
+            <ms-icon [icon]="icons.association"></ms-icon>
+            L'association
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="vm.user.admin">
+          <a class="nav-link" routerLink="/users" (click)="collapse()">
+            <ms-icon [icon]="icons.users"></ms-icon>
+            Utilisateurs
+          </a>
+        </li>
+      </ul>
+      <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+        <ng-container *ngIf="vm.user">
+          <li class="nav-item me-2" ngbDropdown>
+            <a class="nav-link" tabindex="0" ngbDropdownToggle id="user-dropdown" role="button">
+              <ms-icon [icon]="icons.user"></ms-icon>
+              {{ vm.user.user | username }}
+            </a>
+            <div
+              ngbDropdownMenu
+              aria-labelledby="user-dropdown"
+              class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+            >
+              <a ngbDropdownItem routerLink="/change-password" (click)="collapse()">
+                <ms-icon [icon]="icons.changePassword"></ms-icon>
+                Changer de mot de passe
+              </a>
+              <a ngbDropdownItem role="button" (click)="logout(); collapse()">
+                <ms-icon [icon]="icons.logout"></ms-icon>
+                Déconnexion
+              </a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" role="button" tabindex="0" (click)="logout(); collapse()">
+              <span class="visually-hidden">Déconnexion</span>
+              <ms-icon [icon]="icons.logout"></ms-icon>
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="!vm.user">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/login">
+              <ms-icon [icon]="icons.login"></ms-icon>
+              Identification
+            </a>
+          </li>
+        </ng-container>
+      </ul>
+    </div>
+  </div>
+</nav>

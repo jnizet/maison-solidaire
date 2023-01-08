@@ -1,0 +1,83 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <h1>Informations et ressources pour les hébergeurs</h1>
+
+  <div class="col-lg-6 float-lg-end ms-lg-4 mb-4">
+    <div class="card bg-light p-2">
+      <h2>Besoin d'aide&nbsp;?</h2>
+
+      <p>
+        Peut-être trouverez-vous des réponses à vos question dans le
+        <a href="/assets/livret-hebergeur.pdf">livret des hébergeurs</a>.
+      </p>
+
+      <h3>Référents</h3>
+      <p>
+        En cas de question ou problème, vous pouvez contacter l'un des référents hébergement&nbsp;:
+      </p>
+      <ms-responsibility [responsibility]="vm.lodging"></ms-responsibility>
+
+      <h3>Vous voulez voir Valentin&nbsp;?</h3>
+      <p>
+        La Maison Solidaire n'est pas seulement son lieu de travail: c'est aussi son lieu de vie et
+        celui des jeunes qu'il héberge. Afin de leur permettre d'avoir une vie, merci de respecter
+        <a routerLink="/association">les horaires d'ouverture de la Maison Solidaire</a>.
+      </p>
+      <p>Pour s'assurer de la disponibilité de Valentin, prenez rendez-vous avec lui:</p>
+      <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+    </div>
+  </div>
+
+  <h2>Rendez-vous récurrents</h2>
+
+  <h3 class="fs-5">Colis alimentaires</h3>
+  <p>
+    Pour obtenir leur colis alimentaire hebdomadaire, les jeunes doivent se rendre à la Maison
+    Solidaire, chaque mercredi, entre 14h00 et 18h00.
+    <br />
+    En cas de problème, ils peuvent contacter l'un des responsables:
+  </p>
+  <ms-responsibility [responsibility]="vm.food"></ms-responsibility>
+
+  <h3 class="fs-5">Recharge des cartes de téléphone</h3>
+  <p>
+    Pour recharger leur carte de téléphone, les jeunes doivent se rendre à la Maison Solidaire, les
+    premiers mercredi du mois entre 14h00 et 18h00.
+    <br />
+    En cas de problème, ils peuvent contacter l'un des responsables:
+  </p>
+  <ms-responsibility [responsibility]="vm.phones"></ms-responsibility>
+
+  <h3 class="fs-5">Recharge des cartes de transport</h3>
+  <p>
+    Pour recharger leur carte de transport en commun, les jeunes doivent se rendre à la Maison
+    Solidaire, les premiers mercredi du mois entre 14h00 et 18h00.
+    <br />
+    En cas de problème, ils peuvent contacter l'un des responsables:
+  </p>
+  <ms-responsibility [responsibility]="vm.transport"></ms-responsibility>
+
+  <h3 class="fs-5">Cours de français</h3>
+  <p>
+    Si le jeune que vous hébergez suit les cours de français de la Maison Solidaire, ils ont lieu,
+    sauf contre-indication, à l'amicale Michelet le ... à ...
+    <br />
+    En général, sauf contre-indication, les cours sont suspendus pendant les vacances scolaires.
+    <br />
+    Pour toute question, contacter l'un des responsables:
+  </p>
+  <ms-responsibility [responsibility]="vm.french"></ms-responsibility>
+
+  <h2>Comment communiquer entre nous&nbsp;?</h2>
+  <p>
+    Les hébergeurs sont encouragés à communiquer entre eux, à partager leurs expériences, leurs
+    questionnements, etc.
+  </p>
+  <p>
+    Pour cela, deux canaux de communication existent&nbsp;: la <em>mailing list</em>:
+    <a href="mailto:hebergementms42@googlegroups.com">hebergementms42@googlegroups.com</a>
+    et le groupe Whatsapp <em>HebergeursMaisonSolidaire</em>.
+    <br />
+    Contactez le coordinateur pour vous y inscrire si ce n'est pas déjà fait&nbsp;:
+  </p>
+  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+</ng-container>

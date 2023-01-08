@@ -1,0 +1,19 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <h1>L'association ATPAC Maison SOlidaire</h1>
+
+  <h2>Horaires d'ouverture</h2>
+
+  <p>
+    La Maison Solidaire est aussi le lieu de vie de Valentin et des jeunes qu'il héberge. Afin de
+    leur permettre d'avoir une vie, merci de respecter ses horaires d'ouverture&nbsp;:
+  </p>
+  <ul>
+    <li>quand?</li>
+  </ul>
+  <p>Pour prendre rendez-vous, contactez le coordinateur de l'association&nbsp;:</p>
+  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+
+  <h2>Le conseil d'administration</h2>
+  <p>L'association est gérée par un consile d'administration collégial:</p>
+  <ms-responsibility [responsibility]="vm.council"></ms-responsibility>
+</ng-container>

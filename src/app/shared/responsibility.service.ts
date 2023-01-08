@@ -1,0 +1,75 @@
+import {
+  collection,
+  collectionData,
+  CollectionReference,
+  Firestore,
+  orderBy,
+  query
+} from '@angular/fire/firestore';
+import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { Contact, ContactService } from './contact.service';
+import { Injectable } from '@angular/core';
+
+type ResponsibilitySlug = string;
+
+interface PersistentResponsibility {
+  id: string;
+  slug: ResponsibilitySlug;
+  contacts: Array<string>;
+}
+
+export interface Responsibility {
+  id: string;
+  slug: ResponsibilitySlug;
+  contacts: Array<Contact>;
+}
+
+export const LODGING: ResponsibilitySlug = 'lodging';
+export const FRENCH: ResponsibilitySlug = 'french';
+export const PHONES: ResponsibilitySlug = 'phones';
+export const TRANSPORT: ResponsibilitySlug = 'transport';
+export const FOOD: ResponsibilitySlug = 'food';
+export const COORDINATION: ResponsibilitySlug = 'coordination';
+export const COUNCIL: ResponsibilitySlug = 'council';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ResponsibilityService {
+  private responsibilityCollection: CollectionReference<PersistentResponsibility>;
+  private responsibilities$: Observable<Array<Responsibility>>;
+
+  constructor(private firestore: Firestore, private contactService: ContactService) {
+    this.responsibilityCollection = collection(
+      firestore,
+      'responsibilities'
+    ) as CollectionReference<PersistentResponsibility>;
+    const persistentResponsibilities$ = collectionData<PersistentResponsibility>(
+      query(this.responsibilityCollection, orderBy('slug', 'asc'))
+    );
+    const contacts$ = contactService.list();
+
+    this.responsibilities$ = combineLatest([persistentResponsibilities$, contacts$]).pipe(
+      map(([persistentResponsibilities, contacts]) =>
+        persistentResponsibilities.map(persistentResponsibility => ({
+          id: persistentResponsibility.id,
+          slug: persistentResponsibility.slug,
+          contacts: persistentResponsibility.contacts
+            .map(contactId => contacts.find(c => c.id === contactId))
+            .filter((c): c is Contact => !!c)
+        }))
+      ),
+      shareReplay(1)
+    );
+  }
+
+  list(): Observable<Array<Responsibility>> {
+    return this.responsibilities$;
+  }
+
+  getBySlug(slug: ResponsibilitySlug): Observable<Responsibility> {
+    return this.responsibilities$.pipe(
+      map(responsibilities => responsibilities.find(c => c.slug === slug)!)
+    );
+  }
+}

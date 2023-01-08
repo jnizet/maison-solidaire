@@ -1,0 +1,26 @@
+@import '../../../common';
+
+.card {
+  border-left: 5px solid $primary;
+}
+
+.disabled {
+  text-decoration: line-through;
+}
+
+.email-copied-toast {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 200px;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 400ms ease;
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(-50px);
+  }
+}
