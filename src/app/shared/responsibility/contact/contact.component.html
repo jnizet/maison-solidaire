@@ -7,55 +7,7 @@
     <a [href]="channel.href">{{ channel.label }}</a>
   </div>
   <div class="col-auto">
-    <button class="btn btn-link btn-sm py-0" (click)="copy(contact.email)">
-      <ms-icon [icon]="icons.copy"></ms-icon>
-      <span class="visually-hidden">Copier dans le presse-papier</span>
-    </button>
-  </div>
-</div>
-
-<div *ngIf="contact.phone" class="row gx-2 align-items-center">
-  <div class="col-auto">
-    <ms-icon [icon]="icons.phone"></ms-icon>
-    <span class="visually-hidden">Par téléphone&nbsp;:</span>
-  </div>
-  <div class="col">
-    <a [href]="'tel:' + contact.phone">{{ contact.phone }}</a>
-  </div>
-  <div class="col-auto">
-    <button class="btn btn-link btn-sm py-0" (click)="copy(contact.phone)">
-      <ms-icon [icon]="icons.copy"></ms-icon>
-      <span class="visually-hidden">Copier dans le presse-papier</span>
-    </button>
-  </div>
-</div>
-
-<div *ngIf="contact.mobile" class="row gx-2 align-items-center">
-  <div class="col-auto">
-    <ms-icon [icon]="icons.mobile"></ms-icon>
-    <span class="visually-hidden">Par téléphone portable&nbsp;:</span>
-  </div>
-  <div class="col">
-    <a [href]="'tel:' + contact.mobile">{{ contact.mobile }}</a>
-  </div>
-  <div class="col-auto">
-    <button class="btn btn-link btn-sm py-0" (click)="copy(contact.mobile)">
-      <ms-icon [icon]="icons.copy"></ms-icon>
-      <span class="visually-hidden">Copier dans le presse-papier</span>
-    </button>
-  </div>
-</div>
-
-<div *ngIf="contact.whatsapp" class="row gx-2 align-items-center">
-  <div class="col-auto">
-    <ms-icon [icon]="icons.whatsapp"></ms-icon>
-    <span class="visually-hidden">Par Whatsapp&nbsp;:</span>
-  </div>
-  <div class="col">
-    <a [href]="'https://wa.me/' + whatsappNumber(contact.whatsapp)">{{ contact.whatsapp }}</a>
-  </div>
-  <div class="col-auto">
-    <button class="btn btn-link btn-sm py-0" (click)="copy(contact.whatsapp)">
+    <button class="btn btn-link btn-sm py-0" (click)="copy(channel.label)">
       <ms-icon [icon]="icons.copy"></ms-icon>
       <span class="visually-hidden">Copier dans le presse-papier</span>
     </button>
