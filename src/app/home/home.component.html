@@ -1,15 +1,42 @@
 <ng-container *ngIf="vm$ | async as vm">
   <h1 class="text-center">La Maison Solidaire</h1>
 
-  <div *ngIf="!vm.user" class="alert alert-dark">
-    <div class="d-flex gap-3">
-      <ms-icon [icon]="icons.info" class="fs-4"></ms-icon>
-      <p class="flex-grow-1">
-        Ce site est réservé aux membres et bénévoles de la Maison Solidaire.<br />
-        <a href="https://atpac-maisonsolidaire.fr/"
-          >Cliquez ici pour accéder au site public de la Maison Solidaire</a
-        >.
-      </p>
+  <div class="row justify-content-center">
+    <div class="mb-4 col col-lg-6">
+      <div class="position-relative">
+        <img
+          src="/assets/game.jpg"
+          width="800"
+          height="600"
+          class="img-fluid w-100"
+          alt="quatre jeunes jouant ensemble dans un jardin"
+        />
+        <p
+          *ngIf="vm.user"
+          class="m-3 p-2 rounded lead text-white fs-4 darken"
+          style="position: absolute; left: 0; bottom: 0"
+        >
+          Bienvenue {{ vm.user | username }}&nbsp;!
+          <br />
+          Et merci encore pour ton engagement&nbsp;!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!vm.user" class="row justify-content-center">
+    <div class="col col-lg-6">
+      <div class="alert alert-dark">
+        <div class="d-flex gap-3">
+          <ms-icon [icon]="icons.info" class="fs-4"></ms-icon>
+          <p class="flex-grow-1">
+            Ce site est réservé aux membres et bénévoles de la Maison Solidaire.<br />
+            <a href="https://atpac-maisonsolidaire.fr/"
+              >Cliquez ici pour accéder au site public de la Maison Solidaire</a
+            >.
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -19,23 +46,6 @@
         <ms-icon class="me-1" [icon]="icons.login"></ms-icon>
         Identification
       </a>
-    </div>
-  </div>
-
-  <div *ngIf="vm.user" class="row">
-    <div class="col col-lg-6 offset-lg-3">
-      <div class="alert alert-dark">
-        <div class="d-flex gap-3">
-          <ms-icon [icon]="icons.welcome" class="fs-4"></ms-icon>
-          <div class="flex-grow-1">
-            <p>
-              Bienvenue {{ vm.user | username }}&nbsp;!
-              <br />
-              Et merci encore pour ton engagement&nbsp;!
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
