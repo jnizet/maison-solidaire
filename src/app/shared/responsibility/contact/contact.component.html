@@ -13,3 +13,6 @@
     </button>
   </div>
 </div>
+<div *ngIf="channels.length === 0" class="text-danger">
+  Aucun moyen configuré pour contacter {{ contact.name }}
+</div>
