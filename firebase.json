@@ -5,7 +5,11 @@
   },
   "hosting": {
     "public": "dist/maison-solidaire",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
         "source": "**",
@@ -40,6 +44,9 @@
     "firestore": {
       "port": 7070
     },
+    "storage": {
+      "port": 9199
+    },
     "ui": {
       "enabled": true
     },
@@ -48,6 +55,12 @@
     }
   },
   "functions": {
-    "predeploy": ["cd functions && yarn build"]
+    "predeploy": [
+      "cd functions && yarn build"
+    ],
+    "source": "functions"
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }

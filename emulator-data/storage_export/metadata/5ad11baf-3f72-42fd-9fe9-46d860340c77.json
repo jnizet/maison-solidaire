@@ -1,0 +1,19 @@
+{
+  "name": "livret-hebergeur.pdf",
+  "bucket": "maison-solidaire.appspot.com",
+  "metageneration": 1,
+  "generation": 1673209417424,
+  "contentType": "application/pdf",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "58cece5f-94af-424a-9640-686bc7ad5e3a"
+  ],
+  "etag": "7jEGCLPnNcyRJBJbWPGXJcMHFJk",
+  "customMetadata": {},
+  "timeCreated": "2023-01-08T20:23:37.424Z",
+  "updated": "2023-01-08T20:23:37.424Z",
+  "size": 1168528,
+  "md5Hash": "3AXzvNRdF54hIxby5Oz1OQ==",
+  "crc32c": "1527522662"
+}

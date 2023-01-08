@@ -14,6 +14,7 @@ import {
 import { combineLatest, map, Observable } from 'rxjs';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
 import { RouterLink } from '@angular/router';
+import { StorageService } from '../shared/storage.service';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -23,6 +24,9 @@ interface ViewModel {
   food: Responsibility;
   french: Responsibility;
   clothes: Responsibility;
+
+  bookUrl: string;
+  rulesUrl: string;
 }
 
 @Component({
@@ -36,7 +40,7 @@ interface ViewModel {
 export class LodgingComponent {
   vm$: Observable<ViewModel>;
 
-  constructor(responsibilityService: ResponsibilityService) {
+  constructor(responsibilityService: ResponsibilityService, storageService: StorageService) {
     this.vm$ = combineLatest([
       responsibilityService.getBySlug(LODGING),
       responsibilityService.getBySlug(PHONES),
@@ -44,17 +48,23 @@ export class LodgingComponent {
       responsibilityService.getBySlug(FOOD),
       responsibilityService.getBySlug(FRENCH),
       responsibilityService.getBySlug(COORDINATION),
-      responsibilityService.getBySlug(CLOTHES)
+      responsibilityService.getBySlug(CLOTHES),
+      storageService.downloadUrl('livret-hebergeur.pdf'),
+      storageService.downloadUrl('reglement.pdf')
     ]).pipe(
-      map(([lodging, phones, transport, food, french, coordination, clothes]) => ({
-        lodging,
-        phones,
-        transport,
-        food,
-        french,
-        coordination,
-        clothes
-      }))
+      map(
+        ([lodging, phones, transport, food, french, coordination, clothes, bookUrl, rulesUrl]) => ({
+          lodging,
+          phones,
+          transport,
+          food,
+          french,
+          coordination,
+          clothes,
+          bookUrl,
+          rulesUrl
+        })
+      )
     );
   }
 }
