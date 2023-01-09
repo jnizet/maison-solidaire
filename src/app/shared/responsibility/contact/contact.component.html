@@ -7,7 +7,7 @@
     <a [href]="channel.href">{{ channel.label }}</a>
   </div>
   <div class="col-auto">
-    <button class="btn btn-link btn-sm py-0" (click)="copy(channel.label)">
+    <button class="btn btn-link" (click)="copy(channel.label)">
       <ms-icon [icon]="icons.copy"></ms-icon>
       <span class="visually-hidden">Copier dans le presse-papier</span>
     </button>
