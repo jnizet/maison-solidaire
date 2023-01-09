@@ -24,14 +24,22 @@
               </div>
             </div>
           </div>
-          <div class="text-end" *ngIf="vm.user?.admin">
+          <div class="text-end mt-1" *ngIf="vm.user?.admin">
             <a
-              class="btn btn-outline-secondary btn-sm"
+              class="btn btn-outline-secondary btn-sm me-2"
               [routerLink]="['/contacts', contact.id, 'edit']"
             >
               <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
               Modifier
             </a>
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteContact(contact)"
+            >
+              <ms-icon [icon]="icons.delete"></ms-icon>
+              Supprimer
+            </button>
           </div>
         </div>
       </div>
