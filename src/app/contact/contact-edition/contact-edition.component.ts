@@ -18,6 +18,7 @@ import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { ToastService } from '../../toast/toast.service';
+import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 
 @Component({
   selector: 'ms-contact-edition',
@@ -27,6 +28,7 @@ import { ToastService } from '../../toast/toast.service';
     PageTitleDirective,
     ReactiveFormsModule,
     ValidationErrorsComponent,
+    FormControlValidationDirective,
     IconDirective,
     LoadingSpinnerComponent,
     RouterLink
