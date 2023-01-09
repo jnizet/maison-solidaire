@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <div *ngFor="let contact of vm.contacts" class="card mb-2">
+      <div *ngFor="let contact of vm.contacts; trackBy: trackById" class="card mb-2">
         <div class="card-body">
           <div class="row">
             <div class="col">

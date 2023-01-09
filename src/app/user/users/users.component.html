@@ -14,7 +14,7 @@
     </div>
 
     <ng-container *ngIf="users$ | async as users; else loading">
-      <div *ngFor="let user of users" class="card mb-2">
+      <div *ngFor="let user of users; trackBy: trackByUid" class="card mb-2">
         <div class="card-body">
           <div class="row">
             <div class="col">

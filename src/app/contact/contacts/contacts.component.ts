@@ -84,4 +84,8 @@ export class ContactsComponent {
         })
       );
   }
+
+  trackById(index: number, contact: Contact) {
+    return contact.id;
+  }
 }

@@ -46,7 +46,6 @@ export class UsersComponent {
   };
 
   copied = new BehaviorSubject(false);
-
   constructor(userService: UserService, private toastService: ToastService) {
     this.users$ = userService.listUsers();
   }
@@ -73,5 +72,9 @@ ${homePath}.`;
         message: 'Email copié dans le presse-papier\u00a0!'
       })
     );
+  }
+
+  trackByUid(index: number, user: AdministeredUser) {
+    return user.uid;
   }
 }
