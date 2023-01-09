@@ -55,14 +55,17 @@ export class UsersComponent {
     const resetPasswordPath =
       window.location.origin + '/reset-password?email=' + encodeURIComponent(user.email);
     const homePath = window.location.origin;
+    const loginPath = window.location.origin + '/login';
     const email = `Bonjour ${user.displayName}.
 
 Pour pouvoir accéder à l'application "Maison Solidaire",
 il te faudra choisir un mot de passe en te rendant à l'adresse suivante\u00a0:
-${resetPasswordPath}.
+${resetPasswordPath} ou, si ton adresse email est celle d'un compte Google,
+t'identifier directement via Google à l'adresse suivante\u00a0:
+${loginPath}.
 
-Une fois le mot de passe choisi, tu pourras accéder à l'application en te rendant à l'adresse
-suivante\u00a0:
+Une fois le mot de passe choisi ou l'identification effectuée, tu pourras accéder
+à l'application en te rendant à l'adresse suivante\u00a0:
 ${homePath}.`;
     from(navigator.clipboard.writeText(email)).subscribe(() =>
       this.toastService.display({
