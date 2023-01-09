@@ -17,6 +17,7 @@ import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { ToastService } from '../../toast/toast.service';
 
 @Component({
   selector: 'ms-contact-edition',
@@ -57,7 +58,8 @@ export class ContactEditionComponent {
     route: ActivatedRoute,
     private router: Router,
     private contactService: ContactService,
-    private fb: NonNullableFormBuilder
+    private fb: NonNullableFormBuilder,
+    private toastService: ToastService
   ) {
     route.paramMap
       .pipe(
@@ -95,6 +97,7 @@ export class ContactEditionComponent {
         : this.contactService.update(this.editedContact!.id, command);
     result$.pipe(this.saving.spinUntilFinalization()).subscribe(() => {
       this.router.navigate(['/contacts']);
+      this.toastService.success(this.mode === 'create' ? 'Contact créé' : 'Contact modifié');
     });
   }
 }

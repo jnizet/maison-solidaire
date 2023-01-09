@@ -4,12 +4,7 @@ import { Contact, ContactService } from '../../shared/contact.service';
 import { combineLatest, first, map, Observable, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { IconDirective } from '../../icon/icon.directive';
-import {
-  checkCircleFill,
-  pencilSquare,
-  plusCircle,
-  trash
-} from '../../bootstrap-icons/bootstrap-icons';
+import { pencilSquare, plusCircle, trash } from '../../bootstrap-icons/bootstrap-icons';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
 import { RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
@@ -77,12 +72,7 @@ export class ContactsComponent {
         }),
         switchMap(() => this.contactService.deleteContact(contact.id))
       )
-      .subscribe(() =>
-        this.toastService.display({
-          icon: checkCircleFill,
-          message: 'Contact supprimé'
-        })
-      );
+      .subscribe(() => this.toastService.success('Contact supprimé'));
   }
 
   trackById(index: number, contact: Contact) {
