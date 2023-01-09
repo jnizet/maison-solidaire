@@ -42,6 +42,10 @@ export const APP_ROUTES: Routes = [
         path: 'change-password',
         loadComponent: () =>
           import('./change-password/change-password.component').then(m => m.ChangePasswordComponent)
+      },
+      {
+        path: 'contacts',
+        loadChildren: () => import('./contact/contact.routes').then(m => m.CONTACT_ROUTES)
       }
     ]
   }

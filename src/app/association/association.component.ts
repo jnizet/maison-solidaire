@@ -8,6 +8,7 @@ import {
   ResponsibilityService
 } from '../shared/responsibility.service';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
+import { PageTitleDirective } from '../page-title/page-title.directive';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -17,7 +18,7 @@ interface ViewModel {
 @Component({
   selector: 'ms-association',
   standalone: true,
-  imports: [CommonModule, ResponsibilityComponent],
+  imports: [CommonModule, ResponsibilityComponent, PageTitleDirective],
   templateUrl: './association.component.html',
   styleUrls: ['./association.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

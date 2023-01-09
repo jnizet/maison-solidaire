@@ -7,6 +7,7 @@ import {
   key,
   peopleFill,
   personCircle,
+  personVcard,
   personWorkspace,
   power
 } from '../bootstrap-icons/bootstrap-icons';
@@ -55,7 +56,8 @@ export class NavbarComponent {
     user: personCircle,
     changePassword: key,
     lodging: housesFill,
-    association: peopleFill
+    association: peopleFill,
+    contacts: personVcard
   };
 
   constructor(private currentUserService: CurrentUserService, private router: Router) {
