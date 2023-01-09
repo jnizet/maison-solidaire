@@ -29,6 +29,12 @@
             L'association
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contacts" (click)="collapse()">
+            <ms-icon [icon]="icons.contacts"></ms-icon>
+            Contacts
+          </a>
+        </li>
         <li class="nav-item" *ngIf="vm.user.admin">
           <a class="nav-link" routerLink="/users" (click)="collapse()">
             <ms-icon [icon]="icons.users"></ms-icon>

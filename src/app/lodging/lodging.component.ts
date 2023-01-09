@@ -15,6 +15,7 @@ import { combineLatest, map, Observable } from 'rxjs';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
 import { RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
+import { PageTitleDirective } from '../page-title/page-title.directive';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -32,7 +33,7 @@ interface ViewModel {
 @Component({
   selector: 'ms-lodging',
   standalone: true,
-  imports: [CommonModule, ResponsibilityComponent, RouterLink],
+  imports: [CommonModule, ResponsibilityComponent, RouterLink, PageTitleDirective],
   templateUrl: './lodging.component.html',
   styleUrls: ['./lodging.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

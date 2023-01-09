@@ -52,15 +52,3 @@
     </ng-template>
   </div>
 </div>
-
-<div role="alert" aria-live="polite" aria-atomic="true">
-  <div
-    class="email-copied-toast bg-dark text-light border rounded p-2 text-center"
-    [class.active]="copied | async"
-  >
-    <ng-container *ngIf="copied | async">
-      <ms-icon [icon]="icons.copied" class="mr-1"></ms-icon>
-      Email copié dans le presse-papier&nbsp;!
-    </ng-container>
-  </div>
-</div>

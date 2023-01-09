@@ -1,0 +1,43 @@
+<ms-page-title title="Contacts"></ms-page-title>
+<div class="row justify-content-md-center">
+  <div class="col col-md-8 col-lg-6">
+    <ng-container *ngIf="vm$ | async as vm; else loading">
+      <div class="row align-items-center mb-4">
+        <div class="col">
+          <h1 class="fs-4">Contacts</h1>
+        </div>
+        <div class="col-auto" *ngIf="vm.user?.admin">
+          <a routerLink="new" class="btn btn-outline-secondary">
+            <ms-icon class="me-1" [icon]="icons.addContact"></ms-icon>
+            Créer un contact
+          </a>
+        </div>
+      </div>
+
+      <div *ngFor="let contact of vm.contacts" class="card mb-2">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h2 class="fs-5">{{ contact.name }}</h2>
+              <div class="col col-xl-8">
+                <ms-contact [contact]="contact"></ms-contact>
+              </div>
+            </div>
+          </div>
+          <div class="text-end" *ngIf="vm.user?.admin">
+            <a
+              class="btn btn-outline-secondary btn-sm"
+              [routerLink]="['/contacts', contact.id, 'edit']"
+            >
+              <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
+              Modifier
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #loading>
+      <ms-loading-spinner></ms-loading-spinner>
+    </ng-template>
+  </div>
+</div>
