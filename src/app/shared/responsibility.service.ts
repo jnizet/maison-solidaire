@@ -15,12 +15,14 @@ type ResponsibilitySlug = string;
 interface PersistentResponsibility {
   id: string;
   slug: ResponsibilitySlug;
+  name: string;
   contacts: Array<string>;
 }
 
 export interface Responsibility {
   id: string;
   slug: ResponsibilitySlug;
+  name: string;
   contacts: Array<Contact>;
 }
 
@@ -46,7 +48,7 @@ export class ResponsibilityService {
       'responsibilities'
     ) as CollectionReference<PersistentResponsibility>;
     const persistentResponsibilities$ = collectionData<PersistentResponsibility>(
-      query(this.responsibilityCollection, orderBy('slug', 'asc'))
+      query(this.responsibilityCollection, orderBy('name', 'asc'))
     );
     const contacts$ = contactService.list();
 
@@ -55,6 +57,7 @@ export class ResponsibilityService {
         persistentResponsibilities.map(persistentResponsibility => ({
           id: persistentResponsibility.id,
           slug: persistentResponsibility.slug,
+          name: persistentResponsibility.name,
           contacts: persistentResponsibility.contacts
             .map(contactId => contacts.find(c => c.id === contactId))
             .filter((c): c is Contact => !!c)

@@ -3,13 +3,14 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  deleteDoc,
   doc,
   Firestore,
   orderBy,
   query,
   setDoc
 } from '@angular/fire/firestore';
-import { defer, map, Observable, shareReplay } from 'rxjs';
+import { defer, from, map, Observable, shareReplay } from 'rxjs';
 
 export interface Contact {
   id: string;
@@ -34,7 +35,10 @@ export class ContactService {
     this.contactCollection = collection(firestore, 'contacts') as CollectionReference<Contact>;
     this.contacts$ = collectionData<Contact>(
       query(this.contactCollection, orderBy('name', 'asc'))
-    ).pipe(shareReplay(1));
+    ).pipe(
+      map(contacts => contacts.sort((c1, c2) => new Intl.Collator('de').compare(c1.name, c2.name))),
+      shareReplay(1)
+    );
   }
 
   list(): Observable<Array<Contact>> {
@@ -69,5 +73,12 @@ export class ContactService {
       }
     });
     return contact;
+  }
+
+  deleteContact(contactId: string): Observable<void> {
+    return defer(() => {
+      const document = doc(this.contactCollection, contactId);
+      return from(deleteDoc(document));
+    });
   }
 }
