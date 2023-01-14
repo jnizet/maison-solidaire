@@ -37,7 +37,7 @@ export class ContactsComponent {
   vm$: Observable<ViewModel>;
 
   icons = {
-    addContact: plusCircle,
+    add: plusCircle,
     edit: pencilSquare,
     delete: trash
   };

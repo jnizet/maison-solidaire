@@ -1,8 +1,8 @@
 <ng-container *ngIf="vm$ | async as vm">
   <h1 class="text-center">La Maison Solidaire</h1>
 
-  <div class="row justify-content-center">
-    <div class="mb-4 col col-lg-6">
+  <div class="row justify-content-evenly">
+    <div class="mb-4 col-12 col-lg-6">
       <div class="position-relative">
         <img
           src="/assets/game.jpg"
@@ -20,6 +20,21 @@
           <br />
           Et merci encore pour ton engagement&nbsp;!
         </p>
+      </div>
+    </div>
+    <div
+      *ngIf="vm.user && vm.activities.length > 0"
+      class="col-12 col-lg-4 d-flex justify-content-center"
+    >
+      <div class="activities p-2">
+        <ul class="list-unstyled">
+          <li *ngFor="let activity of vm.activities" class="mb-2">
+            {{ activity.date | date : 'mediumDate' }}&nbsp;: {{ activity.title }}
+          </li>
+        </ul>
+        <div class="text-center">
+          <a routerLink="/activities">Toutes les activités</a>
+        </div>
       </div>
     </div>
   </div>
@@ -49,8 +64,8 @@
     </div>
   </div>
 
-  <div *ngIf="vm.user" class="row mt-2">
-    <div class="col-6 col-lg-3 offset-lg-3">
+  <div *ngIf="vm.user" class="row mt-2 g-3">
+    <div class="col-12 col-lg-3">
       <a routerLink="/lodging" class="d-block btn btn-outline-primary h-100">
         <div class="fs-1">
           <ms-icon [icon]="icons.lodging"></ms-icon>
@@ -58,12 +73,28 @@
         <div class="fs-4">Informations et ressources pour les hébergeurs</div>
       </a>
     </div>
-    <div class="col-6 col-lg-3">
+    <div class="col-12 col-lg-3">
       <a routerLink="/association" class="d-block btn btn-outline-primary h-100">
         <div class="fs-1">
           <ms-icon [icon]="icons.association"></ms-icon>
         </div>
         <div class="fs-4">L'association ATPAC Maison Solidaire</div>
+      </a>
+    </div>
+    <div class="col-12 col-lg-3">
+      <a routerLink="/contacts" class="d-block btn btn-outline-primary h-100">
+        <div class="fs-1">
+          <ms-icon [icon]="icons.contacts"></ms-icon>
+        </div>
+        <div class="fs-4">Liste des contacts</div>
+      </a>
+    </div>
+    <div class="col-12 col-lg-3">
+      <a routerLink="/activities" class="d-block btn btn-outline-primary h-100">
+        <div class="fs-1">
+          <ms-icon [icon]="icons.activities"></ms-icon>
+        </div>
+        <div class="fs-4">Agenda des activités</div>
       </a>
     </div>
   </div>
