@@ -35,6 +35,12 @@
             Contacts
           </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/activities" (click)="collapse()">
+            <ms-icon [icon]="icons.activities"></ms-icon>
+            Activités
+          </a>
+        </li>
         <li class="nav-item" *ngIf="vm.user.admin">
           <a class="nav-link" routerLink="/users" (click)="collapse()">
             <ms-icon [icon]="icons.users"></ms-icon>
