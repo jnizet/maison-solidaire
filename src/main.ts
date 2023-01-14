@@ -4,7 +4,12 @@ import { AppComponent } from './app/app.component';
 import { provideRouter } from '@angular/router';
 import { APP_ROUTES } from './app/app.routes';
 import '@angular/common/locales/global/fr';
+import { LOCALE_ID } from '@angular/core';
 
 bootstrapApplication(AppComponent, {
-  providers: [...environment.firebaseProviders, provideRouter(APP_ROUTES)]
+  providers: [
+    ...environment.firebaseProviders,
+    provideRouter(APP_ROUTES),
+    { provide: LOCALE_ID, useValue: 'fr-FR' }
+  ]
 });

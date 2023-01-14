@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import {
+  balloonFill,
   boxArrowInRight,
   housesFill,
   key,
@@ -57,7 +58,8 @@ export class NavbarComponent {
     changePassword: key,
     lodging: housesFill,
     association: peopleFill,
-    contacts: personVcard
+    contacts: personVcard,
+    activities: balloonFill
   };
 
   constructor(private currentUserService: CurrentUserService, private router: Router) {

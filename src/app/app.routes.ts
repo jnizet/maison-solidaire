@@ -46,6 +46,10 @@ export const APP_ROUTES: Routes = [
       {
         path: 'contacts',
         loadChildren: () => import('./contact/contact.routes').then(m => m.CONTACT_ROUTES)
+      },
+      {
+        path: 'activities',
+        loadChildren: () => import('./activity/activity.routes').then(m => m.ACTIVITY_ROUTES)
       }
     ]
   }
