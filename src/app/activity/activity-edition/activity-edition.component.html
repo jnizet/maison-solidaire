@@ -1,0 +1,99 @@
+<ng-container *ngIf="mode; else loading">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-10 col-lg-8">
+      <ms-page-title
+        [title]="mode === 'edit' ? editedActivity!.title : 'Nouvelle activité'"
+      ></ms-page-title>
+      <h1 *ngIf="mode === 'create'">Création d'une nouvelle activité</h1>
+      <h1 *ngIf="mode === 'edit'">
+        Modification de l'activité <em>{{ editedActivity!.title }}</em>
+      </h1>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="mb-3">
+              <label for="title" class="form-label">Titre</label>
+              <input formControlName="title" class="form-control" id="title" />
+              <val-errors controlName="title" label="Le titre"></val-errors>
+            </div>
+          </div>
+          <div class="col">
+            <div class="mb-3">
+              <label for="date" class="form-label">Date</label>
+              <input formControlName="date" type="date" class="form-control" id="date" />
+              <val-errors controlName="date" label="La date"></val-errors>
+            </div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+
+          <ul ngbNav #descriptionNav="ngbNav" class="nav-pills">
+            <li ngbNavItem="editor">
+              <a ngbNavLink>Éditeur</a>
+              <ng-template ngbNavContent>
+                <div class="description-content d-flex flex-column">
+                  <textarea
+                    formControlName="description"
+                    class="form-control flex-grow-1"
+                    id="description"
+                  ></textarea>
+                  <div class="form-text">
+                    Pense à y mentionner les horaires, le lieu, le lieu de rendez-vous, le public
+                    cible, s'il faut s'inscrire ou pas, ce qu'il faut prévoir comme matériel, etc.
+                    Tu peux
+                    <a href="https://flus.fr/carnet/markdown.html" target="markdown-guide"
+                      >utiliser du markdown</a
+                    >
+                    pour mettre en forme la description.
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <li ngbNavItem="preview">
+              <a ngbNavLink>Prévisualisation</a>
+              <ng-template ngbNavContent>
+                <div
+                  class="description-content border rounded p-2 bg-light"
+                  style="min-height: 300px"
+                >
+                  <div [msMarkdown]="form.controls.description.value"></div>
+                </div>
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="descriptionNav" class="mt-2"></div>
+
+          <val-errors controlName="description" label="La description"></val-errors>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
+            <ms-icon
+              *ngIf="(saving.isSpinning | async) === false"
+              class="me-1"
+              [icon]="icons.save"
+            ></ms-icon>
+            <div
+              *ngIf="(saving.isSpinning | async) === true"
+              class="spinner-border spinner-border-sm me-1"
+              role="status"
+            >
+              <span class="visually-hidden">enregistrement en cours...</span>
+            </div>
+            Enregistrer
+          </button>
+          <a class="btn btn-danger" routerLink="/activities">
+            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            Annuler
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <ng-template #loading>
+    <ms-loading-spinner></ms-loading-spinner>
+  </ng-template>
+</ng-template>

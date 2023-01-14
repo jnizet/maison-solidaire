@@ -4,11 +4,11 @@
     <ng-container *ngIf="vm$ | async as vm; else loading">
       <div class="row align-items-center mb-4">
         <div class="col">
-          <h1 class="fs-4">Contacts</h1>
+          <h1>Contacts</h1>
         </div>
         <div class="col-auto" *ngIf="vm.user?.admin">
           <a routerLink="new" class="btn btn-outline-secondary">
-            <ms-icon class="me-1" [icon]="icons.addContact"></ms-icon>
+            <ms-icon class="me-1" [icon]="icons.add"></ms-icon>
             Créer un contact
           </a>
         </div>
@@ -24,23 +24,23 @@
               </div>
             </div>
           </div>
-          <div class="text-end mt-1" *ngIf="vm.user?.admin">
-            <a
-              class="btn btn-outline-secondary btn-sm me-2"
-              [routerLink]="['/contacts', contact.id, 'edit']"
-            >
-              <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
-              Modifier
-            </a>
-            <button
-              type="button"
-              class="btn btn-outline-danger btn-sm"
-              (click)="deleteContact(contact)"
-            >
-              <ms-icon [icon]="icons.delete"></ms-icon>
-              Supprimer
-            </button>
-          </div>
+        </div>
+        <div class="card-footer text-end" *ngIf="vm.user?.admin">
+          <a
+            class="btn btn-outline-secondary btn-sm me-2"
+            [routerLink]="['/contacts', contact.id, 'edit']"
+          >
+            <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
+            Modifier
+          </a>
+          <button
+            type="button"
+            class="btn btn-outline-danger btn-sm"
+            (click)="deleteContact(contact)"
+          >
+            <ms-icon [icon]="icons.delete"></ms-icon>
+            Supprimer
+          </button>
         </div>
       </div>
     </ng-container>
