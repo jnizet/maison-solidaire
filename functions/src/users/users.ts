@@ -17,7 +17,7 @@ function userRecordToUser(record: UserRecord): User {
   return {
     uid: record.uid,
     email: record.email!,
-    displayName: record.displayName ?? '',
+    displayName: record.customClaims?.displayName ?? record.displayName ?? '',
     disabled: record.disabled,
     admin: !!record.customClaims?.admin
   };
@@ -75,7 +75,10 @@ export const createUser = functions.https.onCall(
       admin: command.admin,
       // this is checked by firebase security rules in order to prevent access to any document if the user hasn't been
       // created or updated by these functions, since there is no way to actually prevent signup on Firebase
-      user: true
+      user: true,
+      // we store the display name in custom claims, because if a user logs in with google,
+      // the actual display name of the user becomes the google display name, and we don't want that.
+      displayName: command.displayName
     });
     return { ...userRecordToUser(createdUser), admin: command.admin };
   }
@@ -94,6 +97,9 @@ export const updateUser = functions.https.onCall(async (command: User, context):
     admin: command.admin,
     // this is checked by firebase security rules in order to prevent access to any document if the user hasn't been
     // created or updated by these functions, since there is no way to actually prevent signup on Firebase
-    user: true
+    user: true,
+    // we store the display name in custom claims, because if a user logs in with google,
+    // the actual display name of the user becomes the google display name, and we don't want that.
+    displayName: command.displayName
   });
 });

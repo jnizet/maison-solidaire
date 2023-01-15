@@ -8,11 +8,11 @@ service cloud.firestore {
     match /contacts/{contactId} {
       allow create: if request.auth != null && (
         request.auth.token.admin == true ||
-        request.resource.data.name == request.auth.token.name
+        request.resource.data.name == request.auth.token.displayName
       );
       allow update: if request.auth != null && (
         request.auth.token.admin == true ||
-        get(/databases/$(database)/documents/contacts/$(contactId)).data.name == request.auth.token.name
+        get(/databases/$(database)/documents/contacts/$(contactId)).data.name == request.auth.token.displayName
       );
     }
   }
