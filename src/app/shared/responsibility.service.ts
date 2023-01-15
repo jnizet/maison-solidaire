@@ -2,11 +2,13 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  doc,
   Firestore,
   orderBy,
-  query
+  query,
+  updateDoc
 } from '@angular/fire/firestore';
-import { combineLatest, map, Observable, shareReplay } from 'rxjs';
+import { combineLatest, defer, from, map, Observable, shareReplay } from 'rxjs';
 import { Contact, ContactService } from './contact.service';
 import { Injectable } from '@angular/core';
 
@@ -25,6 +27,8 @@ export interface Responsibility {
   name: string;
   contacts: Array<Contact>;
 }
+
+export type ResponsibilityCommand = Omit<PersistentResponsibility, 'id' | 'slug' | 'name'>;
 
 export const LODGING: ResponsibilitySlug = 'lodging';
 export const FRENCH: ResponsibilitySlug = 'french';
@@ -75,5 +79,10 @@ export class ResponsibilityService {
     return this.responsibilities$.pipe(
       map(responsibilities => responsibilities.find(c => c.slug === slug)!)
     );
+  }
+
+  update(id: string, command: ResponsibilityCommand) {
+    const document = doc(this.responsibilityCollection, id);
+    return defer(() => from(updateDoc(document, command)));
   }
 }

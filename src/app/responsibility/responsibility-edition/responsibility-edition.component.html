@@ -1,0 +1,79 @@
+<ng-container *ngIf="editedResponsibility; else loading">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-8 col-lg-6">
+      <ms-page-title title="Modification de responsabilité"></ms-page-title>
+      <h1>
+        Modification des responsables de <em>{{ editedResponsibility.name }}</em>
+      </h1>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="col col-md-6 mb-3">
+          <label class="form-control-label" for="contact">Ajouter un responsable</label>
+          <input
+            id="contact"
+            class="form-control"
+            [formControl]="contactFormControl"
+            [ngbTypeahead]="contactTypeahead"
+            [resultFormatter]="contactFormatter"
+            (selectItem)="selectContact($event)"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Responsables (dans l'ordre)</label>
+          <div
+            cdkDropList
+            cdkDropListOrientation="vertical"
+            class="contact-list"
+            (cdkDropListDropped)="drop($event)"
+          >
+            <div
+              *ngFor="let contact of contacts; index as i; trackBy: trackById"
+              cdkDrag
+              cdkDragBoundary=".contact-list"
+              class="border bg-light row p-1 gx-1 align-items-center contact-box"
+            >
+              <div cdkDragHandle class="col" style="cursor: move">{{ contact.name }}</div>
+              <div class="col-auto">
+                <button (click)="removeContact(contact)" class="btn btn-sm btn-outline-danger">
+                  <ms-icon [icon]="icons.remove"></ms-icon>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="form-text">Tu peux glisser/déposer les contacts pour les réordonner</div>
+          <val-errors controlName="contacts">
+            <ng-template valError="required">Il faut au moins un responsable</ng-template>
+          </val-errors>
+        </div>
+
+        <div class="mb-3 text-end">
+          <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
+            <ms-icon
+              *ngIf="(saving.isSpinning | async) === false"
+              class="me-1"
+              [icon]="icons.save"
+            ></ms-icon>
+            <div
+              *ngIf="(saving.isSpinning | async) === true"
+              class="spinner-border spinner-border-sm me-1"
+              role="status"
+            >
+              <span class="visually-hidden">enregistrement en cours...</span>
+            </div>
+            Enregistrer
+          </button>
+          <a class="btn btn-danger" routerLink="/responsibilities">
+            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            Annuler
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <ng-template #loading>
+    <ms-loading-spinner></ms-loading-spinner>
+  </ng-template>
+</ng-template>
