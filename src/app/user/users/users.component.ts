@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AdministeredUser, UserService } from '../user.service';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
@@ -29,7 +29,6 @@ export class UsersComponent {
   users$: Observable<Array<AdministeredUser>>;
   icons = icons;
 
-  copied = new BehaviorSubject(false);
   constructor(userService: UserService, private toastService: ToastService) {
     this.users$ = userService.listUsers();
   }
