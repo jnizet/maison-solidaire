@@ -5,7 +5,6 @@ import { from, map, Observable, of, switchMap } from 'rxjs';
 export interface CurrentUser {
   user: User;
   admin: boolean;
-  export: boolean;
 }
 
 export interface AuditUser {

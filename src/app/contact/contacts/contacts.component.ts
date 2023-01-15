@@ -46,7 +46,10 @@ export class ContactsComponent {
     private toastService: ToastService
   ) {
     this.vm$ = combineLatest([contactService.list(), currentUserService.getCurrentUser()]).pipe(
-      map(([contacts, user]) => ({ contacts, user }))
+      map(([contacts, user]) => ({
+        contacts: user?.admin ? contacts : contacts.filter(c => !this.isEmpty(c)),
+        user
+      }))
     );
   }
 
@@ -73,5 +76,9 @@ export class ContactsComponent {
 
   trackById(index: number, contact: Contact) {
     return contact.id;
+  }
+
+  private isEmpty(contact: Contact) {
+    return !(contact.email || contact.phone || contact.mobile || contact.whatsapp);
   }
 }
