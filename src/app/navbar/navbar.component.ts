@@ -11,7 +11,6 @@ import {
   NgbDropdownToggle,
   NgbNavbar
 } from '@ng-bootstrap/ng-bootstrap';
-import { UsernamePipe } from '../username-pipe/username.pipe';
 import { IconDirective } from '../icon/icon.directive';
 import * as icons from '../icon/icons';
 
@@ -31,7 +30,6 @@ import * as icons from '../icon/icons';
     NgbDropdownMenu,
     NgbDropdownItem,
     NgbNavbar,
-    UsernamePipe,
     IconDirective
   ]
 })

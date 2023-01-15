@@ -4,7 +4,6 @@ import { Auth, authState, User } from '@angular/fire/auth';
 import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { IconDirective } from '../icon/icon.directive';
 import { RouterLink } from '@angular/router';
-import { UsernamePipe } from '../username-pipe/username.pipe';
 import { Activity, ActivityService } from '../activity/activity.service';
 import * as icons from '../icon/icons';
 
@@ -19,7 +18,7 @@ interface ViewModel {
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, AsyncPipe, RouterLink, IconDirective, UsernamePipe, DatePipe, NgFor]
+  imports: [NgIf, AsyncPipe, RouterLink, IconDirective, DatePipe, NgFor]
 })
 export class HomeComponent {
   vm$: Observable<ViewModel>;

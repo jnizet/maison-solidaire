@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Auth, authState, User } from '@angular/fire/auth';
+import { Auth, authState } from '@angular/fire/auth';
 import { from, map, Observable, of, switchMap } from 'rxjs';
 
 export interface CurrentUser {
-  user: User;
   admin: boolean;
-}
-
-export interface AuditUser {
-  uid: string;
   displayName: string;
 }
 
@@ -25,8 +20,8 @@ export class CurrentUserService {
           return from(user.getIdTokenResult()).pipe(
             map(token => ({
               user,
-              admin: !!token.claims['admin'],
-              export: !!token.claims['export']
+              displayName: token.claims['displayName'],
+              admin: !!token.claims['admin']
             }))
           );
         } else {

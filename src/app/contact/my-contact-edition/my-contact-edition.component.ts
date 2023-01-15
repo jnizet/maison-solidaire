@@ -54,7 +54,7 @@ export class MyContactEditionComponent {
       .getCurrentUser()
       .pipe(
         filter((user: CurrentUser | null): user is CurrentUser => !!user),
-        switchMap(user => contactService.findByName(user.user.displayName!)),
+        switchMap(user => contactService.findByName(user.displayName!)),
         first()
       )
       .subscribe(contact => {
@@ -86,7 +86,7 @@ export class MyContactEditionComponent {
         filter((user: CurrentUser | null): user is CurrentUser => !!user),
         first(),
         switchMap(user => {
-          const command: ContactCommand = { ...partialCommand, name: user.user.displayName! };
+          const command: ContactCommand = { ...partialCommand, name: user.displayName! };
           return this.mode === 'create'
             ? this.contactService.create(command)
             : this.contactService.update(this.editedContact!.id, command);
