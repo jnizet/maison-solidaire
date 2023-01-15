@@ -6,12 +6,7 @@ import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { IconDirective } from '../../icon/icon.directive';
 import { RouterLink } from '@angular/router';
-import {
-  calendar2EventFill,
-  pencilSquare,
-  plusCircle,
-  trash
-} from '../../bootstrap-icons/bootstrap-icons';
+import * as icons from '../../icon/icons';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
@@ -40,12 +35,7 @@ interface ViewModel {
 export class FutureActivitiesComponent {
   vm$: Observable<ViewModel>;
 
-  icons = {
-    add: plusCircle,
-    edit: pencilSquare,
-    delete: trash,
-    date: calendar2EventFill
-  };
+  icons = icons;
 
   constructor(
     private activityService: ActivityService,

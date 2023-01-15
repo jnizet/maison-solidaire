@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Responsibility, ResponsibilityService } from '../../shared/responsibility.service';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { combineLatest, map, Observable } from 'rxjs';
-import { pencilSquare } from '../../bootstrap-icons/bootstrap-icons';
+import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { Contact } from '../../shared/contact.service';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
@@ -36,9 +36,7 @@ interface ViewModel {
 export class ResponsibilitiesComponent {
   vm$: Observable<ViewModel>;
 
-  icons = {
-    edit: pencilSquare
-  };
+  icons = icons;
 
   constructor(
     responsibilityService: ResponsibilityService,

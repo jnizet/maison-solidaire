@@ -1,19 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
-import {
-  bank,
-  boxArrowInRight,
-  calendar2WeekFill,
-  housesFill,
-  key,
-  peopleFill,
-  personCircle,
-  personVcard,
-  personWorkspace,
-  power,
-  shieldFill
-} from '../bootstrap-icons/bootstrap-icons';
 import { CurrentUser, CurrentUserService } from '../current-user.service';
 import { AsyncPipe, NgIf } from '@angular/common';
 import {
@@ -26,6 +13,7 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { UsernamePipe } from '../username-pipe/username.pipe';
 import { IconDirective } from '../icon/icon.directive';
+import * as icons from '../icon/icons';
 
 @Component({
   selector: 'ms-navbar',
@@ -52,20 +40,7 @@ export class NavbarComponent {
   vm$: Observable<{
     user: CurrentUser | null;
   }>;
-  icons = {
-    logout: power,
-    login: boxArrowInRight,
-    users: personWorkspace,
-    user: personCircle,
-    changePassword: key,
-    lodging: housesFill,
-    association: peopleFill,
-    contacts: personVcard,
-    activities: calendar2WeekFill,
-    myContact: personVcard,
-    responsibilities: bank,
-    administration: shieldFill
-  };
+  icons = icons;
 
   constructor(private currentUserService: CurrentUserService, private router: Router) {
     this.vm$ = currentUserService.getCurrentUser().pipe(map(user => ({ user })));

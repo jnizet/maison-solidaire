@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { fileArrowUp, trash, xSquare } from '../../bootstrap-icons/bootstrap-icons';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
@@ -37,6 +36,7 @@ import {
   moveItemInArray
 } from '@angular/cdk/drag-drop';
 import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemort';
+import * as icons from '../../icon/icons';
 
 @Component({
   selector: 'ms-responsibility-edition',
@@ -62,11 +62,7 @@ export class ResponsibilityEditionComponent {
   form = this.fb.group({
     contacts: this.fb.control<Array<Contact>>([], Validators.required)
   });
-  icons = {
-    save: fileArrowUp,
-    cancel: xSquare,
-    remove: trash
-  };
+  icons = icons;
   saving = new Spinner();
   editedResponsibility?: Responsibility;
 

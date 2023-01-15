@@ -1,14 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Contact } from '../../contact.service';
-import {
-  at,
-  clipboard2,
-  clipboard2Check,
-  phone,
-  telephone,
-  whatsapp
-} from '../../../bootstrap-icons/bootstrap-icons';
+import * as icons from '../../../icon/icons';
 import { IconDirective } from '../../../icon/icon.directive';
 import { from } from 'rxjs';
 import { ToastService } from '../../../toast/toast.service';
@@ -33,9 +26,7 @@ export class ContactComponent implements OnChanges {
 
   channels: Array<Channel> = [];
 
-  icons = {
-    copy: clipboard2
-  };
+  icons = icons;
 
   constructor(private toastService: ToastService) {}
 
@@ -43,7 +34,7 @@ export class ContactComponent implements OnChanges {
     this.channels = [];
     if (this.contact.email) {
       this.channels.push({
-        icon: at,
+        icon: icons.email,
         description: 'Par email\u00a0:',
         href: `mailto:${this.contact.email}`,
         label: this.contact.email
@@ -51,7 +42,7 @@ export class ContactComponent implements OnChanges {
     }
     if (this.contact.phone) {
       this.channels.push({
-        icon: telephone,
+        icon: icons.phone,
         description: 'Par téléphone\u00a0:',
         href: `tel:${this.contact.phone}`,
         label: this.contact.phone
@@ -59,7 +50,7 @@ export class ContactComponent implements OnChanges {
     }
     if (this.contact.mobile) {
       this.channels.push({
-        icon: phone,
+        icon: icons.mobile,
         description: 'Par téléphone portable\u00a0:',
         href: `tel:${this.contact.mobile}`,
         label: this.contact.mobile
@@ -67,7 +58,7 @@ export class ContactComponent implements OnChanges {
     }
     if (this.contact.whatsapp) {
       this.channels.push({
-        icon: whatsapp,
+        icon: icons.whatsapp,
         description: 'Par Whatsapp\u00a0:',
         href: `https://wa.me/${this.whatsappNumber(this.contact.whatsapp)}`,
         label: this.contact.whatsapp
@@ -83,7 +74,7 @@ export class ContactComponent implements OnChanges {
   copy(value: string) {
     from(navigator.clipboard.writeText(value)).subscribe(() =>
       this.toastService.display({
-        icon: clipboard2Check,
+        icon: icons.copied,
         message: 'Copié dans le presse-papier'
       })
     );
