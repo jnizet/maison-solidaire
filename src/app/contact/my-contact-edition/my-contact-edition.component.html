@@ -25,7 +25,7 @@
             <ms-icon [icon]="icons.email" class="me-1"></ms-icon>
             Adresse email
           </label>
-          <input formControlName="email" class="form-control" id="email" />
+          <input formControlName="email" type="email" class="form-control" id="email" />
           <div class="form-text">Laisser vide si tu ne désires pas partager ton adresse email</div>
           <val-errors controlName="email" label="L'adresse email"></val-errors>
         </div>
@@ -34,7 +34,7 @@
             <ms-icon [icon]="icons.phone" class="me-1"></ms-icon>
             Téléphone fixe
           </label>
-          <input formControlName="phone" class="form-control" id="phone" />
+          <input formControlName="phone" type="tel" class="form-control" id="phone" />
           <div class="form-text">
             Laisser vide si tu ne désires pas partager ton numéro de téléphone fixe
           </div>
@@ -45,7 +45,7 @@
             <ms-icon [icon]="icons.mobile" class="me-1"></ms-icon>
             Téléphone mobile
           </label>
-          <input formControlName="mobile" class="form-control" id="mobile" />
+          <input formControlName="mobile" type="tel" class="form-control" id="mobile" />
           <div class="form-text">
             Laisser vide si tu ne désires pas partager ton numéro de téléphone mobile
           </div>
@@ -56,7 +56,7 @@
             <ms-icon [icon]="icons.whatsapp" class="me-1"></ms-icon>
             N° de téléphone Whatsapp
           </label>
-          <input formControlName="whatsapp" class="form-control" id="whatsapp" />
+          <input formControlName="whatsapp" type="tel" class="form-control" id="whatsapp" />
           <div class="form-text">Laisser vide si tu ne désires pas communiquer via Whatsapp</div>
           <val-errors controlName="whatsapp" label="Le n° de téléphone Whatsapp"></val-errors>
         </div>
