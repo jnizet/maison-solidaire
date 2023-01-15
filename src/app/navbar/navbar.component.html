@@ -60,6 +60,10 @@
               aria-labelledby="user-dropdown"
               class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
             >
+              <a ngbDropdownItem routerLink="/contact" (click)="collapse()">
+                <ms-icon [icon]="icons.myContact"></ms-icon>
+                Renseigner mes coordonnées
+              </a>
               <a ngbDropdownItem routerLink="/change-password" (click)="collapse()">
                 <ms-icon [icon]="icons.changePassword"></ms-icon>
                 Changer de mot de passe

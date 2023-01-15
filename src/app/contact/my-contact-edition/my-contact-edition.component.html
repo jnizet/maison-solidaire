@@ -1,0 +1,92 @@
+<ng-container *ngIf="mode; else loading">
+  <div class="row justify-content-md-center">
+    <div class="col col-md-8 col-lg-6">
+      <ms-page-title title="Renseigner mes coordonnées"></ms-page-title>
+      <h1 *ngIf="mode === 'create'">Renseigner mes coordonnées</h1>
+
+      <div class="alert alert-dark">
+        <div class="d-flex gap-3">
+          <ms-icon [icon]="icons.info" class="fs-4"></ms-icon>
+          <div class="flex-grow-1">
+            <p>Pourquoi renseigner tes coordonnées&nbsp;?</p>
+            Cela permet aux autres utilisateurs de cette application, qui sont membres de la Maison
+            Solidaire, de plus facilement rentrer en contact avec toi. C'est particulièrement
+            intéressant si tu es responsable ou référent de quelque chose dans l'association.
+            <br />
+            Mais tu es libre à tout moment de supprimer ces informations si tu ne désires plus les
+            partager.
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="save()">
+        <div class="mb-3">
+          <label for="email" class="form-label">
+            <ms-icon [icon]="icons.email" class="me-1"></ms-icon>
+            Adresse email
+          </label>
+          <input formControlName="email" class="form-control" id="email" />
+          <div class="form-text">Laisser vide si tu ne désires pas partager ton adresse email</div>
+          <val-errors controlName="email" label="L'adresse email"></val-errors>
+        </div>
+        <div class="mb-3">
+          <label for="phone" class="form-label">
+            <ms-icon [icon]="icons.phone" class="me-1"></ms-icon>
+            Téléphone fixe
+          </label>
+          <input formControlName="phone" class="form-control" id="phone" />
+          <div class="form-text">
+            Laisser vide si tu ne désires pas partager ton numéro de téléphone fixe
+          </div>
+          <val-errors controlName="phone" label="Le téléphone fixe"></val-errors>
+        </div>
+        <div class="mb-3">
+          <label for="mobile" class="form-label">
+            <ms-icon [icon]="icons.mobile" class="me-1"></ms-icon>
+            Téléphone mobile
+          </label>
+          <input formControlName="mobile" class="form-control" id="mobile" />
+          <div class="form-text">
+            Laisser vide si tu ne désires pas partager ton numéro de téléphone mobile
+          </div>
+          <val-errors controlName="mobile" label="Le téléphone mobile"></val-errors>
+        </div>
+        <div class="mb-3">
+          <label for="whatsapp" class="form-label">
+            <ms-icon [icon]="icons.whatsapp" class="me-1"></ms-icon>
+            N° de téléphone Whatsapp
+          </label>
+          <input formControlName="whatsapp" class="form-control" id="whatsapp" />
+          <div class="form-text">Laisser vide si tu ne désires pas communiquer via Whatsapp</div>
+          <val-errors controlName="whatsapp" label="Le n° de téléphone Whatsapp"></val-errors>
+        </div>
+        <div class="text-end">
+          <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
+            <ms-icon
+              *ngIf="(saving.isSpinning | async) === false"
+              class="me-1"
+              [icon]="icons.save"
+            ></ms-icon>
+            <div
+              *ngIf="(saving.isSpinning | async) === true"
+              class="spinner-border spinner-border-sm me-1"
+              role="status"
+            >
+              <span class="visually-hidden">enregistrement en cours...</span>
+            </div>
+            Enregistrer
+          </button>
+          <a class="btn btn-danger" routerLink="/contacts">
+            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            Annuler
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <ng-template #loading>
+    <ms-loading-spinner></ms-loading-spinner>
+  </ng-template>
+</ng-template>

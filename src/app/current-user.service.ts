@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, authState, User } from '@angular/fire/auth';
 import { from, map, Observable, of, switchMap } from 'rxjs';
-import { toUsername } from './username-pipe/username.pipe';
 
 export interface CurrentUser {
   user: User;
@@ -40,14 +39,6 @@ export class CurrentUserService {
 
   getCurrentUser(): Observable<CurrentUser | null> {
     return this.currentUser$;
-  }
-
-  getCurrentAuditUser(): AuditUser {
-    const user = this.auth.currentUser;
-    if (!user) {
-      throw new Error('No current user');
-    }
-    return { uid: user.uid, displayName: toUsername(user) };
   }
 
   signOut() {

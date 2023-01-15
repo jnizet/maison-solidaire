@@ -59,7 +59,8 @@ export class NavbarComponent {
     lodging: housesFill,
     association: peopleFill,
     contacts: personVcard,
-    activities: calendar2WeekFill
+    activities: calendar2WeekFill,
+    myContact: personVcard
   };
 
   constructor(private currentUserService: CurrentUserService, private router: Router) {
