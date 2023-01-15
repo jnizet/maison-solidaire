@@ -1,15 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {
-  at,
-  fileArrowUp,
-  infoCircleFill,
-  phone,
-  telephone,
-  whatsapp,
-  xSquare
-} from '../../bootstrap-icons/bootstrap-icons';
+import * as icons from '../../icon/icons';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { filter, first, switchMap } from 'rxjs';
@@ -47,15 +39,7 @@ export class MyContactEditionComponent {
   });
   mode: 'create' | 'edit' | null = null;
   editedContact?: Contact;
-  icons = {
-    email: at,
-    phone: telephone,
-    mobile: phone,
-    whatsapp: whatsapp,
-    save: fileArrowUp,
-    cancel: xSquare,
-    info: infoCircleFill
-  };
+  icons = icons;
   saving = new Spinner();
 
   constructor(

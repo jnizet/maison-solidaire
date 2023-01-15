@@ -7,7 +7,7 @@
       </div>
       <div class="col-auto">
         <a routerLink="new" class="btn btn-outline-secondary">
-          <ms-icon class="me-1" [icon]="icons.addUser"></ms-icon>
+          <ms-icon class="me-1" [icon]="icons.add"></ms-icon>
           Créer un utilisateur
         </a>
       </div>
@@ -29,11 +29,11 @@
             </div>
             <div class="col">
               <div *ngIf="user.admin">
-                <ms-icon [icon]="icons.admin" class="me-1"></ms-icon>
+                <ms-icon [icon]="icons.administratorUser" class="me-1"></ms-icon>
                 Administrateur
               </div>
               <div *ngIf="user.disabled">
-                <ms-icon [icon]="icons.disabled" class="me-1"></ms-icon>
+                <ms-icon [icon]="icons.disabledUser" class="me-1"></ms-icon>
                 Utilisateur désactivé
               </div>
             </div>

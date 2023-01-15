@@ -13,8 +13,8 @@ import { NgIf } from '@angular/common';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../validation/form-control-validation.directive';
 import { PageTitleDirective } from '../page-title/page-title.directive';
-import { google } from '../bootstrap-icons/bootstrap-icons';
 import { IconDirective } from '../icon/icon.directive';
+import * as icons from '../icon/icons';
 
 @Component({
   selector: 'ms-login',
@@ -40,9 +40,7 @@ export class LoginComponent {
   loginError = false;
   googleLoginError = false;
 
-  icons = {
-    google: google
-  };
+  icons = icons;
 
   constructor(private auth: Auth, private router: Router) {}
 

@@ -1,20 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { Auth, authState, User } from '@angular/fire/auth';
-import {
-  boxArrowInRight,
-  calendar2WeekFill,
-  emojiSmileFill,
-  housesFill,
-  infoCircleFill,
-  peopleFill,
-  personVcard
-} from '../bootstrap-icons/bootstrap-icons';
 import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 import { IconDirective } from '../icon/icon.directive';
 import { RouterLink } from '@angular/router';
 import { UsernamePipe } from '../username-pipe/username.pipe';
 import { Activity, ActivityService } from '../activity/activity.service';
+import * as icons from '../icon/icons';
 
 interface ViewModel {
   user: User | null;
@@ -31,15 +23,7 @@ interface ViewModel {
 })
 export class HomeComponent {
   vm$: Observable<ViewModel>;
-  icons = {
-    info: infoCircleFill,
-    login: boxArrowInRight,
-    welcome: emojiSmileFill,
-    lodging: housesFill,
-    association: peopleFill,
-    contacts: personVcard,
-    activities: calendar2WeekFill
-  };
+  icons = icons;
 
   constructor(auth: Auth, activityService: ActivityService) {
     this.vm$ = authState(auth).pipe(

@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { fileArrowUp, xSquare } from '../../bootstrap-icons/bootstrap-icons';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
@@ -19,6 +18,7 @@ import {
   NgbNavOutlet
 } from '@ng-bootstrap/ng-bootstrap';
 import { MarkdownDirective } from '../markdown.directive';
+import * as icons from '../../icon/icons';
 
 @Component({
   selector: 'ms-activity-edition',
@@ -49,10 +49,7 @@ export class ActivityEditionComponent {
   });
   mode: 'create' | 'edit' | null = null;
   editedActivity?: Activity;
-  icons = {
-    save: fileArrowUp,
-    cancel: xSquare
-  };
+  icons = icons;
   saving = new Spinner();
 
   constructor(

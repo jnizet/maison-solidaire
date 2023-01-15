@@ -4,7 +4,7 @@ import { Contact, ContactService } from '../../shared/contact.service';
 import { combineLatest, first, map, Observable, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { IconDirective } from '../../icon/icon.directive';
-import { pencilSquare, plusCircle, trash } from '../../bootstrap-icons/bootstrap-icons';
+import * as icons from '../../icon/icons';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
 import { RouterLink } from '@angular/router';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
@@ -36,11 +36,7 @@ interface ViewModel {
 export class ContactsComponent {
   vm$: Observable<ViewModel>;
 
-  icons = {
-    add: plusCircle,
-    edit: pencilSquare,
-    delete: trash
-  };
+  icons = icons;
 
   constructor(
     private contactService: ContactService,

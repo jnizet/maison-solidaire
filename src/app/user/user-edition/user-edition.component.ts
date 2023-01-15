@@ -3,7 +3,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdministeredUser, AdministeredUserCommand, UserService } from '../user.service';
 import { first, map, Observable, of, switchMap } from 'rxjs';
-import { fileArrowUp } from '../../bootstrap-icons/bootstrap-icons';
 import { Spinner } from '../../shared/spinner';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
@@ -13,6 +12,7 @@ import { IconDirective } from '../../icon/icon.directive';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserCreatedModalComponent } from '../user-created-modal/user-created-modal.component';
 import { AsyncPipe, NgIf } from '@angular/common';
+import * as icons from '../../icon/icons';
 
 @Component({
   selector: 'ms-user-edition',
@@ -39,9 +39,7 @@ export class UserEditionComponent {
   });
   mode: 'create' | 'edit' | null = null;
   editedUser: AdministeredUser | null = null;
-  icons = {
-    save: fileArrowUp
-  };
+  icons = icons;
   saving = new Spinner();
 
   constructor(

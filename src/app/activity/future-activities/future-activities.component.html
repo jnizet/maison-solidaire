@@ -23,7 +23,7 @@
                 <h2 class="fs-5">{{ activity.title }}</h2>
               </div>
               <div class="col-auto fw-semibold">
-                <ms-icon [icon]="icons.date" class="me-1"></ms-icon>
+                <ms-icon [icon]="icons.activityDate" class="me-1"></ms-icon>
                 {{ activity.date | date : 'mediumDate' }}
               </div>
             </div>
@@ -42,7 +42,7 @@
               class="btn btn-outline-danger btn-sm"
               (click)="deleteActivity(activity)"
             >
-              <ms-icon [icon]="icons.delete"></ms-icon>
+              <ms-icon [icon]="icons.trash"></ms-icon>
               Supprimer
             </button>
           </div>

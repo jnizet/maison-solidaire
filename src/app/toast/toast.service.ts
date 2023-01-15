@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { concat, delay, Observable, of, Subject, switchMap } from 'rxjs';
-import { checkCircleFill } from '../bootstrap-icons/bootstrap-icons';
+import * as icons from '../icon/icons';
 
 export interface Toast {
   message: string;
@@ -26,7 +26,7 @@ export class ToastService {
 
   success(message: string) {
     this.toastSubject.next({
-      icon: checkCircleFill,
+      icon: icons.success,
       message
     });
   }

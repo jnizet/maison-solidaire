@@ -1,15 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AdministeredUser, UserService } from '../user.service';
 import { BehaviorSubject, from, Observable } from 'rxjs';
-import {
-  clipboard2Fill,
-  clipboardCheck,
-  envelope,
-  pencilSquare,
-  plusCircle,
-  shieldFill,
-  xOctagonFill
-} from '../../bootstrap-icons/bootstrap-icons';
+import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { IconDirective } from '../../icon/icon.directive';
@@ -35,15 +27,7 @@ import { ToastService } from '../../toast/toast.service';
 })
 export class UsersComponent {
   users$: Observable<Array<AdministeredUser>>;
-  icons = {
-    admin: shieldFill,
-    export: clipboard2Fill,
-    disabled: xOctagonFill,
-    edit: pencilSquare,
-    addUser: plusCircle,
-    resetPasswordEmail: envelope,
-    copied: clipboardCheck
-  };
+  icons = icons;
 
   copied = new BehaviorSubject(false);
   constructor(userService: UserService, private toastService: ToastService) {
