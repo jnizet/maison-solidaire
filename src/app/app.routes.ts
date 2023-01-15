@@ -57,6 +57,11 @@ export const APP_ROUTES: Routes = [
       {
         path: 'activities',
         loadChildren: () => import('./activity/activity.routes').then(m => m.ACTIVITY_ROUTES)
+      },
+      {
+        path: 'responsibilities',
+        loadChildren: () =>
+          import('./responsibility/responsibility.routes').then(m => m.RESPONSIBILITY_ROUTES)
       }
     ]
   }

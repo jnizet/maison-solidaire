@@ -8,11 +8,11 @@ test.describe('Navbar and permissions', () => {
 
   test('should have users links when admin', async ({ page }) => {
     await login(page);
-    await test.expect(page.locator('#navbar a:has-text("Utilisateurs")')).toBeVisible();
+    await test.expect(page.locator('#navbar a:has-text("Administration")')).toBeVisible();
   });
 
-  test('should not have users link when not admin', async ({ page }) => {
+  test('should not have administration link when not admin', async ({ page }) => {
     await login(page, 'clairebrucy@gmail.com');
-    await test.expect(page.locator('#navbar a:has-text("Utilisateurs")')).toBeHidden();
+    await test.expect(page.locator('#navbar a:has-text("Administration")')).toBeHidden();
   });
 });
