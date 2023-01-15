@@ -18,3 +18,7 @@ body {
 .btn-link:focus-visible {
   outline: 1.5px solid $link-color;
 }
+
+.card-primary {
+  border-left: 5px solid $primary;
+}
