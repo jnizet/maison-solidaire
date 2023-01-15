@@ -49,6 +49,10 @@ export class ContactService {
     return this.contacts$.pipe(map(contacts => contacts.find(c => c.id === id)));
   }
 
+  findByName(name: string): Observable<Contact | undefined> {
+    return this.contacts$.pipe(map(contacts => contacts.find(c => c.name === name)));
+  }
+
   create(command: ContactCommand): Observable<Contact> {
     const document = doc(this.contactCollection);
     const contact = this.createContact(document.id, command);
