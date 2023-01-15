@@ -4,7 +4,10 @@
     <ng-container *ngIf="vm$ | async as vm; else loading">
       <h1>Responsabilités</h1>
 
-      <div *ngFor="let responsibility of vm.responsibilities; trackBy: trackById" class="card mb-2">
+      <div
+        *ngFor="let responsibility of vm.responsibilities; trackBy: trackById"
+        class="card card-primary mb-2"
+      >
         <div class="card-body">
           <div class="row">
             <div class="col">
