@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
 import {
+  bank,
   boxArrowInRight,
   calendar2WeekFill,
   housesFill,
@@ -10,7 +11,8 @@ import {
   personCircle,
   personVcard,
   personWorkspace,
-  power
+  power,
+  shieldFill
 } from '../bootstrap-icons/bootstrap-icons';
 import { CurrentUser, CurrentUserService } from '../current-user.service';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -60,7 +62,9 @@ export class NavbarComponent {
     association: peopleFill,
     contacts: personVcard,
     activities: calendar2WeekFill,
-    myContact: personVcard
+    myContact: personVcard,
+    responsibilities: bank,
+    administration: shieldFill
   };
 
   constructor(private currentUserService: CurrentUserService, private router: Router) {

@@ -7,7 +7,7 @@ test.describe('Change password', () => {
   });
 
   test('should change the password', async ({ page }) => {
-    await page.click('a:has-text("Admin")');
+    await page.click('#user-dropdown');
     await page.click('text=Changer de mot de passe');
     await checkAccessibility(page, 'Change password page should be accessible');
     await page.fill('text=Mot de passe actuel', 'incorrect');

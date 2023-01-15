@@ -7,6 +7,7 @@ test.describe('Users', () => {
   });
 
   test('should display, create and modify users', async ({ page }) => {
+    await page.click('text=Administration');
     await page.click('text=Utilisateurs');
 
     await checkAccessibility(page, 'Users page should be accessible');
