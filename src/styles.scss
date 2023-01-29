@@ -26,3 +26,13 @@ body {
 .card-warning {
   border-left: 5px solid $warning;
 }
+
+.card-footer {
+  @each $color, $value in $theme-colors {
+    .btn-outline-#{$color} {
+      &:not(:hover) {
+        background-color: white;
+      }
+    }
+  }
+}
