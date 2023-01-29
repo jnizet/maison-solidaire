@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   Auth,
@@ -7,12 +7,17 @@ import {
   updatePassword,
   User
 } from '@angular/fire/auth';
-import { from, switchMap } from 'rxjs';
+import { BehaviorSubject, from, Observable, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../validation/form-control-validation.directive';
 import { PageTitleDirective } from '../page-title/page-title.directive';
+import { ToastService } from '../toast/toast.service';
+
+interface ViewModel {
+  error: boolean;
+}
 
 @Component({
   selector: 'ms-change-password',
@@ -24,17 +29,20 @@ import { PageTitleDirective } from '../page-title/page-title.directive';
     ReactiveFormsModule,
     ValidationErrorsComponent,
     FormControlValidationDirective,
-    PageTitleDirective
-  ]
+    PageTitleDirective,
+    AsyncPipe
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChangePasswordComponent {
-  form = new FormGroup({
+  readonly form = new FormGroup({
     currentPassword: new FormControl('', [Validators.required]),
     newPassword: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
-  error = false;
+  private readonly vmSubject = new BehaviorSubject<ViewModel>({ error: false });
+  readonly vm$: Observable<ViewModel> = this.vmSubject.asObservable();
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(private auth: Auth, private router: Router, private toastService: ToastService) {}
 
   changePassword() {
     if (this.form.invalid) {
@@ -51,8 +59,11 @@ export class ChangePasswordComponent {
     )
       .pipe(switchMap(() => from(updatePassword(user, formValue.newPassword!))))
       .subscribe({
-        next: () => this.router.navigate(['/']),
-        error: () => (this.error = true)
+        next: () => {
+          this.router.navigate(['/']);
+          this.toastService.success('Mot de passe modifié');
+        },
+        error: () => this.vmSubject.next({ ...this.vmSubject.value, error: true })
       });
   }
 }

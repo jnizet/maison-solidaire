@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -9,8 +9,10 @@ import {
   distinctUntilChanged,
   first,
   map,
+  Observable,
   OperatorFunction,
-  switchMap
+  switchMap,
+  tap
 } from 'rxjs';
 import {
   Responsibility,
@@ -38,6 +40,10 @@ import {
 import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemort';
 import * as icons from '../../icon/icons';
 
+interface ViewModel {
+  editedResponsibility: Responsibility;
+}
+
 @Component({
   selector: 'ms-responsibility-edition',
   standalone: true,
@@ -56,20 +62,22 @@ import * as icons from '../../icon/icons';
     ValidationErrorDirective
   ],
   templateUrl: './responsibility-edition.component.html',
-  styleUrls: ['./responsibility-edition.component.scss']
+  styleUrls: ['./responsibility-edition.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResponsibilityEditionComponent {
-  form = this.fb.group({
+  readonly form = this.fb.group({
     contacts: this.fb.control<Array<Contact>>([], Validators.required)
   });
-  icons = icons;
-  saving = new Spinner();
-  editedResponsibility?: Responsibility;
+  readonly icons = icons;
+  readonly saving = new Spinner();
 
-  contactFormControl = new FormControl('');
-  contactFormatter = (contact: Contact) => contact.name;
+  readonly vm$: Observable<ViewModel>;
 
-  contactTypeahead: OperatorFunction<string, Array<Contact>> = text$ =>
+  readonly contactFormControl = new FormControl('');
+  readonly contactFormatter = (contact: Contact) => contact.name;
+
+  readonly contactTypeahead: OperatorFunction<string, Array<Contact>> = text$ =>
     combineLatest([
       text$.pipe(
         map(text => text.toLowerCase()),
@@ -95,21 +103,20 @@ export class ResponsibilityEditionComponent {
     private contactService: ContactService,
     private toastService: ToastService
   ) {
-    route.paramMap
-      .pipe(
-        map(paramMap => paramMap.get('responsibilitySlug')),
-        switchMap(responsibilitySlug => responsibilityService.getBySlug(responsibilitySlug!)),
-        first()
-      )
-      .subscribe(responsibility => {
-        this.editedResponsibility = responsibility;
+    this.vm$ = route.paramMap.pipe(
+      map(paramMap => paramMap.get('responsibilitySlug')),
+      switchMap(responsibilitySlug => responsibilityService.getBySlug(responsibilitySlug!)),
+      first(),
+      tap(responsibility => {
         this.form.setValue({
           contacts: responsibility.contacts
         });
-      });
+      }),
+      map(responsibility => ({ editedResponsibility: responsibility }))
+    );
   }
 
-  save() {
+  save(vm: ViewModel) {
     if (!this.form.valid) {
       return;
     }
@@ -117,7 +124,7 @@ export class ResponsibilityEditionComponent {
       contacts: this.form.controls.contacts.value.map(c => c.id)
     };
     this.responsibilityService
-      .update(this.editedResponsibility!.id, command)
+      .update(vm.editedResponsibility.id, command)
       .pipe(this.saving.spinUntilFinalization())
       .subscribe(() => {
         this.router.navigate(['/responsibilities']);

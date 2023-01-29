@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
-import { first, map, Observable, of, switchMap } from 'rxjs';
+import { first, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Activity, ActivityCommand, ActivityService } from '../activity.service';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
@@ -19,6 +19,12 @@ import {
 } from '@ng-bootstrap/ng-bootstrap';
 import { MarkdownDirective } from '../markdown.directive';
 import * as icons from '../../icon/icons';
+import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
+
+interface ViewModel {
+  mode: 'create' | 'edit';
+  editedActivity?: Activity;
+}
 
 @Component({
   selector: 'ms-activity-edition',
@@ -28,6 +34,7 @@ import * as icons from '../../icon/icons';
     PageTitleDirective,
     ReactiveFormsModule,
     ValidationErrorsComponent,
+    FormControlValidationDirective,
     IconDirective,
     RouterLink,
     LoadingSpinnerComponent,
@@ -39,7 +46,8 @@ import * as icons from '../../icon/icons';
     NgbNavOutlet
   ],
   templateUrl: './activity-edition.component.html',
-  styleUrls: ['./activity-edition.component.scss']
+  styleUrls: ['./activity-edition.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityEditionComponent {
   form = this.fb.group({
@@ -47,8 +55,8 @@ export class ActivityEditionComponent {
     date: this.fb.control<string | null>(null, Validators.required),
     description: ['', Validators.required]
   });
-  mode: 'create' | 'edit' | null = null;
-  editedActivity?: Activity;
+
+  vm$: Observable<ViewModel>;
   icons = icons;
   saving = new Spinner();
 
@@ -59,16 +67,11 @@ export class ActivityEditionComponent {
     private fb: NonNullableFormBuilder,
     private toastService: ToastService
   ) {
-    route.paramMap
-      .pipe(
-        map(paramMap => paramMap.get('activityId')),
-        switchMap(activityId => (activityId ? activityService.get(activityId) : of(undefined))),
-        first()
-      )
-      .subscribe(activity => {
-        this.mode = activity ? 'edit' : 'create';
-        this.editedActivity = activity;
-
+    this.vm$ = route.paramMap.pipe(
+      map(paramMap => paramMap.get('activityId')),
+      switchMap(activityId => (activityId ? activityService.get(activityId) : of(undefined))),
+      first(),
+      tap(activity => {
         if (activity) {
           const formValue = {
             title: activity.title,
@@ -78,10 +81,15 @@ export class ActivityEditionComponent {
 
           this.form.setValue(formValue);
         }
-      });
+      }),
+      map(activity => ({
+        mode: activity ? 'edit' : 'create',
+        editedActivity: activity
+      }))
+    );
   }
 
-  save() {
+  save(vm: ViewModel) {
     if (this.form.invalid) {
       return;
     }
@@ -93,12 +101,12 @@ export class ActivityEditionComponent {
       date: formValue.date!
     };
     const result$: Observable<unknown> =
-      this.mode === 'create'
+      vm.mode === 'create'
         ? this.activityService.create(command)
-        : this.activityService.update(this.editedActivity!.id, command);
+        : this.activityService.update(vm.editedActivity!.id, command);
     result$.pipe(this.saving.spinUntilFinalization()).subscribe(() => {
       this.router.navigate(['/activities']);
-      this.toastService.success(this.mode === 'create' ? 'Activité crééé' : 'Activité modifiée');
+      this.toastService.success(vm.mode === 'create' ? 'Activité crééé' : 'Activité modifiée');
     });
   }
 }

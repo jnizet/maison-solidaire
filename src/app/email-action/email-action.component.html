@@ -1,14 +1,14 @@
 <ms-page-title title="Choix du mot de passe"></ms-page-title>
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center" *ngIf="vm$ | async as vm">
   <div class="col col-md-6 col-lg-4">
     <h1 class="fs-4">Choix du mot de passe</h1>
-    <div *ngIf="verificationError" class="text-danger">
+    <div *ngIf="vm.verificationError" class="text-danger">
       Le lien de choix du mot de passe n'est plus valide.<br />
       Merci de refaire une demande de réinitialisation de mot de passe.
     </div>
-    <ng-container *ngIf="!verificationError && email">
-      <form [formGroup]="form" (ngSubmit)="resetPassword()">
-        <p>Tu vas changer le mot de passe de l'utilisateur {{ email }}.</p>
+    <ng-container *ngIf="!vm.verificationError && vm.email">
+      <form [formGroup]="form" (ngSubmit)="resetPassword(vm)">
+        <p>Tu vas réinitialiser le mot de passe de l'utilisateur {{ vm.email }}.</p>
         <div class="mb-3">
           <label for="password" class="form-label">Mot de passe</label>
           <input formControlName="password" type="password" class="form-control" id="password" />
@@ -19,7 +19,7 @@
           <div class="col-sm-auto">
             <button class="btn btn-primary">Choisir ce mot de passe</button>
           </div>
-          <div *ngIf="resetError" class="col-sm">
+          <div *ngIf="vm.resetError" class="col-sm">
             <div class="text-danger">Une erreur s'est produite à la réinitialisation.</div>
           </div>
         </div>

@@ -1,8 +1,8 @@
-<ng-container *ngIf="mode; else loading">
+<ng-container *ngIf="vm$ | async as vm; else loading">
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
       <ms-page-title title="Renseigner mes coordonnées"></ms-page-title>
-      <h1 *ngIf="mode === 'create'">Renseigner mes coordonnées</h1>
+      <h1>Renseigner mes coordonnées</h1>
 
       <div class="alert alert-dark">
         <div class="d-flex gap-3">
@@ -19,7 +19,7 @@
         </div>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="save()">
+      <form [formGroup]="form" (ngSubmit)="save(vm)">
         <div class="mb-3">
           <label for="email" class="form-label">
             <ms-icon [icon]="icons.email" class="me-1"></ms-icon>

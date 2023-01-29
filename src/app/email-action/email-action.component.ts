@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Auth,
@@ -7,11 +7,17 @@ import {
   verifyPasswordResetCode
 } from '@angular/fire/auth';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { from, switchMap } from 'rxjs';
+import { catchError, from, map, Observable, of, scan, startWith, Subject, switchMap } from 'rxjs';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../validation/form-control-validation.directive';
 import { PageTitleDirective } from '../page-title/page-title.directive';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+
+interface ViewModel {
+  email: string | null;
+  verificationError: boolean;
+  resetError: boolean;
+}
 
 @Component({
   selector: 'ms-email-action',
@@ -23,18 +29,19 @@ import { NgIf } from '@angular/common';
     ReactiveFormsModule,
     ValidationErrorsComponent,
     FormControlValidationDirective,
-    PageTitleDirective
-  ]
+    PageTitleDirective,
+    AsyncPipe
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EmailActionComponent {
   private actionCode: string;
-  form = new FormGroup({
+  readonly form = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.minLength(8)])
   });
 
-  email: string | null = null;
-  verificationError = false;
-  resetError = false;
+  readonly vm$: Observable<ViewModel>;
+  readonly transitionsSubject = new Subject<(vm: ViewModel) => ViewModel>();
 
   constructor(route: ActivatedRoute, private auth: Auth, private router: Router) {
     const params = route.snapshot.queryParamMap;
@@ -44,13 +51,29 @@ export class EmailActionComponent {
     }
     this.actionCode = params.get('oobCode')!;
 
-    from(verifyPasswordResetCode(auth, this.actionCode)).subscribe({
-      next: email => (this.email = email),
-      error: () => (this.verificationError = true)
-    });
+    this.vm$ = from(verifyPasswordResetCode(auth, this.actionCode)).pipe(
+      map(email => ({
+        email,
+        verificationError: false,
+        resetError: false
+      })),
+      catchError(() =>
+        of({
+          email: null,
+          verificationError: true,
+          resetError: false
+        } as ViewModel)
+      ),
+      switchMap(vm =>
+        this.transitionsSubject.pipe(
+          startWith(vm => vm),
+          scan((vm, transform) => transform(vm), vm)
+        )
+      )
+    );
   }
 
-  resetPassword() {
+  resetPassword(vm: ViewModel) {
     if (this.form.invalid) {
       return;
     }
@@ -58,10 +81,10 @@ export class EmailActionComponent {
     // Save the new password.
     const password = this.form.value.password!;
     from(confirmPasswordReset(this.auth, this.actionCode, password))
-      .pipe(switchMap(() => from(signInWithEmailAndPassword(this.auth, this.email!, password))))
+      .pipe(switchMap(() => from(signInWithEmailAndPassword(this.auth, vm.email!, password))))
       .subscribe({
         next: () => this.router.navigate(['/']),
-        error: () => (this.resetError = true)
+        error: () => this.transitionsSubject.next(vm => ({ ...vm, resetError: true }))
       });
   }
 }
