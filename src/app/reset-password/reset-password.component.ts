@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth, sendPasswordResetEmail } from '@angular/fire/auth';
-import { from } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import * as icons from '../icon/icons';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../validation/form-control-validation.directive';
 import { PageTitleDirective } from '../page-title/page-title.directive';
 import { IconDirective } from '../icon/icon.directive';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
+
+interface ViewModel {
+  emailSent: boolean;
+  error: boolean;
+}
 
 @Component({
   selector: 'ms-reset-password',
@@ -21,16 +26,21 @@ import { NgIf } from '@angular/common';
     ValidationErrorsComponent,
     FormControlValidationDirective,
     PageTitleDirective,
-    IconDirective
-  ]
+    IconDirective,
+    AsyncPipe
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResetPasswordComponent {
-  form = new FormGroup({
+  readonly form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
-  error = false;
-  emailSent = false;
-  icons = icons;
+  private readonly vmSubject = new BehaviorSubject<ViewModel>({
+    error: false,
+    emailSent: false
+  });
+  readonly vm$: Observable<ViewModel> = this.vmSubject.asObservable();
+  readonly icons = icons;
 
   constructor(private route: ActivatedRoute, private auth: Auth) {
     this.form.setValue({ email: route.snapshot.queryParamMap.get('email') || '' });
@@ -42,8 +52,8 @@ export class ResetPasswordComponent {
     }
 
     from(sendPasswordResetEmail(this.auth, this.form.value.email!)).subscribe({
-      next: () => (this.emailSent = true),
-      error: () => (this.error = true)
+      next: () => this.vmSubject.next({ ...this.vmSubject.value, emailSent: true }),
+      error: () => this.vmSubject.next({ ...this.vmSubject.value, error: true })
     });
   }
 }

@@ -1,5 +1,5 @@
 <ms-page-title title="Identification"></ms-page-title>
-<div class="row justify-content-md-center">
+<div class="row justify-content-md-center" *ngIf="vm$ | async as vm">
   <div class="col col-md-6 col-lg-4">
     <h1 class="fs-4">Identification</h1>
     <form [formGroup]="form" (ngSubmit)="login()">
@@ -19,7 +19,7 @@
           <button class="btn btn-primary">S'identifier</button>
         </div>
         <div class="col-sm">
-          <div *ngIf="loginError" class="text-danger">
+          <div *ngIf="vm.loginError" class="text-danger">
             L'adresse email ou le mot de passe est incorrect.
           </div>
         </div>
@@ -42,7 +42,7 @@
         <ms-icon [icon]="icons.google" class="me-1"></ms-icon>
         Identification avec Google
       </button>
-      <div *ngIf="googleLoginError" class="text-danger">L'identification a échoué.</div>
+      <div *ngIf="vm.googleLoginError" class="text-danger">L'identification a échoué.</div>
     </div>
   </div>
 </div>

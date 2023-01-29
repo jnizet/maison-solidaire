@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { AdministeredUser, AdministeredUserCommand, UserService } from '../user.service';
-import { first, map, Observable, of, switchMap } from 'rxjs';
+import { first, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Spinner } from '../../shared/spinner';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
@@ -13,6 +13,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserCreatedModalComponent } from '../user-created-modal/user-created-modal.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import * as icons from '../../icon/icons';
+
+interface ViewModel {
+  mode: 'create' | 'edit';
+  editedUser: AdministeredUser | null;
+}
 
 @Component({
   selector: 'ms-user-edition',
@@ -27,20 +32,23 @@ import * as icons from '../../icon/icons';
     FormControlValidationDirective,
     PageTitleDirective,
     LoadingSpinnerComponent,
-    IconDirective
-  ]
+    IconDirective,
+    RouterLink
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserEditionComponent {
-  form = new FormGroup({
+  readonly form = new FormGroup({
     displayName: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     admin: new FormControl(false),
     disabled: new FormControl(false)
   });
-  mode: 'create' | 'edit' | null = null;
-  editedUser: AdministeredUser | null = null;
-  icons = icons;
-  saving = new Spinner();
+
+  vm$: Observable<ViewModel>;
+
+  readonly icons = icons;
+  readonly saving = new Spinner();
 
   constructor(
     route: ActivatedRoute,
@@ -48,16 +56,11 @@ export class UserEditionComponent {
     private userService: UserService,
     private modalService: NgbModal
   ) {
-    route.paramMap
-      .pipe(
-        map(paramMap => paramMap.get('uid')),
-        switchMap(uid => (uid ? userService.get(uid) : of(null))),
-        first()
-      )
-      .subscribe(user => {
-        this.mode = user ? 'edit' : 'create';
-        this.editedUser = user;
-
+    this.vm$ = route.paramMap.pipe(
+      map(paramMap => paramMap.get('uid')),
+      switchMap(uid => (uid ? userService.get(uid) : of(null))),
+      first(),
+      tap(user => {
         if (user) {
           const formValue = {
             displayName: user.displayName,
@@ -68,10 +71,15 @@ export class UserEditionComponent {
 
           this.form.setValue(formValue);
         }
-      });
+      }),
+      map(user => ({
+        mode: user ? 'edit' : 'create',
+        editedUser: user
+      }))
+    );
   }
 
-  save() {
+  save(vm: ViewModel) {
     if (this.form.invalid) {
       return;
     }
@@ -84,12 +92,12 @@ export class UserEditionComponent {
       admin: formValue.admin!
     };
     const result$: Observable<unknown> =
-      this.mode === 'create'
+      vm.mode === 'create'
         ? this.userService.create(command)
-        : this.userService.update(this.editedUser!.uid, command);
+        : this.userService.update(vm.editedUser!.uid, command);
     result$.pipe(this.saving.spinUntilFinalization()).subscribe(() => {
       this.router.navigate(['/users']);
-      if (this.mode === 'create') {
+      if (vm.mode === 'create') {
         const modalRef = this.modalService.open(UserCreatedModalComponent);
         (modalRef.componentInstance as UserCreatedModalComponent).userName = formValue.displayName!;
       }

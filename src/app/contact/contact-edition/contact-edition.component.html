@@ -1,15 +1,15 @@
-<ng-container *ngIf="mode; else loading">
+<ng-container *ngIf="vm$ | async as vm; else loading">
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
       <ms-page-title
-        [title]="mode === 'edit' ? editedContact!.name : 'Nouveau contact'"
+        [title]="vm.mode === 'edit' ? vm.editedContact!.name : 'Nouveau contact'"
       ></ms-page-title>
-      <h1 *ngIf="mode === 'create'">Création d'un nouveau contact</h1>
-      <h1 *ngIf="mode === 'edit'">
-        Modification du contact <em>{{ editedContact!.name }}</em>
+      <h1 *ngIf="vm.mode === 'create'">Création d'un nouveau contact</h1>
+      <h1 *ngIf="vm.mode === 'edit'">
+        Modification du contact <em>{{ vm.editedContact!.name }}</em>
       </h1>
 
-      <form [formGroup]="form" (ngSubmit)="save()">
+      <form [formGroup]="form" (ngSubmit)="save(vm)">
         <div class="mb-3">
           <label for="name" class="form-label">Prénom et Nom</label>
           <input formControlName="name" class="form-control" id="name" />

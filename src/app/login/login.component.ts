@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
   Auth,
@@ -7,14 +7,19 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup
 } from '@angular/fire/auth';
-import { from } from 'rxjs';
+import { BehaviorSubject, from, Observable } from 'rxjs';
 import { Router, RouterLink } from '@angular/router';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../validation/form-control-validation.directive';
 import { PageTitleDirective } from '../page-title/page-title.directive';
 import { IconDirective } from '../icon/icon.directive';
 import * as icons from '../icon/icons';
+
+interface ViewModel {
+  loginError: boolean;
+  googleLoginError: boolean;
+}
 
 @Component({
   selector: 'ms-login',
@@ -28,19 +33,24 @@ import * as icons from '../icon/icons';
     ValidationErrorsComponent,
     FormControlValidationDirective,
     PageTitleDirective,
-    IconDirective
-  ]
+    IconDirective,
+    AsyncPipe
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginComponent {
-  form = new FormGroup({
+  readonly form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   });
 
-  loginError = false;
-  googleLoginError = false;
+  private readonly vmSubject = new BehaviorSubject<ViewModel>({
+    loginError: false,
+    googleLoginError: false
+  });
+  readonly vm$: Observable<ViewModel> = this.vmSubject.asObservable();
 
-  icons = icons;
+  readonly icons = icons;
 
   constructor(private auth: Auth, private router: Router) {}
 
@@ -54,10 +64,12 @@ export class LoginComponent {
       signInWithEmailAndPassword(this.auth, credentials.email!, credentials.password!)
     ).subscribe({
       next: () => {
-        this.loginError = false;
+        this.vmSubject.next({ ...this.vmSubject.value, loginError: false });
         this.router.navigate(['/']);
       },
-      error: () => (this.loginError = true)
+      error: () => {
+        this.vmSubject.next({ ...this.vmSubject.value, loginError: true });
+      }
     });
   }
 
@@ -66,14 +78,14 @@ export class LoginComponent {
       const userCredential = await signInWithPopup(this.auth, new GoogleAuthProvider());
       const token = await userCredential.user.getIdTokenResult();
       if (!(token.claims as any).user) {
-        this.googleLoginError = true;
+        this.vmSubject.next({ ...this.vmSubject.value, googleLoginError: true });
         await deleteUser(userCredential.user);
       } else {
-        this.googleLoginError = false;
+        this.vmSubject.next({ ...this.vmSubject.value, googleLoginError: false });
         this.router.navigate(['/']);
       }
     } catch (error: any) {
-      this.googleLoginError = true;
+      this.vmSubject.next({ ...this.vmSubject.value, googleLoginError: true });
     }
   }
 }

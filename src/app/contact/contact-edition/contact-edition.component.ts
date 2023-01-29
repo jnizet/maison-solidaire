@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as icons from '../../icon/icons';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { first, map, Observable, of, switchMap } from 'rxjs';
+import { first, map, Observable, of, switchMap, tap } from 'rxjs';
 import { Contact, ContactCommand, ContactService } from '../../shared/contact.service';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
@@ -12,6 +12,11 @@ import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { ToastService } from '../../toast/toast.service';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
+
+interface ViewModel {
+  mode: 'create' | 'edit';
+  editedContact?: Contact;
+}
 
 @Component({
   selector: 'ms-contact-edition',
@@ -27,20 +32,21 @@ import { FormControlValidationDirective } from '../../validation/form-control-va
     RouterLink
   ],
   templateUrl: './contact-edition.component.html',
-  styleUrls: ['./contact-edition.component.scss']
+  styleUrls: ['./contact-edition.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactEditionComponent {
-  form = this.fb.group({
+  readonly form = this.fb.group({
     name: ['', Validators.required],
     email: ['', Validators.email],
     phone: '',
     mobile: '',
     whatsapp: ''
   });
-  mode: 'create' | 'edit' | null = null;
-  editedContact?: Contact;
-  icons = icons;
-  saving = new Spinner();
+
+  readonly vm$: Observable<ViewModel>;
+  readonly icons = icons;
+  readonly saving = new Spinner();
 
   constructor(
     route: ActivatedRoute,
@@ -49,16 +55,11 @@ export class ContactEditionComponent {
     private fb: NonNullableFormBuilder,
     private toastService: ToastService
   ) {
-    route.paramMap
-      .pipe(
-        map(paramMap => paramMap.get('contactId')),
-        switchMap(contactId => (contactId ? contactService.get(contactId) : of(undefined))),
-        first()
-      )
-      .subscribe(contact => {
-        this.mode = contact ? 'edit' : 'create';
-        this.editedContact = contact;
-
+    this.vm$ = route.paramMap.pipe(
+      map(paramMap => paramMap.get('contactId')),
+      switchMap(contactId => (contactId ? contactService.get(contactId) : of(undefined))),
+      first(),
+      tap(contact => {
         if (contact) {
           const formValue = {
             name: contact.name,
@@ -70,22 +71,27 @@ export class ContactEditionComponent {
 
           this.form.setValue(formValue);
         }
-      });
+      }),
+      map(contact => ({
+        mode: contact ? 'edit' : 'create',
+        editedContact: contact
+      }))
+    );
   }
 
-  save() {
+  save(vm: ViewModel) {
     if (this.form.invalid) {
       return;
     }
 
     const command: ContactCommand = this.form.getRawValue();
     const result$: Observable<unknown> =
-      this.mode === 'create'
+      vm.mode === 'create'
         ? this.contactService.create(command)
-        : this.contactService.update(this.editedContact!.id, command);
+        : this.contactService.update(vm.editedContact!.id, command);
     result$.pipe(this.saving.spinUntilFinalization()).subscribe(() => {
       this.router.navigate(['/contacts']);
-      this.toastService.success(this.mode === 'create' ? 'Contact créé' : 'Contact modifié');
+      this.toastService.success(vm.mode === 'create' ? 'Contact créé' : 'Contact modifié');
     });
   }
 }

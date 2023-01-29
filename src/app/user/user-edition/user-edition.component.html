@@ -1,15 +1,15 @@
-<ng-container *ngIf="mode; else loading">
+<ng-container *ngIf="vm$ | async as vm; else loading">
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
       <ms-page-title
-        [title]="mode === 'edit' ? editedUser!.displayName : 'Nouvel utilisateur'"
+        [title]="vm.mode === 'edit' ? vm.editedUser!.displayName : 'Nouvel utilisateur'"
       ></ms-page-title>
-      <h1 *ngIf="mode === 'create'">Création d'un nouvel utilisateur</h1>
-      <h1 *ngIf="mode === 'edit'">
-        Modification de l'utilisateur <em>{{ editedUser!.displayName }}</em>
+      <h1 *ngIf="vm.mode === 'create'">Création d'un nouvel utilisateur</h1>
+      <h1 *ngIf="vm.mode === 'edit'">
+        Modification de l'utilisateur <em>{{ vm.editedUser!.displayName }}</em>
       </h1>
 
-      <form [formGroup]="form" (ngSubmit)="save()">
+      <form [formGroup]="form" (ngSubmit)="save(vm)">
         <div class="mb-3">
           <label for="display-name" class="form-label">Nom</label>
           <input formControlName="displayName" class="form-control" id="display-name" />
@@ -57,7 +57,7 @@
           </div>
         </div>
         <div class="text-end">
-          <button class="btn btn-primary" [disabled]="(saving.isSpinning | async) === true">
+          <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
             <ms-icon
               *ngIf="(saving.isSpinning | async) === false"
               class="me-1"
@@ -72,6 +72,10 @@
             </div>
             Enregistrer
           </button>
+          <a class="btn btn-danger" routerLink="/users">
+            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            Annuler
+          </a>
         </div>
       </form>
     </div>

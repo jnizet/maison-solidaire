@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as icons from '../../icon/icons';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { filter, first, switchMap } from 'rxjs';
+import { filter, first, map, Observable, switchMap, tap } from 'rxjs';
 import { Contact, ContactCommand, ContactService } from '../../shared/contact.service';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
@@ -13,6 +13,11 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 import { ToastService } from '../../toast/toast.service';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
+
+interface ViewModel {
+  mode: 'create' | 'edit';
+  editedContact?: Contact;
+}
 
 @Component({
   selector: 'ms-my-contact-edition',
@@ -28,19 +33,19 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
     RouterLink
   ],
   templateUrl: './my-contact-edition.component.html',
-  styleUrls: ['./my-contact-edition.component.scss']
+  styleUrls: ['./my-contact-edition.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyContactEditionComponent {
-  form = this.fb.group({
+  readonly form = this.fb.group({
     email: ['', Validators.email],
     phone: '',
     mobile: '',
     whatsapp: ''
   });
-  mode: 'create' | 'edit' | null = null;
-  editedContact?: Contact;
-  icons = icons;
-  saving = new Spinner();
+  readonly icons = icons;
+  readonly vm$: Observable<ViewModel>;
+  readonly saving = new Spinner();
 
   constructor(
     route: ActivatedRoute,
@@ -50,17 +55,11 @@ export class MyContactEditionComponent {
     private toastService: ToastService,
     private currentUserService: CurrentUserService
   ) {
-    currentUserService
-      .getCurrentUser()
-      .pipe(
-        filter((user: CurrentUser | null): user is CurrentUser => !!user),
-        switchMap(user => contactService.findByName(user.displayName!)),
-        first()
-      )
-      .subscribe(contact => {
-        this.mode = contact ? 'edit' : 'create';
-        this.editedContact = contact;
-
+    this.vm$ = currentUserService.getCurrentUser().pipe(
+      filter((user: CurrentUser | null): user is CurrentUser => !!user),
+      switchMap(user => contactService.findByName(user.displayName!)),
+      first(),
+      tap(contact => {
         if (contact) {
           const formValue = {
             email: contact.email ?? '',
@@ -71,10 +70,15 @@ export class MyContactEditionComponent {
 
           this.form.setValue(formValue);
         }
-      });
+      }),
+      map(contact => ({
+        mode: contact ? 'edit' : 'create',
+        editedContact: contact
+      }))
+    );
   }
 
-  save() {
+  save(vm: ViewModel) {
     if (this.form.invalid) {
       return;
     }
@@ -87,9 +91,9 @@ export class MyContactEditionComponent {
         first(),
         switchMap(user => {
           const command: ContactCommand = { ...partialCommand, name: user.displayName! };
-          return this.mode === 'create'
+          return vm.mode === 'create'
             ? this.contactService.create(command)
-            : this.contactService.update(this.editedContact!.id, command);
+            : this.contactService.update(vm.editedContact!.id, command);
         }),
         this.saving.spinUntilFinalization()
       )
