@@ -66,7 +66,7 @@
   </div>
 
   <div *ngIf="vm.user" class="row mt-2 g-3">
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg">
       <a routerLink="/lodging" class="d-block btn btn-link border-0 h-100">
         <div class="fs-1">
           <ms-icon [icon]="icons.lodging"></ms-icon>
@@ -74,7 +74,7 @@
         <div class="fs-6">Informations et ressources pour les hébergeurs</div>
       </a>
     </div>
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg">
       <a routerLink="/association" class="d-block btn btn-link border-0 h-100">
         <div class="fs-1">
           <ms-icon [icon]="icons.association"></ms-icon>
@@ -82,7 +82,7 @@
         <div class="fs-6">L'association ATPAC Maison Solidaire</div>
       </a>
     </div>
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg">
       <a routerLink="/contacts" class="d-block btn btn-link border-0 h-100">
         <div class="fs-1">
           <ms-icon [icon]="icons.contacts"></ms-icon>
@@ -90,12 +90,20 @@
         <div class="fs-6">Liste des contacts</div>
       </a>
     </div>
-    <div class="col-12 col-lg-3">
+    <div class="col-12 col-lg">
       <a routerLink="/activities" class="d-block btn btn-link border-0 h-100">
         <div class="fs-1">
           <ms-icon [icon]="icons.activities"></ms-icon>
         </div>
         <div class="fs-6">Agenda des activités</div>
+      </a>
+    </div>
+    <div class="col-12 col-lg">
+      <a routerLink="/volunteering" class="d-block btn btn-link border-0 h-100">
+        <div class="fs-1">
+          <ms-icon [icon]="icons.volunteering"></ms-icon>
+        </div>
+        <div class="fs-6">Bénévolat</div>
       </a>
     </div>
   </div>

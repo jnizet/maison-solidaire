@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
@@ -40,6 +39,7 @@ import {
 import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemort';
 import * as icons from '../../icon/icons';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 interface ViewModel {
   editedResponsibility: Responsibility;
@@ -49,7 +49,6 @@ interface ViewModel {
   selector: 'ms-responsibility-edition',
   standalone: true,
   imports: [
-    CommonModule,
     PageTitleDirective,
     IconDirective,
     LoadingSpinnerComponent,
@@ -61,7 +60,10 @@ interface ViewModel {
     CdkDragHandle,
     ValidationErrorsComponent,
     ValidationErrorDirective,
-    SpinningIconComponent
+    SpinningIconComponent,
+    NgIf,
+    AsyncPipe,
+    NgFor
   ],
   templateUrl: './responsibility-edition.component.html',
   styleUrls: ['./responsibility-edition.component.scss'],

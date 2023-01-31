@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -21,6 +20,7 @@ import { MarkdownDirective } from '../markdown.directive';
 import * as icons from '../../icon/icons';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -31,7 +31,6 @@ interface ViewModel {
   selector: 'ms-activity-edition',
   standalone: true,
   imports: [
-    CommonModule,
     PageTitleDirective,
     ReactiveFormsModule,
     ValidationErrorsComponent,
@@ -45,7 +44,9 @@ interface ViewModel {
     NgbNavContent,
     MarkdownDirective,
     NgbNavOutlet,
-    SpinningIconComponent
+    SpinningIconComponent,
+    NgIf,
+    AsyncPipe
   ],
   templateUrl: './activity-edition.component.html',
   styleUrls: ['./activity-edition.component.scss'],

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Contact, ContactService } from '../../shared/contact.service';
 import { combineLatest, first, map, Observable, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
@@ -12,6 +11,7 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ResponsibilityService } from '../../shared/responsibility.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 interface ViewModel {
   contacts: Array<Contact>;
@@ -22,12 +22,14 @@ interface ViewModel {
   selector: 'ms-contacts',
   standalone: true,
   imports: [
-    CommonModule,
     PageTitleDirective,
     IconDirective,
     ContactComponent,
     RouterLink,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    NgIf,
+    AsyncPipe,
+    NgFor
   ],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
