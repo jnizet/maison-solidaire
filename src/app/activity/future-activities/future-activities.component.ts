@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Activity, ActivityService } from '../activity.service';
 import { combineLatest, map, Observable, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
@@ -11,6 +10,7 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
 import { MarkdownDirective } from '../markdown.directive';
+import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
 
 interface ViewModel {
   activities: Array<Activity>;
@@ -21,12 +21,15 @@ interface ViewModel {
   selector: 'ms-future-activities',
   standalone: true,
   imports: [
-    CommonModule,
     PageTitleDirective,
     LoadingSpinnerComponent,
     IconDirective,
     RouterLink,
-    MarkdownDirective
+    MarkdownDirective,
+    NgIf,
+    AsyncPipe,
+    DatePipe,
+    NgFor
   ],
   templateUrl: './future-activities.component.html',
   styleUrls: ['./future-activities.component.scss'],

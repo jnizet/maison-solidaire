@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Responsibility, ResponsibilityService } from '../../shared/responsibility.service';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { combineLatest, map, Observable } from 'rxjs';
@@ -11,6 +10,7 @@ import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { ResponsibilityComponent } from '../../shared/responsibility/responsibility.component';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 
 interface ViewModel {
   responsibilities: Array<Responsibility>;
@@ -21,13 +21,15 @@ interface ViewModel {
   selector: 'ms-responsibilities',
   standalone: true,
   imports: [
-    CommonModule,
     PageTitleDirective,
     ContactComponent,
     RouterLink,
     IconDirective,
     LoadingSpinnerComponent,
-    ResponsibilityComponent
+    ResponsibilityComponent,
+    NgIf,
+    AsyncPipe,
+    NgFor
   ],
   templateUrl: './responsibilities.component.html',
   styleUrls: ['./responsibilities.component.scss'],

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { combineLatest, map, Observable } from 'rxjs';
 import {
   COORDINATION,
@@ -9,6 +8,7 @@ import {
 } from '../shared/responsibility.service';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
 import { PageTitleDirective } from '../page-title/page-title.directive';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -18,7 +18,7 @@ interface ViewModel {
 @Component({
   selector: 'ms-association',
   standalone: true,
-  imports: [CommonModule, ResponsibilityComponent, PageTitleDirective],
+  imports: [ResponsibilityComponent, PageTitleDirective, NgIf, AsyncPipe],
   templateUrl: './association.component.html',
   styleUrls: ['./association.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

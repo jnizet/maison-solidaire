@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as icons from '../../icon/icons';
 import { Spinner } from '../../shared/spinner';
@@ -14,6 +13,7 @@ import { ToastService } from '../../toast/toast.service';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -24,7 +24,6 @@ interface ViewModel {
   selector: 'ms-my-contact-edition',
   standalone: true,
   imports: [
-    CommonModule,
     PageTitleDirective,
     ReactiveFormsModule,
     ValidationErrorsComponent,
@@ -32,7 +31,9 @@ interface ViewModel {
     IconDirective,
     LoadingSpinnerComponent,
     RouterLink,
-    SpinningIconComponent
+    SpinningIconComponent,
+    NgIf,
+    AsyncPipe
   ],
   templateUrl: './my-contact-edition.component.html',
   styleUrls: ['./my-contact-edition.component.scss'],

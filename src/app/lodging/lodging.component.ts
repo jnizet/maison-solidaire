@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   CLOTHES,
   COORDINATION,
@@ -16,6 +15,7 @@ import { ResponsibilityComponent } from '../shared/responsibility/responsibility
 import { RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
 import { PageTitleDirective } from '../page-title/page-title.directive';
+import { AsyncPipe, NgIf } from '@angular/common';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -33,7 +33,7 @@ interface ViewModel {
 @Component({
   selector: 'ms-lodging',
   standalone: true,
-  imports: [CommonModule, ResponsibilityComponent, RouterLink, PageTitleDirective],
+  imports: [ResponsibilityComponent, RouterLink, PageTitleDirective, NgIf, AsyncPipe],
   templateUrl: './lodging.component.html',
   styleUrls: ['./lodging.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

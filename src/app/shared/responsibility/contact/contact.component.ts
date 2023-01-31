@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Contact } from '../../contact.service';
 import * as icons from '../../../icon/icons';
 import { IconDirective } from '../../../icon/icon.directive';
 import { from } from 'rxjs';
 import { ToastService } from '../../../toast/toast.service';
+import { NgFor, NgIf } from '@angular/common';
 
 interface Channel {
   href: string;
@@ -16,7 +16,7 @@ interface Channel {
 @Component({
   selector: 'ms-contact',
   standalone: true,
-  imports: [CommonModule, IconDirective],
+  imports: [IconDirective, NgFor, NgIf],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

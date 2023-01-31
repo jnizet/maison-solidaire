@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AsyncPipe, NgForOf, NgIf } from '@angular/common';
+import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
 import { ResponsibilityComponent } from '../../shared/responsibility/responsibility.component';
 import {
@@ -30,7 +30,7 @@ interface ViewModel {
     AsyncPipe,
     NgIf,
     WeekPipe,
-    NgForOf,
+    NgFor,
     RouterLink,
     PageTitleDirective,
     LoadingSpinnerComponent
