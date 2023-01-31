@@ -1,0 +1,49 @@
+<ms-page-title title="Renseigner le programme de la semaine"></ms-page-title>
+
+<div class="row justify-content-md-center">
+  <div class="col col-md-8 col-lg-6">
+    <h1>Renseigner le programme de la semaine</h1>
+
+    <form [formGroup]="form">
+      <div class="mb-3">
+        <label class="form-label" for="week">Semaine</label>
+        <select formControlName="week" class="form-select" id="week">
+          <option *ngFor="let week of weeks" [ngValue]="week">{{ week | week }}</option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <button
+          class="btn btn-primary me-2"
+          type="button"
+          (click)="fileInput.click()"
+          [disabled]="(saving.isSpinning | async) === true"
+        >
+          <ms-icon
+            [icon]="icons.upload"
+            class="me-1"
+            *ngIf="(saving.isSpinning | async) === false"
+          ></ms-icon>
+          <div
+            *ngIf="(saving.isSpinning | async) === true"
+            class="spinner-border spinner-border-sm me-1"
+            role="status"
+          >
+            <span class="visually-hidden">enregistrement en cours...</span>
+          </div>
+          Choisir le fichier et enregistrer
+        </button>
+        <a class="btn btn-danger" routerLink="/volunteering">
+          <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+          Annuler
+        </a>
+        <input
+          class="d-none"
+          type="file"
+          accept="application/pdf"
+          (change)="upload($event)"
+          #fileInput
+        />
+      </div>
+    </form>
+  </div>
+</div>

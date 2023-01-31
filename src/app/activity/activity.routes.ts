@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { FutureActivitiesComponent } from './future-activities/future-activities.component';
-import { ActivityEditionComponent } from './activity-edition/activity-edition.component';
 
 export const ACTIVITY_ROUTES: Routes = [
   {
@@ -9,10 +8,12 @@ export const ACTIVITY_ROUTES: Routes = [
   },
   {
     path: 'new',
-    component: ActivityEditionComponent
+    loadComponent: () =>
+      import('./activity-edition/activity-edition.component').then(m => m.ActivityEditionComponent)
   },
   {
     path: ':activityId/edit',
-    component: ActivityEditionComponent
+    loadComponent: () =>
+      import('./activity-edition/activity-edition.component').then(m => m.ActivityEditionComponent)
   }
 ];

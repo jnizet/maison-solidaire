@@ -8,11 +8,11 @@ import {
   clipboard2,
   clipboardCheck,
   cloudArrowUp,
-  emojiSmileFill,
   envelope,
   exclamationTriangleFill,
   google as googleIcon,
   housesFill,
+  hSquareFill,
   infoCircleFill,
   key,
   pencilSquare,
@@ -46,7 +46,6 @@ export const email = at;
 export const phone = telephone;
 export const mobile = phoneIcon;
 export const whatsapp = whatsappIcon;
-export const welcome = emojiSmileFill;
 export const lodging = housesFill;
 export const association = peopleFill;
 export const contacts = personVcard;
@@ -64,3 +63,5 @@ export const administration = shieldFill;
 export const resetPasswordEmail = envelope;
 export const administratorUser = shieldFill;
 export const disabledUser = xOctagonFill;
+export const volunteering = hSquareFill;
+export const upload = cloudArrowUp;

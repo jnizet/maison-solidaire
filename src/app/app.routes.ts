@@ -62,6 +62,11 @@ export const APP_ROUTES: Routes = [
         path: 'responsibilities',
         loadChildren: () =>
           import('./responsibility/responsibility.routes').then(m => m.RESPONSIBILITY_ROUTES)
+      },
+      {
+        path: 'volunteering',
+        loadChildren: () =>
+          import('./volunteering/volunteering.routes').then(m => m.VOLUNTEERING_ROUTES)
       }
     ]
   }
