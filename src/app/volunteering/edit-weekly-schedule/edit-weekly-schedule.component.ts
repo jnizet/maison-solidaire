@@ -9,6 +9,7 @@ import { Spinner } from '../../shared/spinner';
 import { Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
+import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
 
 @Component({
   selector: 'ms-edit-weekly-schedule',
@@ -21,7 +22,8 @@ import { PageTitleDirective } from '../../page-title/page-title.directive';
     PageTitleDirective,
     NgIf,
     AsyncPipe,
-    NgForOf
+    NgForOf,
+    SpinningIconComponent
   ],
   templateUrl: './edit-weekly-schedule.component.html',
   styleUrls: ['./edit-weekly-schedule.component.scss'],

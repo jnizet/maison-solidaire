@@ -13,6 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserCreatedModalComponent } from '../user-created-modal/user-created-modal.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import * as icons from '../../icon/icons';
+import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -33,7 +34,8 @@ interface ViewModel {
     PageTitleDirective,
     LoadingSpinnerComponent,
     IconDirective,
-    RouterLink
+    RouterLink,
+    SpinningIconComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })

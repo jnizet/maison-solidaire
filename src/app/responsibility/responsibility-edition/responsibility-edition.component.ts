@@ -39,6 +39,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemort';
 import * as icons from '../../icon/icons';
+import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
 
 interface ViewModel {
   editedResponsibility: Responsibility;
@@ -59,7 +60,8 @@ interface ViewModel {
     RouterLink,
     CdkDragHandle,
     ValidationErrorsComponent,
-    ValidationErrorDirective
+    ValidationErrorDirective,
+    SpinningIconComponent
   ],
   templateUrl: './responsibility-edition.component.html',
   styleUrls: ['./responsibility-edition.component.scss'],

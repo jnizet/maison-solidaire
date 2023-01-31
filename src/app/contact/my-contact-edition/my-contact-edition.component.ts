@@ -13,6 +13,7 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 import { ToastService } from '../../toast/toast.service';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
+import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -30,7 +31,8 @@ interface ViewModel {
     FormControlValidationDirective,
     IconDirective,
     LoadingSpinnerComponent,
-    RouterLink
+    RouterLink,
+    SpinningIconComponent
   ],
   templateUrl: './my-contact-edition.component.html',
   styleUrls: ['./my-contact-edition.component.scss'],
