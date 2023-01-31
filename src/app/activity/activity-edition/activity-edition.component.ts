@@ -20,6 +20,7 @@ import {
 import { MarkdownDirective } from '../markdown.directive';
 import * as icons from '../../icon/icons';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
+import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -43,7 +44,8 @@ interface ViewModel {
     NgbNavLink,
     NgbNavContent,
     MarkdownDirective,
-    NgbNavOutlet
+    NgbNavOutlet,
+    SpinningIconComponent
   ],
   templateUrl: './activity-edition.component.html',
   styleUrls: ['./activity-edition.component.scss'],

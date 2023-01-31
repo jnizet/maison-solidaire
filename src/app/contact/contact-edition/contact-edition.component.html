@@ -65,18 +65,11 @@
         </div>
         <div class="text-end">
           <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
-            <ms-icon
-              *ngIf="(saving.isSpinning | async) === false"
-              class="me-1"
+            <ms-spinning-icon
               [icon]="icons.save"
-            ></ms-icon>
-            <div
-              *ngIf="(saving.isSpinning | async) === true"
-              class="spinner-border spinner-border-sm me-1"
-              role="status"
-            >
-              <span class="visually-hidden">enregistrement en cours...</span>
-            </div>
+              [spinner]="saving"
+              message="enregistrement en cours..."
+            ></ms-spinning-icon>
             Enregistrer
           </button>
           <a class="btn btn-danger" routerLink="/contacts">
