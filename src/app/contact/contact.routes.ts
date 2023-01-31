@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { ContactsComponent } from './contacts/contacts.component';
-import { ContactEditionComponent } from './contact-edition/contact-edition.component';
 
 export const CONTACT_ROUTES: Routes = [
   {
@@ -9,10 +8,12 @@ export const CONTACT_ROUTES: Routes = [
   },
   {
     path: 'new',
-    component: ContactEditionComponent
+    loadComponent: () =>
+      import('./contact-edition/contact-edition.component').then(m => m.ContactEditionComponent)
   },
   {
     path: ':contactId/edit',
-    component: ContactEditionComponent
+    loadComponent: () =>
+      import('./contact-edition/contact-edition.component').then(m => m.ContactEditionComponent)
   }
 ];

@@ -1,0 +1,30 @@
+<ms-page-title title="Bénévolat"></ms-page-title>
+<h1>Bénévolat</h1>
+
+<ng-container *ngIf="vm$ | async as vm; else loading">
+  <p>
+    Vous voulez donner un coup de main&nbsp;? Emmener un jeune à un rendez-vous à l'hôpital, chez un
+    médecin ou un avocat&nbsp;? Consultez le programme de la semaine, normalement posté ici chaque
+    semaine.<br />
+    Si vous pouvez vous libérer pour un rendez-vous, contactez le coordinateur&nbsp;:
+  </p>
+  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+
+  <h2>Le programme de la semaine</h2>
+
+  <ng-container *ngIf="vm.weeklySchedules.length > 0; else noWeeklySchedule">
+    <ul>
+      <li *ngFor="let schedule of vm.weeklySchedules">
+        <a [href]="schedule.fileUrl" download>{{ schedule.week | week }}</a>
+      </li>
+    </ul>
+  </ng-container>
+  <ng-template #noWeeklySchedule>Aucun programme posté pour les semaines à venir.</ng-template>
+
+  <div *ngIf="vm.user?.admin" class="mt-2">
+    <a routerLink="edit-weekly-schedule" class="btn btn-outline-secondary">Ajouter ou modifier</a>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <ms-loading-spinner></ms-loading-spinner>
+</ng-template>
