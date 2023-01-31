@@ -11,7 +11,7 @@ import {
   where
 } from '@angular/fire/firestore';
 import { addWeeks, formatISO, parseISO, startOfISOWeek } from 'date-fns';
-import { first, forkJoin, map, Observable, switchMap } from 'rxjs';
+import { first, forkJoin, map, Observable, of, switchMap } from 'rxjs';
 import { StorageService } from '../shared/storage.service';
 
 // a week is identified by the start of its ISO week, i.e. the ISO date of its first Monday
@@ -65,6 +65,9 @@ export class WeeklyScheduleService {
       query(this.weeklyScheduleCollection, where('week', '>=', currentWeek), orderBy('week'))
     ).pipe(
       switchMap(persistentSchedules => {
+        if (persistentSchedules.length === 0) {
+          return of([]);
+        }
         const fileUrls$ = forkJoin(
           persistentSchedules.map(ps => this.storageService.downloadUrl(ps.path))
         );
