@@ -32,7 +32,7 @@ import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.
 export class EditWeeklyScheduleComponent {
   readonly weeks = this.weeklyScheduleService.nextWeeks();
   form = this.fb.group({
-    week: [this.weeks[0]]
+    week: [this.weeks[1]]
   });
   readonly icons = icons;
   readonly saving = new Spinner();
