@@ -4,6 +4,7 @@ import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { IconDirective } from '../../icon/icon.directive';
 import { ContactComponent } from './contact/contact.component';
 import { NgFor } from '@angular/common';
+import * as icons from '../../icon/icons';
 
 @Component({
   selector: 'ms-responsibility',
@@ -14,5 +15,7 @@ import { NgFor } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResponsibilityComponent {
+  readonly icons = icons;
+
   @Input() responsibility!: Responsibility;
 }

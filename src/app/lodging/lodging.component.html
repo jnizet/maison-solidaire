@@ -3,9 +3,44 @@
 <ng-container *ngIf="vm$ | async as vm">
   <h1>Informations et ressources pour les hébergeurs</h1>
 
-  <div class="row gy-2">
-    <div class="col-12 col-lg-6 order-lg-1">
-      <div class="card card-warning">
+  <div class="row">
+    <div class="col-12 col-md-auto order-md-1">
+      <div class="sidebar">
+        <h2 class="fs-6">Sur cette page</h2>
+        <ul class="list-unstyled text-muted text-secondary d-flex flex-column gap-2">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="." fragment="help" (click)="scrollTo('help')"
+              >Besoin d'aide</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="."
+              fragment="appointments"
+              (click)="scrollTo('appointments')"
+              >Rendez-vous récurrents</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              routerLink="."
+              fragment="communicate"
+              (click)="scrollTo('communicate')"
+              >Communiquer entre nous</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="." fragment="resources" (click)="scrollTo('resources')"
+              >Ressources pour apprendre</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-12 col-md">
+      <div class="card card-warning mb-2" id="help">
         <div class="card-body bg-light">
           <h2>Besoin d'aide&nbsp;?</h2>
 
@@ -15,13 +50,13 @@
             <a [href]="vm.rulesUrl">règlement de la Maison Solidaire</a>.
           </p>
 
-          <h3>Référents</h3>
+          <h3 class="fs-5">Référents</h3>
           <p>
             En cas de question ou problème, tu peux contacter l'un des référents hébergement&nbsp;:
           </p>
           <ms-responsibility [responsibility]="vm.lodging"></ms-responsibility>
 
-          <h3>Tu veux voir Valentin&nbsp;?</h3>
+          <h3 class="fs-5">Tu veux voir Valentin&nbsp;?</h3>
           <p>
             La Maison Solidaire n'est pas seulement son lieu de travail&nbsp;: c'est aussi son lieu
             de vie et celui des jeunes qu'il héberge. Afin de leur permettre d'avoir une vie, merci
@@ -32,9 +67,7 @@
           <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
         </div>
       </div>
-    </div>
-    <div class="col-12 col-lg-6 order-lg-0">
-      <div class="card card-primary mb-2">
+      <div class="card card-primary mb-2" id="appointments">
         <div class="card-body">
           <h2>Rendez-vous récurrents</h2>
 
@@ -105,7 +138,7 @@
           <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
         </div>
       </div>
-      <div class="card card-primary mb-2">
+      <div class="card card-primary mb-2" id="communicate">
         <div class="card-body">
           <h2>Comment communiquer entre nous&nbsp;?</h2>
           <p>
@@ -122,7 +155,7 @@
           <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
         </div>
       </div>
-      <div class="card card-primary">
+      <div class="card card-primary mb-2" id="resources">
         <div class="card-body">
           <h2>Ressources pour apprendre</h2>
           <p>
