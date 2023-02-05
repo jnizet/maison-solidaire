@@ -16,6 +16,8 @@ import { RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
 import { PageTitleDirective } from '../page-title/page-title.directive';
 import { AsyncPipe, NgIf } from '@angular/common';
+import * as icons from '../icon/icons';
+import { IconDirective } from '../icon/icon.directive';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -33,13 +35,21 @@ interface ViewModel {
 @Component({
   selector: 'ms-lodging',
   standalone: true,
-  imports: [ResponsibilityComponent, RouterLink, PageTitleDirective, NgIf, AsyncPipe],
+  imports: [
+    ResponsibilityComponent,
+    RouterLink,
+    PageTitleDirective,
+    NgIf,
+    AsyncPipe,
+    IconDirective
+  ],
   templateUrl: './lodging.component.html',
   styleUrls: ['./lodging.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LodgingComponent {
   vm$: Observable<ViewModel>;
+  icons = icons;
 
   constructor(responsibilityService: ResponsibilityService, storageService: StorageService) {
     this.vm$ = combineLatest([
