@@ -15,6 +15,7 @@ import {
   hSquareFill,
   infoCircleFill,
   key,
+  lightbulb,
   pencilSquare,
   peopleFill,
   personCircle,
@@ -65,3 +66,4 @@ export const administratorUser = shieldFill;
 export const disabledUser = xOctagonFill;
 export const volunteering = hSquareFill;
 export const upload = cloudArrowUp;
+export const idea = lightbulb;
