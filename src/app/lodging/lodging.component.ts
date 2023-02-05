@@ -15,7 +15,7 @@ import { ResponsibilityComponent } from '../shared/responsibility/responsibility
 import { RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
 import { PageTitleDirective } from '../page-title/page-title.directive';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf, NgTemplateOutlet, ViewportScroller } from '@angular/common';
 import * as icons from '../icon/icons';
 import { IconDirective } from '../icon/icon.directive';
 
@@ -41,7 +41,8 @@ interface ViewModel {
     PageTitleDirective,
     NgIf,
     AsyncPipe,
-    IconDirective
+    IconDirective,
+    NgTemplateOutlet
   ],
   templateUrl: './lodging.component.html',
   styleUrls: ['./lodging.component.scss'],
@@ -51,7 +52,11 @@ export class LodgingComponent {
   vm$: Observable<ViewModel>;
   icons = icons;
 
-  constructor(responsibilityService: ResponsibilityService, storageService: StorageService) {
+  constructor(
+    responsibilityService: ResponsibilityService,
+    storageService: StorageService,
+    private scroller: ViewportScroller
+  ) {
     this.vm$ = combineLatest([
       responsibilityService.getBySlug(LODGING),
       responsibilityService.getBySlug(PHONES),
@@ -77,5 +82,9 @@ export class LodgingComponent {
         })
       )
     );
+  }
+
+  scrollTo(anchor: string) {
+    this.scroller.scrollToAnchor(anchor);
   }
 }

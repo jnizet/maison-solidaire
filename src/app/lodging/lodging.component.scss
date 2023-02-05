@@ -1,0 +1,6 @@
+@import '../../common';
+
+.sidebar {
+  position: sticky;
+  top: calc($navbar-height + 1rem);
+}

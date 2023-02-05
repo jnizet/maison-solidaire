@@ -20,6 +20,7 @@ import {
   peopleFill,
   personCircle,
   personVcard,
+  personVcardFill,
   personWorkspace,
   phone as phoneIcon,
   plusCircle,
@@ -67,3 +68,4 @@ export const disabledUser = xOctagonFill;
 export const volunteering = hSquareFill;
 export const upload = cloudArrowUp;
 export const idea = lightbulb;
+export const contact = personVcardFill;
