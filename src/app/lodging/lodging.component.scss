@@ -3,4 +3,10 @@
 .sidebar {
   position: sticky;
   top: calc($navbar-height + 1rem);
+  a {
+    color: $secondary;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 }
