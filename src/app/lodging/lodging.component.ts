@@ -10,9 +10,9 @@ import {
   ResponsibilityService,
   TRANSPORT
 } from '../shared/responsibility.service';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, map, Observable, tap } from 'rxjs';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
 import { PageTitleDirective } from '../page-title/page-title.directive';
 import { AsyncPipe, NgIf, NgTemplateOutlet, ViewportScroller } from '@angular/common';
@@ -52,10 +52,13 @@ export class LodgingComponent {
   vm$: Observable<ViewModel>;
   icons = icons;
 
+  scrolled = false;
+
   constructor(
     responsibilityService: ResponsibilityService,
     storageService: StorageService,
-    private scroller: ViewportScroller
+    private scroller: ViewportScroller,
+    route: ActivatedRoute
   ) {
     this.vm$ = combineLatest([
       responsibilityService.getBySlug(LODGING),
@@ -80,7 +83,16 @@ export class LodgingComponent {
           bookUrl,
           rulesUrl
         })
-      )
+      ),
+      tap(() => {
+        if (!this.scrolled) {
+          this.scrolled = true;
+          const fragment = route.snapshot.fragment;
+          if (fragment) {
+            setTimeout(() => this.scrollTo(fragment), 1);
+          }
+        }
+      })
     );
   }
 
