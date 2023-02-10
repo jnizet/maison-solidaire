@@ -36,6 +36,7 @@ export const PHONES: ResponsibilitySlug = 'phones';
 export const TRANSPORT: ResponsibilitySlug = 'transport';
 export const FOOD: ResponsibilitySlug = 'food';
 export const CLOTHES: ResponsibilitySlug = 'clothes';
+export const HEALTH: ResponsibilitySlug = 'health';
 export const COORDINATION: ResponsibilitySlug = 'coordination';
 export const COUNCIL: ResponsibilitySlug = 'council';
 
