@@ -106,6 +106,10 @@ export class ContactsComponent {
     return contact.id;
   }
 
+  clearSearch() {
+    this.searchControl.reset();
+  }
+
   private isEmpty(contact: Contact) {
     return !(contact.email || contact.phone || contact.mobile || contact.whatsapp);
   }

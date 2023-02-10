@@ -22,6 +22,7 @@
           id="search"
           placeholder="Rechercher un contact"
           type="search"
+          (keydown.escape)="clearSearch()"
         />
       </div>
       <div *ngFor="let contact of vm.contacts; trackBy: trackById" class="card card-primary mb-2">
