@@ -46,7 +46,7 @@
           </p>
           <ms-responsibility [responsibility]="vm.lodging"></ms-responsibility>
 
-          <h3 class="fs-5">Tu veux voir Valentin&nbsp;?</h3>
+          <h3 class="fs-5">Tu veux voir le coordinateur&nbsp;?</h3>
           <p>
             La Maison Solidaire n'est pas seulement son lieu de travail&nbsp;: c'est aussi son lieu
             de vie et celui des jeunes qu'il héberge. Afin de leur permettre d'avoir une vie, merci
@@ -63,18 +63,20 @@
 
           <h3 class="fs-5">Colis alimentaires et produits d'hygiène</h3>
           <p>
-            Pour obtenir leur colis alimentaire hebdomadaire et leurs produits d'hygiène, les jeunes
-            doivent se rendre à la Maison Solidaire, chaque mercredi, entre 16h00 et 18h30.
+            Pour obtenir leur colis alimentaire hebdomadaire et leurs produits d'hygiène et
+            d'entretien mensuels, les jeunes doivent se rendre à la Maison Solidaire, chaque
+            mercredi, entre 16h00 et 18h30.
             <br />
-            En cas de problème, ils doivent contacter l'un des responsables, idéalement la veille au
-            plus tard&nbsp;:
+            En cas de problème ou d'impossibilité, ils doivent prévenir sur le groupe Whatsapp
+            <em>Tribu solidaire</em> ou contacter l'un des responsables, idéalement la veille avant
+            22h00&nbsp;:
           </p>
           <ms-responsibility [responsibility]="vm.food"></ms-responsibility>
 
           <h3 class="fs-5">Vêtements</h3>
           <p>
             S'ils ont besoin de vêtements, les jeunes peuvent se rendre à la Maison Solidaire les
-            mercredis entre 16h00 et 18h30.
+            mercredis entre 16h00 et 18h30, ou les vendredis entre 16h00 et 18h00.
             <br />
             Les responsables du vestiaires à contacter sont&nbsp;:
           </p>
@@ -83,9 +85,11 @@
           <h3 class="fs-5">Recharge des cartes de téléphone</h3>
           <p>
             Pour recharger leur carte de téléphone, les jeunes doivent se rendre à la Maison
-            Solidaire, les mercredis entre 16h00 et 18h30.
+            Solidaire, les derniers mercredis du mois entre 16h00 et 18h30.
             <br />
-            En cas de problème, ils peuvent contacter l'un des responsables&nbsp;:
+            En cas de problème ou d'impossibilité, ils doivent prévenir sur le groupe Whatsapp
+            <em>Tribu solidaire</em> ou contacter l'un des responsables, idéalement la veille avant
+            22h00&nbsp;:
           </p>
           <ms-responsibility [responsibility]="vm.phones"></ms-responsibility>
 
@@ -111,21 +115,32 @@
           <ms-responsibility [responsibility]="vm.french"></ms-responsibility>
 
           <p>
-            En outre, sauf contre-indication de Valentin, des cours de français sont aussi assurés
-            pour les jeunes non scolarisés du lundi au vendredi, de 9h00 à 11h00 à la Maison
-            Solidaire.
+            En outre, dans la mesure du possible, des cours de français sont aussi assurés pour les
+            jeunes non scolarisés du lundi au vendredi, de 9h00 à 11h00 à la Maison Solidaire.
             <br />
             Contacte le coordinateur pour toute question à se sujet&nbsp;:
           </p>
           <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
 
-          <h3 class="fs-5">Demandes concernant les papiers</h3>
+          <h3 class="fs-5">
+            Demandes concernant la situation administrative, juridique ou scolaire
+          </h3>
           <p>
             Si le jeune veut poser des questions relatives à ses papiers au coordinateur, il doit
             prendre rendez-vous au préalable avec lui en envoyant un message par Whatsapp ou
             SMS&nbsp;:
           </p>
           <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+
+          <h3 class="fs-5">Questions médicales</h3>
+          <p>
+            Pour toute question médicale, tu (ou le jeune que tu héberges) peux contacter l'un des
+            personnes suivantes. Jacques est médecin et peut être contacté pour toute question. Aude
+            est infirmière et peut être contactée pour des questions plus pratiques (bobologie,
+            conseils). Amandine est infirmière psy et peut être contactée pour des problèmes
+            psychologiques, relationnels, etc.
+          </p>
+          <ms-responsibility [responsibility]="vm.health"></ms-responsibility>
         </div>
       </div>
       <div class="card card-primary mb-2" id="communicate">
@@ -138,12 +153,18 @@
           <p>
             Pour cela, deux canaux de communication existent&nbsp;: la <em>mailing list</em>:
             <a href="mailto:hebergementms42@googlegroups.com">hebergementms42@googlegroups.com</a>
-            et le groupe Whatsapp <em>HebergeursMaisonSolidaire</em>.
+            (il suffit d'envoyer un mail à cette adresse pour que tous les inscrits le reçoivent et
+            puisse y répondre) et le groupe Whatsapp <em>HebergeursMaisonSolidaire</em>.
             <br />
             Contacte un responsable de l'hébergement pour t'y inscrire si ce n'est pas déjà
             fait&nbsp;:
           </p>
           <ms-responsibility [responsibility]="vm.lodging"></ms-responsibility>
+          <p>
+            Pour une demande plus personnelle, vous pouvez envoyer un mail à l'adresse
+            <a href="hebergementms42@gmail.com">hebergementms42@gmail.com</a>. Seuls l'un des
+            responsables de l'hébergement recevra le message.
+          </p>
         </div>
       </div>
       <div class="card card-primary mb-2" id="resources">

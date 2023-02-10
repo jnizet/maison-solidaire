@@ -4,6 +4,7 @@ import {
   COORDINATION,
   FOOD,
   FRENCH,
+  HEALTH,
   LODGING,
   PHONES,
   Responsibility,
@@ -27,6 +28,7 @@ interface ViewModel {
   food: Responsibility;
   french: Responsibility;
   clothes: Responsibility;
+  health: Responsibility;
 
   bookUrl: string;
   rulesUrl: string;
@@ -68,11 +70,12 @@ export class LodgingComponent {
       responsibilityService.getBySlug(FRENCH),
       responsibilityService.getBySlug(COORDINATION),
       responsibilityService.getBySlug(CLOTHES),
+      responsibilityService.getBySlug(HEALTH),
       storageService.downloadUrl('livret-hebergeur.pdf'),
       storageService.downloadUrl('reglement.pdf')
     ]).pipe(
       map(
-        ([lodging, phones, transport, food, french, coordination, clothes, bookUrl, rulesUrl]) => ({
+        ([
           lodging,
           phones,
           transport,
@@ -80,6 +83,18 @@ export class LodgingComponent {
           french,
           coordination,
           clothes,
+          health,
+          bookUrl,
+          rulesUrl
+        ]) => ({
+          lodging,
+          phones,
+          transport,
+          food,
+          french,
+          coordination,
+          clothes,
+          health,
           bookUrl,
           rulesUrl
         })
