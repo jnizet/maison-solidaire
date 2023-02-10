@@ -1,6 +1,14 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Contact, ContactService } from '../../shared/contact.service';
-import { combineLatest, first, map, Observable, switchMap } from 'rxjs';
+import {
+  combineLatest,
+  distinctUntilChanged,
+  first,
+  map,
+  Observable,
+  startWith,
+  switchMap
+} from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { IconDirective } from '../../icon/icon.directive';
 import * as icons from '../../icon/icons';
@@ -12,6 +20,7 @@ import { ResponsibilityService } from '../../shared/responsibility.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 interface ViewModel {
   contacts: Array<Contact>;
@@ -29,7 +38,8 @@ interface ViewModel {
     LoadingSpinnerComponent,
     NgIf,
     AsyncPipe,
-    NgFor
+    NgFor,
+    ReactiveFormsModule
   ],
   templateUrl: './contacts.component.html',
   styleUrls: ['./contacts.component.scss'],
@@ -38,6 +48,8 @@ interface ViewModel {
 export class ContactsComponent {
   vm$: Observable<ViewModel>;
 
+  searchControl = this.fb.control('');
+
   icons = icons;
 
   constructor(
@@ -45,13 +57,27 @@ export class ContactsComponent {
     private currentUserService: CurrentUserService,
     private responsibilityService: ResponsibilityService,
     private confirmService: ConfirmService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private fb: NonNullableFormBuilder
   ) {
-    this.vm$ = combineLatest([contactService.list(), currentUserService.getCurrentUser()]).pipe(
-      map(([contacts, user]) => ({
-        contacts: user?.admin ? contacts : contacts.filter(c => !this.isEmpty(c)),
-        user
-      }))
+    const filter$ = this.searchControl.valueChanges.pipe(
+      startWith(this.searchControl.value),
+      map(f => f.trim()),
+      distinctUntilChanged()
+    );
+    this.vm$ = combineLatest([
+      contactService.list(),
+      currentUserService.getCurrentUser(),
+      filter$
+    ]).pipe(
+      map(([contacts, user, filter]) => {
+        const displayableContacts = user?.admin ? contacts : contacts.filter(c => !this.isEmpty(c));
+        const filteredContacts = this.filterContacts(displayableContacts, filter);
+        return {
+          contacts: filteredContacts,
+          user
+        };
+      })
     );
   }
 
@@ -82,5 +108,12 @@ export class ContactsComponent {
 
   private isEmpty(contact: Contact) {
     return !(contact.email || contact.phone || contact.mobile || contact.whatsapp);
+  }
+
+  private filterContacts(displayableContacts: Array<Contact>, filter: string): Array<Contact> {
+    const lowercaseFilter = filter.toLowerCase();
+    return displayableContacts.filter(contact =>
+      contact.name.toLowerCase().includes(lowercaseFilter)
+    );
   }
 }
