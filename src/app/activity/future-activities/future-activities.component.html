@@ -18,11 +18,11 @@
       <div *ngFor="let activity of vm.activities; trackBy: trackById" class="mb-2">
         <div class="card card-primary">
           <div class="card-body">
-            <div class="row">
-              <div class="col">
+            <div class="row mb-2">
+              <div class="col-sm">
                 <h2 class="fs-5">{{ activity.title }}</h2>
               </div>
-              <div class="col-auto fw-semibold">
+              <div class="col-sm-auto fw-semibold text-end">
                 <ms-icon [icon]="icons.activityDate" class="me-1"></ms-icon>
                 {{ activity.date | date : 'mediumDate' }}
               </div>
