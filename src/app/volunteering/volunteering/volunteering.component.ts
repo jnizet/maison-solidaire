@@ -14,11 +14,15 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { RouterLink } from '@angular/router';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
+import { StorageService } from '../../shared/storage.service';
+import * as icons from '../../icon/icons';
+import { IconDirective } from '../../icon/icon.directive';
 
 interface ViewModel {
   coordination: Responsibility;
   weeklySchedules: Array<WeeklySchedule>;
   user: CurrentUser | null;
+  conventionUrl: string;
 }
 
 @Component({
@@ -33,25 +37,35 @@ interface ViewModel {
     NgFor,
     RouterLink,
     PageTitleDirective,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    IconDirective
   ],
   templateUrl: './volunteering.component.html',
   styleUrls: ['./volunteering.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VolunteeringComponent {
-  vm$: Observable<ViewModel>;
+  readonly vm$: Observable<ViewModel>;
+
+  readonly icons = icons;
 
   constructor(
     responsibilityService: ResponsibilityService,
     weeklyScheduleService: WeeklyScheduleService,
-    currentUserService: CurrentUserService
+    currentUserService: CurrentUserService,
+    storageService: StorageService
   ) {
     const coordination$ = responsibilityService.getBySlug(COORDINATION);
     const weeklySchedules$ = weeklyScheduleService.listFutureSchedules();
     const currentUser$ = currentUserService.getCurrentUser();
-    this.vm$ = combineLatest([coordination$, weeklySchedules$, currentUser$]).pipe(
-      map(([coordination, weeklySchedules, user]) => ({ coordination, weeklySchedules, user }))
+    const conventionUrl$ = storageService.downloadUrl('charte-benevoles.pdf');
+    this.vm$ = combineLatest([coordination$, weeklySchedules$, currentUser$, conventionUrl$]).pipe(
+      map(([coordination, weeklySchedules, user, conventionUrl]) => ({
+        coordination,
+        weeklySchedules,
+        user,
+        conventionUrl
+      }))
     );
   }
 }

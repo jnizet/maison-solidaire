@@ -2,6 +2,16 @@
 <h1>Bénévolat</h1>
 
 <ng-container *ngIf="vm$ | async as vm; else loading">
+  <div class="alert alert-dark">
+    <div class="d-flex gap-3">
+      <ms-icon [icon]="icons.info" class="fs-4"></ms-icon>
+      <div class="flex-grow-1">
+        Les bénévoles de la Maison Solidaire ont des droits et des devoirs. Ils sont définis dans
+        <a [href]="vm.conventionUrl">la charte des bénévoles</a>.
+      </div>
+    </div>
+  </div>
+
   <p>
     Vous voulez donner un coup de main&nbsp;? Emmener un jeune à un rendez-vous à l'hôpital, chez un
     médecin ou un avocat&nbsp;? Consultez le programme de la semaine, normalement posté ici chaque
