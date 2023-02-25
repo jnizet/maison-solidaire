@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import {
   COORDINATION,
   COUNCIL,
@@ -27,14 +27,9 @@ export class AssociationComponent {
   vm$: Observable<ViewModel>;
 
   constructor(responsibilityService: ResponsibilityService) {
-    this.vm$ = combineLatest([
-      responsibilityService.getBySlug(COORDINATION),
-      responsibilityService.getBySlug(COUNCIL)
-    ]).pipe(
-      map(([coordination, council]) => ({
-        coordination,
-        council
-      }))
-    );
+    this.vm$ = combineLatest({
+      coordination: responsibilityService.getBySlug(COORDINATION),
+      council: responsibilityService.getBySlug(COUNCIL)
+    });
   }
 }

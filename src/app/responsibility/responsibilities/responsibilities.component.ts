@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Responsibility, ResponsibilityService } from '../../shared/responsibility.service';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { Contact } from '../../shared/contact.service';
@@ -44,10 +44,10 @@ export class ResponsibilitiesComponent {
     responsibilityService: ResponsibilityService,
     currentUserService: CurrentUserService
   ) {
-    this.vm$ = combineLatest([
-      responsibilityService.list(),
-      currentUserService.getCurrentUser()
-    ]).pipe(map(([responsibilities, user]) => ({ responsibilities, user })));
+    this.vm$ = combineLatest({
+      responsibilities: responsibilityService.list(),
+      user: currentUserService.getCurrentUser()
+    });
   }
 
   trackById(index: number, object: Responsibility | Contact) {
