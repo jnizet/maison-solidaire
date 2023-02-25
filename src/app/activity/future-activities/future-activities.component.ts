@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Activity, ActivityService } from '../activity.service';
-import { combineLatest, map, Observable, switchMap } from 'rxjs';
+import { combineLatest, Observable, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { IconDirective } from '../../icon/icon.directive';
@@ -46,10 +46,10 @@ export class FutureActivitiesComponent {
     private confirmService: ConfirmService,
     private toastService: ToastService
   ) {
-    this.vm$ = combineLatest([
-      activityService.listFuture(),
-      currentUserService.getCurrentUser()
-    ]).pipe(map(([activities, user]) => ({ activities, user })));
+    this.vm$ = combineLatest({
+      activities: activityService.listFuture(),
+      user: currentUserService.getCurrentUser()
+    });
   }
 
   deleteActivity(activity: Activity) {

@@ -7,7 +7,7 @@ import {
   Responsibility,
   ResponsibilityService
 } from '../../shared/responsibility.service';
-import { combineLatest, map, Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { WeeklySchedule, WeeklyScheduleService } from '../weekly-schedule.service';
 import { WeekPipe } from '../week.pipe';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
@@ -55,17 +55,11 @@ export class VolunteeringComponent {
     currentUserService: CurrentUserService,
     storageService: StorageService
   ) {
-    const coordination$ = responsibilityService.getBySlug(COORDINATION);
-    const weeklySchedules$ = weeklyScheduleService.listFutureSchedules();
-    const currentUser$ = currentUserService.getCurrentUser();
-    const conventionUrl$ = storageService.downloadUrl('charte-benevoles.pdf');
-    this.vm$ = combineLatest([coordination$, weeklySchedules$, currentUser$, conventionUrl$]).pipe(
-      map(([coordination, weeklySchedules, user, conventionUrl]) => ({
-        coordination,
-        weeklySchedules,
-        user,
-        conventionUrl
-      }))
-    );
+    this.vm$ = combineLatest({
+      coordination: responsibilityService.getBySlug(COORDINATION),
+      weeklySchedules: weeklyScheduleService.listFutureSchedules(),
+      user: currentUserService.getCurrentUser(),
+      conventionUrl: storageService.downloadUrl('charte-benevoles.pdf')
+    });
   }
 }

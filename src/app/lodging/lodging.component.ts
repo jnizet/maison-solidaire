@@ -11,7 +11,7 @@ import {
   ResponsibilityService,
   TRANSPORT
 } from '../shared/responsibility.service';
-import { combineLatest, map, Observable, tap } from 'rxjs';
+import { combineLatest, Observable, tap } from 'rxjs';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
@@ -62,49 +62,24 @@ export class LodgingComponent {
     private scroller: ViewportScroller,
     route: ActivatedRoute
   ) {
-    this.vm$ = combineLatest([
-      responsibilityService.getBySlug(LODGING),
-      responsibilityService.getBySlug(PHONES),
-      responsibilityService.getBySlug(TRANSPORT),
-      responsibilityService.getBySlug(FOOD),
-      responsibilityService.getBySlug(FRENCH),
-      responsibilityService.getBySlug(COORDINATION),
-      responsibilityService.getBySlug(CLOTHES),
-      responsibilityService.getBySlug(HEALTH),
-      storageService.downloadUrl('livret-hebergeur.pdf'),
-      storageService.downloadUrl('reglement.pdf')
-    ]).pipe(
-      map(
-        ([
-          lodging,
-          phones,
-          transport,
-          food,
-          french,
-          coordination,
-          clothes,
-          health,
-          bookUrl,
-          rulesUrl
-        ]) => ({
-          lodging,
-          phones,
-          transport,
-          food,
-          french,
-          coordination,
-          clothes,
-          health,
-          bookUrl,
-          rulesUrl
-        })
-      ),
+    this.vm$ = combineLatest({
+      lodging: responsibilityService.getBySlug(LODGING),
+      phones: responsibilityService.getBySlug(PHONES),
+      transport: responsibilityService.getBySlug(TRANSPORT),
+      food: responsibilityService.getBySlug(FOOD),
+      french: responsibilityService.getBySlug(FRENCH),
+      coordination: responsibilityService.getBySlug(COORDINATION),
+      clothes: responsibilityService.getBySlug(CLOTHES),
+      health: responsibilityService.getBySlug(HEALTH),
+      bookUrl: storageService.downloadUrl('livret-hebergeur.pdf'),
+      rulesUrl: storageService.downloadUrl('reglement.pdf')
+    }).pipe(
       tap(() => {
         if (!this.scrolled) {
           this.scrolled = true;
           const fragment = route.snapshot.fragment;
           if (fragment) {
-            setTimeout(() => this.scrollTo(fragment), 1);
+            setTimeout(() => this.scrollTo(fragment));
           }
         }
       })
