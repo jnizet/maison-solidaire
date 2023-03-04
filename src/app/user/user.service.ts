@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { defer, map, Observable } from 'rxjs';
+import { defer, from, map, Observable } from 'rxjs';
 import { Functions, httpsCallable } from '@angular/fire/functions';
+import * as icons from '../icon/icons';
+import { ToastService } from '../toast/toast.service';
 
 export interface AdministeredUser {
   uid: string;
@@ -16,7 +18,7 @@ export type AdministeredUserCommand = Omit<AdministeredUser, 'uid'>;
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private functions: Functions) {}
+  constructor(private functions: Functions, private toastService: ToastService) {}
 
   listUsers(): Observable<Array<AdministeredUser>> {
     const listUsers = httpsCallable<void, Array<AdministeredUser>>(this.functions, 'listUsers');
@@ -43,5 +45,29 @@ export class UserService {
   update(uid: string, command: AdministeredUserCommand): Observable<void> {
     const updateUser = httpsCallable<AdministeredUser, void>(this.functions, 'updateUser');
     return defer(() => updateUser({ ...command, uid })).pipe(map(r => r.data));
+  }
+
+  copyEmail(user: AdministeredUser) {
+    const resetPasswordPath =
+      window.location.origin + '/reset-password?email=' + encodeURIComponent(user.email);
+    const homePath = window.location.origin;
+    const loginPath = window.location.origin + '/login';
+    const email = `Bonjour ${user.displayName}.
+
+Pour pouvoir accéder à l'application "Maison Solidaire",
+il te faudra choisir un mot de passe en te rendant à l'adresse suivante\u00a0:
+${resetPasswordPath} ou, si ton adresse email est celle d'un compte Google,
+t'identifier directement via Google à l'adresse suivante\u00a0:
+${loginPath}.
+
+Une fois le mot de passe choisi ou l'identification effectuée, tu pourras accéder
+à l'application en te rendant à l'adresse suivante\u00a0:
+${homePath}.`;
+    from(navigator.clipboard.writeText(email)).subscribe(() =>
+      this.toastService.display({
+        icon: icons.copied,
+        message: 'Email copié dans le presse-papier\u00a0!'
+      })
+    );
   }
 }

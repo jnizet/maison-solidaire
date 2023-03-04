@@ -8,18 +8,20 @@
   ></button>
 </div>
 <div class="modal-body">
-  <p>L'utilisateur {{ userName }} a bien été créé.</p>
+  <p>L'utilisateur {{ user.displayName }} a bien été créé.</p>
   <p>
     Pour qu'il ou elle sache comment accéder à l'application, <br />
     <strong class="text-danger">envoie-lui un email</strong>&nbsp;!
   </p>
   <div>
-    Tu peux copier-coller un exemple d'email via le lien
+    Tu peux copier-coller un exemple d'email via ce lien
     <div class="ms-3 text-secondary">
-      <ms-icon [icon]="icons.resetPasswordEmail" class="me-1"></ms-icon>
-      Choix du mot de passe
+      <button type="button" class="btn btn-link btn-sm" (click)="copyEmail(user)">
+        <ms-icon [icon]="icons.resetPasswordEmail" class="me-1"></ms-icon>
+        Choix du mot de passe
+      </button>
     </div>
-    de sa fiche utilisateur.
+    qui est aussi sur sa fiche utilisateur.
   </div>
 </div>
 <div class="modal-footer">
