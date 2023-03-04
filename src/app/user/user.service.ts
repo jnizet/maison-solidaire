@@ -22,11 +22,7 @@ export class UserService {
     const listUsers = httpsCallable<void, Array<AdministeredUser>>(this.functions, 'listUsers');
     return defer(() => listUsers()).pipe(
       map(r =>
-        r.data.sort((a, b) => {
-          const n1 = a.displayName.toLocaleLowerCase();
-          const n2 = b.displayName.toLocaleLowerCase();
-          return n1 < n2 ? -1 : n1 > n2 ? 1 : 0;
-        })
+        r.data.sort((c1, c2) => new Intl.Collator('fr').compare(c1.displayName, c2.displayName))
       )
     );
   }

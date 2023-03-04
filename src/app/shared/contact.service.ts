@@ -36,7 +36,7 @@ export class ContactService {
     this.contacts$ = collectionData<Contact>(
       query(this.contactCollection, orderBy('name', 'asc'))
     ).pipe(
-      map(contacts => contacts.sort((c1, c2) => new Intl.Collator('de').compare(c1.name, c2.name))),
+      map(contacts => contacts.sort((c1, c2) => new Intl.Collator('fr').compare(c1.name, c2.name))),
       shareReplay(1)
     );
   }
