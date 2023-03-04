@@ -93,15 +93,15 @@ export class UserEditionComponent {
       disabled: formValue.disabled!,
       admin: formValue.admin!
     };
-    const result$: Observable<unknown> =
+    const result$: Observable<AdministeredUser | void> =
       vm.mode === 'create'
         ? this.userService.create(command)
         : this.userService.update(vm.editedUser!.uid, command);
-    result$.pipe(this.saving.spinUntilFinalization()).subscribe(() => {
+    result$.pipe(this.saving.spinUntilFinalization()).subscribe(user => {
       this.router.navigate(['/users']);
-      if (vm.mode === 'create') {
+      if (user) {
         const modalRef = this.modalService.open(UserCreatedModalComponent);
-        (modalRef.componentInstance as UserCreatedModalComponent).userName = formValue.displayName!;
+        (modalRef.componentInstance as UserCreatedModalComponent).user = user;
       }
     });
   }

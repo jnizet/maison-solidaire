@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AdministeredUser, UserService } from '../user.service';
-import { combineLatest, distinctUntilChanged, from, map, Observable, startWith } from 'rxjs';
+import { combineLatest, distinctUntilChanged, map, Observable, startWith } from 'rxjs';
 import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
@@ -34,7 +34,7 @@ export class UsersComponent {
 
   constructor(
     private fb: NonNullableFormBuilder,
-    userService: UserService,
+    private userService: UserService,
     private toastService: ToastService
   ) {
     const filter$ = this.searchControl.valueChanges.pipe(
@@ -49,27 +49,7 @@ export class UsersComponent {
   }
 
   copyEmail(user: AdministeredUser) {
-    const resetPasswordPath =
-      window.location.origin + '/reset-password?email=' + encodeURIComponent(user.email);
-    const homePath = window.location.origin;
-    const loginPath = window.location.origin + '/login';
-    const email = `Bonjour ${user.displayName}.
-
-Pour pouvoir accéder à l'application "Maison Solidaire",
-il te faudra choisir un mot de passe en te rendant à l'adresse suivante\u00a0:
-${resetPasswordPath} ou, si ton adresse email est celle d'un compte Google,
-t'identifier directement via Google à l'adresse suivante\u00a0:
-${loginPath}.
-
-Une fois le mot de passe choisi ou l'identification effectuée, tu pourras accéder
-à l'application en te rendant à l'adresse suivante\u00a0:
-${homePath}.`;
-    from(navigator.clipboard.writeText(email)).subscribe(() =>
-      this.toastService.display({
-        icon: this.icons.copied,
-        message: 'Email copié dans le presse-papier\u00a0!'
-      })
-    );
+    return this.userService.copyEmail(user);
   }
 
   trackByUid(index: number, user: AdministeredUser) {

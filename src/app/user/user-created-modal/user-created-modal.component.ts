@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import * as icons from '../../icon/icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { IconDirective } from '../../icon/icon.directive';
+import { AdministeredUser, UserService } from '../user.service';
 
 @Component({
   selector: 'ms-user-created-modal',
@@ -14,7 +15,11 @@ import { IconDirective } from '../../icon/icon.directive';
 export class UserCreatedModalComponent {
   icons = icons;
 
-  userName?: string;
+  user!: AdministeredUser;
 
-  constructor(public activeModal: NgbActiveModal) {}
+  constructor(public activeModal: NgbActiveModal, private userService: UserService) {}
+
+  copyEmail(user: AdministeredUser) {
+    return this.userService.copyEmail(user);
+  }
 }
