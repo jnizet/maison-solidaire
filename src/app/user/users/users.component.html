@@ -14,6 +14,18 @@
     </div>
 
     <ng-container *ngIf="users$ | async as users; else loading">
+      <div class="mb-3">
+        <label for="search" class="visually-hidden">Rechercher</label>
+        <input
+          [formControl]="searchControl"
+          class="form-control"
+          id="search"
+          placeholder="Rechercher un utilisateur"
+          type="search"
+          (keydown.escape)="clearSearch()"
+        />
+      </div>
+
       <div *ngFor="let user of users; trackBy: trackByUid" class="card card-primary mb-2">
         <div class="card-body">
           <div class="row">
