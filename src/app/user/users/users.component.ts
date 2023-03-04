@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AdministeredUser, UserService } from '../user.service';
-import { from, Observable } from 'rxjs';
+import { combineLatest, distinctUntilChanged, from, map, Observable, startWith } from 'rxjs';
 import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
@@ -8,6 +8,7 @@ import { IconDirective } from '../../icon/icon.directive';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ToastService } from '../../toast/toast.service';
+import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'ms-users',
@@ -22,15 +23,29 @@ import { ToastService } from '../../toast/toast.service';
     RouterLink,
     PageTitleDirective,
     LoadingSpinnerComponent,
-    IconDirective
+    IconDirective,
+    ReactiveFormsModule
   ]
 })
 export class UsersComponent {
   users$: Observable<Array<AdministeredUser>>;
+  searchControl = this.fb.control('');
   icons = icons;
 
-  constructor(userService: UserService, private toastService: ToastService) {
-    this.users$ = userService.listUsers();
+  constructor(
+    private fb: NonNullableFormBuilder,
+    userService: UserService,
+    private toastService: ToastService
+  ) {
+    const filter$ = this.searchControl.valueChanges.pipe(
+      startWith(this.searchControl.value),
+      map(f => f.trim()),
+      distinctUntilChanged()
+    );
+
+    this.users$ = combineLatest([userService.listUsers(), filter$]).pipe(
+      map(([users, filter]) => this.filterUsers(users, filter))
+    );
   }
 
   copyEmail(user: AdministeredUser) {
@@ -59,5 +74,14 @@ ${homePath}.`;
 
   trackByUid(index: number, user: AdministeredUser) {
     return user.uid;
+  }
+
+  clearSearch() {
+    this.searchControl.reset();
+  }
+
+  private filterUsers(users: Array<AdministeredUser>, filter: string): Array<AdministeredUser> {
+    const lowercaseFilter = filter.toLowerCase();
+    return users.filter(user => user.displayName.toLowerCase().includes(lowercaseFilter));
   }
 }
