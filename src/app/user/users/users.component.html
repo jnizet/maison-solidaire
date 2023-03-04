@@ -32,14 +32,8 @@
             <div class="col">
               <h2 class="fs-5" [class.disabled]="user.disabled">{{ user.displayName }}</h2>
               <div class="text-muted">{{ user.email }}</div>
-              <div>
-                <button type="button" class="btn btn-link btn-sm" (click)="copyEmail(user)">
-                  <ms-icon [icon]="icons.resetPasswordEmail" class="me-1"></ms-icon>
-                  Choix du mot de passe
-                </button>
-              </div>
             </div>
-            <div class="col">
+            <div class="col-auto">
               <div *ngIf="user.admin">
                 <ms-icon [icon]="icons.administratorUser" class="me-1"></ms-icon>
                 Administrateur
@@ -48,6 +42,28 @@
                 <ms-icon [icon]="icons.disabledUser" class="me-1"></ms-icon>
                 Utilisateur désactivé
               </div>
+            </div>
+          </div>
+          <div class="mt-1">
+            <div>
+              <button
+                type="button"
+                class="btn btn-link btn-sm text-start"
+                (click)="copyEmail(user)"
+              >
+                <ms-icon [icon]="icons.resetPasswordEmail" class="me-1"></ms-icon>
+                Choix du mot de passe
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-link btn-sm text-start"
+                (click)="generateResetPasswordLink(user)"
+              >
+                <ms-icon [icon]="icons.resetPasswordLink" class="me-1"></ms-icon>
+                Demander un lien de réinitialisation de mot de passe
+              </button>
             </div>
           </div>
         </div>

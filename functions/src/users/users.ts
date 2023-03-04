@@ -2,6 +2,7 @@ import * as functions from 'firebase-functions';
 import * as crypto from 'crypto';
 import { getAuth, UserRecord } from 'firebase-admin/auth';
 import { CallableContext } from 'firebase-functions/lib/common/providers/https';
+import { ActionCodeSettings } from 'firebase-admin/lib/auth/action-code-settings-builder';
 
 interface User {
   uid: string;
@@ -12,6 +13,10 @@ interface User {
 }
 
 type UserCommand = Omit<User, 'uid'>;
+
+interface ResetPasswordLinkInfo {
+  resetPasswordLink: string;
+}
 
 function userRecordToUser(record: UserRecord): User {
   return {
@@ -103,3 +108,21 @@ export const updateUser = functions.https.onCall(async (command: User, context):
     displayName: command.displayName
   });
 });
+
+export const generateResetPasswordLink = functions.https.onCall(
+  async (uid: string, context): Promise<ResetPasswordLinkInfo> => {
+    checkAdmin(context);
+    const auth = getAuth();
+    const userRecord = await auth.getUser(uid);
+    const actionCodeSettings: ActionCodeSettings = {
+      url: 'https://maison-solidaire.web.app/reset-password'
+    };
+    const resetPasswordLink = await auth.generatePasswordResetLink(
+      userRecord.email!,
+      actionCodeSettings
+    );
+    return {
+      resetPasswordLink
+    };
+  }
+);

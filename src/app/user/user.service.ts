@@ -14,6 +14,10 @@ export interface AdministeredUser {
 
 export type AdministeredUserCommand = Omit<AdministeredUser, 'uid'>;
 
+export interface ResetPasswordLinkInfo {
+  resetPasswordLink: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -66,8 +70,35 @@ ${homePath}.`;
     from(navigator.clipboard.writeText(email)).subscribe(() =>
       this.toastService.display({
         icon: icons.copied,
-        message: 'Email copié dans le presse-papier\u00a0!'
+        message: 'Message copié dans le presse-papier\u00a0!'
       })
     );
+  }
+
+  copyResetPasswordEmail(user: AdministeredUser, resetPasswordLinkInfo: ResetPasswordLinkInfo) {
+    const homePath = window.location.origin;
+    const email = `Bonjour ${user.displayName}.
+
+Pour pouvoir accéder à l'application "Maison Solidaire",
+il te faudra choisir un mot de passe en te rendant à l'adresse suivante\u00a0:
+${resetPasswordLinkInfo.resetPasswordLink}.
+
+Une fois le mot de passe choisi, tu pourras accéder
+à l'application en te rendant à l'adresse suivante\u00a0:
+${homePath}.`;
+    from(navigator.clipboard.writeText(email)).subscribe(() =>
+      this.toastService.display({
+        icon: icons.copied,
+        message: 'Message copié dans le presse-papier\u00a0!'
+      })
+    );
+  }
+
+  generateResetPasswordLink(uid: string): Observable<ResetPasswordLinkInfo> {
+    const generateResetPasswordLink = httpsCallable<string, ResetPasswordLinkInfo>(
+      this.functions,
+      'generateResetPasswordLink'
+    );
+    return defer(() => generateResetPasswordLink(uid)).pipe(map(r => r.data));
   }
 }

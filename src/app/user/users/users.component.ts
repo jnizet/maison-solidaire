@@ -9,6 +9,8 @@ import { RouterLink } from '@angular/router';
 import { AsyncPipe, NgFor, NgIf } from '@angular/common';
 import { ToastService } from '../../toast/toast.service';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ResetPasswordLinkModalComponent } from '../reset-password-link-modal/reset-password-link-modal.component';
 
 @Component({
   selector: 'ms-users',
@@ -35,7 +37,8 @@ export class UsersComponent {
   constructor(
     private fb: NonNullableFormBuilder,
     private userService: UserService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private ngbModal: NgbModal
   ) {
     const filter$ = this.searchControl.valueChanges.pipe(
       startWith(this.searchControl.value),
@@ -63,5 +66,11 @@ export class UsersComponent {
   private filterUsers(users: Array<AdministeredUser>, filter: string): Array<AdministeredUser> {
     const lowercaseFilter = filter.toLowerCase();
     return users.filter(user => user.displayName.toLowerCase().includes(lowercaseFilter));
+  }
+
+  generateResetPasswordLink(user: AdministeredUser) {
+    const modal = this.ngbModal.open(ResetPasswordLinkModalComponent);
+    const modalComponent: ResetPasswordLinkModalComponent = modal.componentInstance;
+    modalComponent.user = user;
   }
 }
