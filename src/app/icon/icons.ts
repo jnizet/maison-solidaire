@@ -26,6 +26,7 @@ import {
   plusCircle,
   power,
   shieldFill,
+  shieldLock,
   telephone,
   trash as trashIcon,
   whatsapp as whatsappIcon,
@@ -63,6 +64,7 @@ export const myContact = personVcard;
 export const responsibilities = bank;
 export const administration = shieldFill;
 export const resetPasswordEmail = envelope;
+export const resetPasswordLink = shieldLock;
 export const administratorUser = shieldFill;
 export const disabledUser = xOctagonFill;
 export const volunteering = hSquareFill;
