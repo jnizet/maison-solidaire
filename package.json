@@ -38,7 +38,7 @@
     "bootstrap": "5.2.3",
     "bootstrap-icons": "1.10.3",
     "date-fns": "2.29.3",
-    "firebase": "9.17.2",
+    "firebase": "9.18.0",
     "marked": "4.2.12",
     "ngx-valdemort": "9.0.0",
     "rxjs": "7.8.0",
@@ -78,6 +78,6 @@
     "wait-on": "7.0.1"
   },
   "resolutions": {
-    "firebase": "9.17.2"
+    "firebase": "9.18.0"
   }
 }
