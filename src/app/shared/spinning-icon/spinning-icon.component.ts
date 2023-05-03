@@ -12,7 +12,7 @@ import { AsyncPipe, NgIf } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SpinningIconComponent {
-  @Input() icon!: string;
-  @Input() spinner!: Spinner;
-  @Input() message!: string;
+  @Input({ required: true }) icon!: string;
+  @Input({ required: true }) spinner!: Spinner;
+  @Input({ required: true }) message!: string;
 }
