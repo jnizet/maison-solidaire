@@ -17,5 +17,5 @@ import * as icons from '../../icon/icons';
 export class ResponsibilityComponent {
   readonly icons = icons;
 
-  @Input() responsibility!: Responsibility;
+  @Input({ required: true }) responsibility!: Responsibility;
 }

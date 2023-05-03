@@ -6,7 +6,7 @@ import { MarkdownService } from './markdown.service';
   standalone: true
 })
 export class MarkdownDirective implements OnChanges {
-  @Input('msMarkdown') markdown!: string;
+  @Input({ alias: 'msMarkdown', required: true }) markdown!: string;
 
   constructor(private element: ElementRef, private markdownService: MarkdownService) {}
 

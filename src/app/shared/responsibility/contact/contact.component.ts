@@ -22,7 +22,7 @@ interface Channel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactComponent implements OnChanges {
-  @Input() contact!: Contact;
+  @Input({ required: true }) contact!: Contact;
 
   channels: Array<Channel> = [];
 
