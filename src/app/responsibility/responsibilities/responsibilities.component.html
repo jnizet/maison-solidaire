@@ -1,4 +1,4 @@
-<ms-page-title title="Responsabilités"></ms-page-title>
+<ms-page-title title="Responsabilités" />
 <div class="row justify-content-md-center">
   <div class="col col-md-8 col-lg-6">
     <ng-container *ngIf="vm$ | async as vm; else loading">
@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col">
               <h2 class="fs-5">{{ responsibility.name }}</h2>
-              <ms-responsibility [responsibility]="responsibility"></ms-responsibility>
+              <ms-responsibility [responsibility]="responsibility" />
             </div>
           </div>
         </div>
@@ -21,14 +21,14 @@
             class="btn btn-outline-secondary btn-sm"
             [routerLink]="['/responsibilities', responsibility.slug, 'edit']"
           >
-            <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
+            <ms-icon [icon]="icons.edit" class="me-1" />
             Modifier
           </a>
         </div>
       </div>
     </ng-container>
     <ng-template #loading>
-      <ms-loading-spinner></ms-loading-spinner>
+      <ms-loading-spinner />
     </ng-template>
   </div>
 </div>

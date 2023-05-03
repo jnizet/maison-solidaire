@@ -3,7 +3,7 @@
     <div class="col col-md-10 col-lg-8">
       <ms-page-title
         [title]="vm.mode === 'edit' ? vm.editedActivity!.title : 'Nouvelle activité'"
-      ></ms-page-title>
+      />
       <h1 *ngIf="vm.mode === 'create'">Création d'une nouvelle activité</h1>
       <h1 *ngIf="vm.mode === 'edit'">
         Modification de l'activité <em>{{ vm.editedActivity!.title }}</em>
@@ -15,14 +15,14 @@
             <div class="mb-3">
               <label for="title" class="form-label">Titre</label>
               <input formControlName="title" class="form-control" id="title" />
-              <val-errors controlName="title" label="Le titre"></val-errors>
+              <val-errors controlName="title" label="Le titre" />
             </div>
           </div>
           <div class="col">
             <div class="mb-3">
               <label for="date" class="form-label">Date</label>
               <input formControlName="date" type="date" class="form-control" id="date" />
-              <val-errors controlName="date" label="La date"></val-errors>
+              <val-errors controlName="date" label="La date" />
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
           </ul>
           <div [ngbNavOutlet]="descriptionNav" class="mt-2"></div>
 
-          <val-errors controlName="description" label="La description"></val-errors>
+          <val-errors controlName="description" label="La description" />
         </div>
         <div class="text-end">
           <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
@@ -73,11 +73,11 @@
               [icon]="icons.save"
               [spinner]="saving"
               message="enregistrement en cours..."
-            ></ms-spinning-icon>
+            />
             Enregistrer
           </button>
           <a class="btn btn-danger" routerLink="/activities">
-            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            <ms-icon class="me-1" [icon]="icons.cancel" />
             Annuler
           </a>
         </div>
@@ -86,5 +86,5 @@
   </div>
 </ng-container>
 <ng-template #loading>
-  <ms-loading-spinner></ms-loading-spinner>
+  <ms-loading-spinner />
 </ng-template>

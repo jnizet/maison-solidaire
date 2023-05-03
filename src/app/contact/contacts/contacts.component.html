@@ -1,4 +1,4 @@
-<ms-page-title title="Contacts"></ms-page-title>
+<ms-page-title title="Contacts" />
 <div class="row justify-content-md-center">
   <div class="col col-md-8 col-lg-6">
     <ng-container *ngIf="vm$ | async as vm; else loading">
@@ -8,7 +8,7 @@
         </div>
         <div class="col-auto" *ngIf="vm.user?.admin">
           <a routerLink="new" class="btn btn-outline-secondary">
-            <ms-icon class="me-1" [icon]="icons.add"></ms-icon>
+            <ms-icon class="me-1" [icon]="icons.add" />
             Créer un contact
           </a>
         </div>
@@ -31,7 +31,7 @@
             <div class="col">
               <h2 class="fs-5">{{ contact.name }}</h2>
               <div class="col col-xl-8">
-                <ms-contact [contact]="contact"></ms-contact>
+                <ms-contact [contact]="contact" />
               </div>
             </div>
           </div>
@@ -41,7 +41,7 @@
             class="btn btn-outline-secondary btn-sm me-2"
             [routerLink]="['/contacts', contact.id, 'edit']"
           >
-            <ms-icon [icon]="icons.edit" class="me-1"></ms-icon>
+            <ms-icon [icon]="icons.edit" class="me-1" />
             Modifier
           </a>
           <button
@@ -49,14 +49,14 @@
             class="btn btn-outline-danger btn-sm"
             (click)="deleteContact(contact)"
           >
-            <ms-icon [icon]="icons.trash"></ms-icon>
+            <ms-icon [icon]="icons.trash" />
             Supprimer
           </button>
         </div>
       </div>
     </ng-container>
     <ng-template #loading>
-      <ms-loading-spinner></ms-loading-spinner>
+      <ms-loading-spinner />
     </ng-template>
   </div>
 </div>

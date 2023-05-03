@@ -3,7 +3,7 @@
     <div class="col col-md-8 col-lg-6">
       <ms-page-title
         [title]="vm.mode === 'edit' ? vm.editedUser!.displayName : 'Nouvel utilisateur'"
-      ></ms-page-title>
+      />
       <h1 *ngIf="vm.mode === 'create'">Création d'un nouvel utilisateur</h1>
       <h1 *ngIf="vm.mode === 'edit'">
         Modification de l'utilisateur <em>{{ vm.editedUser!.displayName }}</em>
@@ -16,7 +16,7 @@
           <div class="form-text">
             Ce nom est celui affiché dans l'application pour cet utilisateur
           </div>
-          <val-errors controlName="displayName" label="Le nom"></val-errors>
+          <val-errors controlName="displayName" label="Le nom" />
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Adresse email</label>
@@ -25,7 +25,7 @@
             L'utilisateur utilisera cette adresse pour se connecter, et recevra à cette adresse
             l'email de choix de mot de passe
           </div>
-          <val-errors controlName="email" label="L'adresse email"></val-errors>
+          <val-errors controlName="email" label="L'adresse email" />
         </div>
         <div class="mb-3">
           <div class="form-check form-switch">
@@ -62,11 +62,11 @@
               [icon]="icons.save"
               [spinner]="saving"
               message="enregistrement en cours..."
-            ></ms-spinning-icon>
+            />
             Enregistrer
           </button>
           <a class="btn btn-danger" routerLink="/users">
-            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            <ms-icon class="me-1" [icon]="icons.cancel" />
             Annuler
           </a>
         </div>
@@ -75,5 +75,5 @@
   </div>
 </ng-container>
 <ng-template #loading>
-  <ms-loading-spinner></ms-loading-spinner>
+  <ms-loading-spinner />
 </ng-template>

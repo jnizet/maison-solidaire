@@ -1,9 +1,7 @@
 <ng-container *ngIf="vm$ | async as vm; else loading">
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
-      <ms-page-title
-        [title]="vm.mode === 'edit' ? vm.editedContact!.name : 'Nouveau contact'"
-      ></ms-page-title>
+      <ms-page-title [title]="vm.mode === 'edit' ? vm.editedContact!.name : 'Nouveau contact'" />
       <h1 *ngIf="vm.mode === 'create'">Création d'un nouveau contact</h1>
       <h1 *ngIf="vm.mode === 'edit'">
         Modification du contact <em>{{ vm.editedContact!.name }}</em>
@@ -17,51 +15,51 @@
             Ce nom est celui affiché dans l'application pour ce contact. Veille à respecter la
             convention <em class="text-nowrap">Prénom Nom</em>
           </div>
-          <val-errors controlName="name" label="Le nom"></val-errors>
+          <val-errors controlName="name" label="Le nom" />
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">
-            <ms-icon [icon]="icons.email" class="me-1"></ms-icon>
+            <ms-icon [icon]="icons.email" class="me-1" />
             Adresse email
           </label>
           <input formControlName="email" type="email" class="form-control" id="email" />
           <div class="form-text">
             Laisser vide si le contact ne désire pas partager son adresse email
           </div>
-          <val-errors controlName="email" label="L'adresse email"></val-errors>
+          <val-errors controlName="email" label="L'adresse email" />
         </div>
         <div class="mb-3">
           <label for="phone" class="form-label">
-            <ms-icon [icon]="icons.phone" class="me-1"></ms-icon>
+            <ms-icon [icon]="icons.phone" class="me-1" />
             Téléphone fixe
           </label>
           <input formControlName="phone" type="tel" class="form-control" id="phone" />
           <div class="form-text">
             Laisser vide si le contact ne désire pas partager son numéro de téléphone fixe
           </div>
-          <val-errors controlName="phone" label="Le téléphone fixe"></val-errors>
+          <val-errors controlName="phone" label="Le téléphone fixe" />
         </div>
         <div class="mb-3">
           <label for="mobile" class="form-label">
-            <ms-icon [icon]="icons.mobile" class="me-1"></ms-icon>
+            <ms-icon [icon]="icons.mobile" class="me-1" />
             Téléphone mobile
           </label>
           <input formControlName="mobile" type="tel" class="form-control" id="mobile" />
           <div class="form-text">
             Laisser vide si le contact ne désire pas partager son numéro de téléphone mobile
           </div>
-          <val-errors controlName="mobile" label="Le téléphone mobile"></val-errors>
+          <val-errors controlName="mobile" label="Le téléphone mobile" />
         </div>
         <div class="mb-3">
           <label for="whatsapp" class="form-label">
-            <ms-icon [icon]="icons.whatsapp" class="me-1"></ms-icon>
+            <ms-icon [icon]="icons.whatsapp" class="me-1" />
             N° de téléphone Whatsapp
           </label>
           <input formControlName="whatsapp" type="tel" class="form-control" id="whatsapp" />
           <div class="form-text">
             Laisser vide si le contact ne désire pas partager communiquer via Whatsapp
           </div>
-          <val-errors controlName="whatsapp" label="Le n° de téléphone Whatsapp"></val-errors>
+          <val-errors controlName="whatsapp" label="Le n° de téléphone Whatsapp" />
         </div>
         <div class="text-end">
           <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
@@ -69,11 +67,11 @@
               [icon]="icons.save"
               [spinner]="saving"
               message="enregistrement en cours..."
-            ></ms-spinning-icon>
+            />
             Enregistrer
           </button>
           <a class="btn btn-danger" routerLink="/contacts">
-            <ms-icon class="me-1" [icon]="icons.cancel"></ms-icon>
+            <ms-icon class="me-1" [icon]="icons.cancel" />
             Annuler
           </a>
         </div>
@@ -82,5 +80,5 @@
   </div>
 </ng-container>
 <ng-template #loading>
-  <ms-loading-spinner></ms-loading-spinner>
+  <ms-loading-spinner />
 </ng-template>

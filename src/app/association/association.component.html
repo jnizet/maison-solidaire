@@ -1,4 +1,4 @@
-<ms-page-title title="L'association"></ms-page-title>
+<ms-page-title title="L'association" />
 
 <ng-container *ngIf="vm$ | async as vm">
   <h1>L'association ATPAC Maison Solidaire</h1>
@@ -29,9 +29,9 @@
   </dl>
 
   <p>Pour prendre rendez-vous, contacte le coordinateur de l'association&nbsp;:</p>
-  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+  <ms-responsibility [responsibility]="vm.coordination" />
 
   <h2>Le conseil d'administration</h2>
   <p>L'association est gérée par un conseil d'administration collégial:</p>
-  <ms-responsibility [responsibility]="vm.council"></ms-responsibility>
+  <ms-responsibility [responsibility]="vm.council" />
 </ng-container>
