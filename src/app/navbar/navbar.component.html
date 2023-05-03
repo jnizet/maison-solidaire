@@ -19,37 +19,37 @@
       <ul *ngIf="vm.user" class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="/lodging" (click)="collapse()">
-            <ms-icon [icon]="icons.lodging"></ms-icon>
+            <ms-icon [icon]="icons.lodging" />
             Hébergeurs
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/association" (click)="collapse()">
-            <ms-icon [icon]="icons.association"></ms-icon>
+            <ms-icon [icon]="icons.association" />
             L'association
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/contacts" (click)="collapse()">
-            <ms-icon [icon]="icons.contacts"></ms-icon>
+            <ms-icon [icon]="icons.contacts" />
             Contacts
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/activities" (click)="collapse()">
-            <ms-icon [icon]="icons.activities"></ms-icon>
+            <ms-icon [icon]="icons.activities" />
             Agenda
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/volunteering" (click)="collapse()">
-            <ms-icon [icon]="icons.volunteering"></ms-icon>
+            <ms-icon [icon]="icons.volunteering" />
             Bénévolat
           </a>
         </li>
         <li *ngIf="vm.user.admin" class="nav-item me-2" ngbDropdown>
           <a class="nav-link" tabindex="0" ngbDropdownToggle id="admin-dropdown" role="button">
-            <ms-icon [icon]="icons.administration"></ms-icon>
+            <ms-icon [icon]="icons.administration" />
             Administration
           </a>
           <div
@@ -58,11 +58,11 @@
             class="dropdown-menu dropdown-menu-dark"
           >
             <a ngbDropdownItem routerLink="/users" (click)="collapse()">
-              <ms-icon [icon]="icons.users"></ms-icon>
+              <ms-icon [icon]="icons.users" />
               Utilisateurs
             </a>
             <a ngbDropdownItem routerLink="/responsibilities" (click)="collapse()">
-              <ms-icon [icon]="icons.responsibilities"></ms-icon>
+              <ms-icon [icon]="icons.responsibilities" />
               Responsabilités
             </a>
           </div>
@@ -72,7 +72,7 @@
         <ng-container *ngIf="vm.user">
           <li class="nav-item me-2" ngbDropdown>
             <a class="nav-link" tabindex="0" ngbDropdownToggle id="user-dropdown" role="button">
-              <ms-icon [icon]="icons.user"></ms-icon>
+              <ms-icon [icon]="icons.user" />
               {{ vm.user.displayName }}
             </a>
             <div
@@ -81,15 +81,15 @@
               class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
             >
               <a ngbDropdownItem routerLink="/contact" (click)="collapse()">
-                <ms-icon [icon]="icons.myContact"></ms-icon>
+                <ms-icon [icon]="icons.myContact" />
                 Renseigner mes coordonnées
               </a>
               <a ngbDropdownItem routerLink="/change-password" (click)="collapse()">
-                <ms-icon [icon]="icons.changePassword"></ms-icon>
+                <ms-icon [icon]="icons.changePassword" />
                 Changer de mot de passe
               </a>
               <a ngbDropdownItem role="button" (click)="logout(); collapse()">
-                <ms-icon [icon]="icons.logout"></ms-icon>
+                <ms-icon [icon]="icons.logout" />
                 Déconnexion
               </a>
             </div>
@@ -97,14 +97,14 @@
           <li class="nav-item">
             <a class="nav-link" role="button" tabindex="0" (click)="logout(); collapse()">
               <span class="visually-hidden">Déconnexion</span>
-              <ms-icon [icon]="icons.logout"></ms-icon>
+              <ms-icon [icon]="icons.logout" />
             </a>
           </li>
         </ng-container>
         <ng-container *ngIf="!vm.user">
           <li class="nav-item">
             <a class="nav-link" routerLink="/login">
-              <ms-icon [icon]="icons.login"></ms-icon>
+              <ms-icon [icon]="icons.login" />
               Identification
             </a>
           </li>

@@ -4,7 +4,7 @@
     [class.active]="toast$ | async"
   >
     <ng-container *ngIf="toast$ | async as toast">
-      <ms-icon *ngIf="toast.icon" [icon]="toast.icon" class="me-1"></ms-icon>
+      <ms-icon *ngIf="toast.icon" [icon]="toast.icon" class="me-1" />
       {{ toast.message }}
     </ng-container>
   </div>

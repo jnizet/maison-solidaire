@@ -1,4 +1,4 @@
-<ms-icon [icon]="icon" class="me-1" *ngIf="(spinner.isSpinning | async) === false"></ms-icon>
+<ms-icon [icon]="icon" class="me-1" *ngIf="(spinner.isSpinning | async) === false" />
 <div
   *ngIf="(spinner.isSpinning | async) === true"
   class="spinner-border spinner-border-sm me-1"

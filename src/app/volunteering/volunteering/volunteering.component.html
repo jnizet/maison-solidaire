@@ -1,10 +1,10 @@
-<ms-page-title title="Bénévolat"></ms-page-title>
+<ms-page-title title="Bénévolat" />
 <h1>Bénévolat</h1>
 
 <ng-container *ngIf="vm$ | async as vm; else loading">
   <div class="alert alert-dark">
     <div class="d-flex gap-3">
-      <ms-icon [icon]="icons.info" class="fs-4"></ms-icon>
+      <ms-icon [icon]="icons.info" class="fs-4" />
       <div class="flex-grow-1">
         Les bénévoles de la Maison Solidaire ont des droits et des devoirs. Ils sont définis dans
         <a [href]="vm.conventionUrl">la charte des bénévoles</a>.
@@ -18,7 +18,7 @@
     semaine.<br />
     Si vous pouvez vous libérer pour un rendez-vous, contactez le coordinateur&nbsp;:
   </p>
-  <ms-responsibility [responsibility]="vm.coordination"></ms-responsibility>
+  <ms-responsibility [responsibility]="vm.coordination" />
 
   <h2>Le programme de la semaine</h2>
 
@@ -36,5 +36,5 @@
   </div>
 </ng-container>
 <ng-template #loading>
-  <ms-loading-spinner></ms-loading-spinner>
+  <ms-loading-spinner />
 </ng-template>
