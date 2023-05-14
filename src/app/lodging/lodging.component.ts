@@ -32,6 +32,7 @@ interface ViewModel {
 
   bookUrl: string;
   rulesUrl: string;
+  legalRouteUrl: string;
 }
 
 @Component({
@@ -72,7 +73,8 @@ export class LodgingComponent {
       clothes: responsibilityService.getBySlug(CLOTHES),
       health: responsibilityService.getBySlug(HEALTH),
       bookUrl: storageService.downloadUrl('livret-hebergeur.pdf'),
-      rulesUrl: storageService.downloadUrl('reglement.pdf')
+      rulesUrl: storageService.downloadUrl('reglement.pdf'),
+      legalRouteUrl: storageService.downloadUrl('parcours-juridique.pdf')
     }).pipe(
       tap(() => {
         if (!this.scrolled) {
