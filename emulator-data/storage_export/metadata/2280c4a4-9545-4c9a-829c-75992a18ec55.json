@@ -1,0 +1,19 @@
+{
+  "name": "parcours-juridique.pdf",
+  "bucket": "maison-solidaire.appspot.com",
+  "metageneration": 1,
+  "generation": 1684086214234,
+  "contentType": "application/pdf",
+  "storageClass": "STANDARD",
+  "contentDisposition": "inline",
+  "downloadTokens": [
+    "d2ddc7c4-2de3-481a-b961-018ded21514a"
+  ],
+  "etag": "u9TwpGEQe/fs7WR9g9EfCNeK12Y",
+  "customMetadata": {},
+  "timeCreated": "2023-05-14T17:43:34.234Z",
+  "updated": "2023-05-14T17:43:34.234Z",
+  "size": 8891,
+  "md5Hash": "Rv9JbIyBhyEqClcLVZAe+g==",
+  "crc32c": "262692018"
+}

@@ -22,8 +22,13 @@
             >
           </li>
           <li>
-            <a routerLink="." fragment="resources" (click)="scrollTo('resources')"
+            <a routerLink="." fragment="learning" (click)="scrollTo('learning')"
               >Ressources pour apprendre</a
+            >
+          </li>
+          <li>
+            <a routerLink="." fragment="resources" (click)="scrollTo('resources')"
+              >Ressources pour les hébergeurs</a
             >
           </li>
         </ul>
@@ -173,7 +178,7 @@
           </p>
         </div>
       </div>
-      <div class="card card-primary mb-2" id="resources">
+      <div class="card card-primary mb-2" id="learning">
         <div class="card-body">
           <h2>Ressources pour apprendre</h2>
           <p>
@@ -239,6 +244,21 @@
               histoires courtes à regarder, écouter, lire, et avec lesquelles jouer.
             </li>
           </ul>
+        </div>
+      </div>
+      <div class="card card-primary mb-2" id="resources">
+        <div class="card-body">
+          <h2>Ressources pour les hébergeurs</h2>
+          <p>
+            <a [href]="vm.legalRouteUrl">Le parcours juridique des Mineurs Non Accompagnés</a>
+          </p>
+          <p>
+            Ce document est un compte-rendu d'une rencontre avec Maître Julie Royon, qui est l'une
+            des avocates qui s'occupe des jeunes de la Maison Solidaire, et qui nous explique leur
+            parcours juridique.<br />
+            Vous y trouverez aussi, en fin de document, un schéma tentant de résumer ce parcours en
+            une page.
+          </p>
         </div>
       </div>
     </div>
