@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-xl navbar-dark bg-dark py-0" *ngIf="vm$ | async as vm">
+<nav class="navbar navbar-expand-xl bg-dark py-0" *ngIf="vm$ | async as vm" data-bs-theme="dark">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/">
       <span class="visually-hidden">Accueil</span>
@@ -47,16 +47,12 @@
             Bénévolat
           </a>
         </li>
-        <li *ngIf="vm.user.admin" class="nav-item me-2" ngbDropdown>
+        <li *ngIf="vm.user.admin" class="nav-item me-2" ngbDropdown display="static">
           <a class="nav-link" tabindex="0" ngbDropdownToggle id="admin-dropdown" role="button">
             <ms-icon [icon]="icons.administration" />
             Administration
           </a>
-          <div
-            ngbDropdownMenu
-            aria-labelledby="admin-dropdown"
-            class="dropdown-menu dropdown-menu-dark"
-          >
+          <div ngbDropdownMenu aria-labelledby="admin-dropdown" class="dropdown-menu">
             <a ngbDropdownItem routerLink="/users" (click)="collapse()">
               <ms-icon [icon]="icons.users" />
               Utilisateurs
@@ -70,7 +66,7 @@
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
         <ng-container *ngIf="vm.user">
-          <li class="nav-item me-2" ngbDropdown>
+          <li class="nav-item me-2" ngbDropdown display="static">
             <a class="nav-link" tabindex="0" ngbDropdownToggle id="user-dropdown" role="button">
               <ms-icon [icon]="icons.user" />
               {{ vm.user.displayName }}
@@ -78,7 +74,7 @@
             <div
               ngbDropdownMenu
               aria-labelledby="user-dropdown"
-              class="dropdown-menu dropdown-menu-end dropdown-menu-dark"
+              class="dropdown-menu dropdown-menu-end"
             >
               <a ngbDropdownItem routerLink="/contact" (click)="collapse()">
                 <ms-icon [icon]="icons.myContact" />

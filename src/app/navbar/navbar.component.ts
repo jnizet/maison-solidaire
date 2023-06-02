@@ -8,8 +8,7 @@ import {
   NgbDropdown,
   NgbDropdownItem,
   NgbDropdownMenu,
-  NgbDropdownToggle,
-  NgbNavbar
+  NgbDropdownToggle
 } from '@ng-bootstrap/ng-bootstrap';
 import { IconDirective } from '../icon/icon.directive';
 import * as icons from '../icon/icons';
@@ -29,7 +28,6 @@ import * as icons from '../icon/icons';
     NgbDropdownToggle,
     NgbDropdownMenu,
     NgbDropdownItem,
-    NgbNavbar,
     IconDirective
   ]
 })
