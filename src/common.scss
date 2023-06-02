@@ -11,7 +11,8 @@ $enable-shadows: true;
 
 $primary: #0075bf;
 $dark: darken($primary, 20%);
-$dropdown-dark-bg: darken($dark, 3%);
+$body-bg-dark: $dark;
+$body-tertiary-bg-dark: darken($dark, 3%);
 
 $headings-color: $dark;
 
@@ -19,6 +20,7 @@ $navbar-height: 60px;
 $popover-max-width: 350px;
 
 @import 'bootstrap/scss/variables';
+@import 'bootstrap/scss/variables-dark';
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/utilities';
