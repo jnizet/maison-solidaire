@@ -20,7 +20,7 @@ export class CurrentUserService {
           return from(user.getIdTokenResult()).pipe(
             map(token => ({
               user,
-              displayName: token.claims['displayName'],
+              displayName: token.claims['displayName'] as string,
               admin: !!token.claims['admin']
             }))
           );
