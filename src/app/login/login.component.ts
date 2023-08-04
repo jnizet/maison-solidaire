@@ -52,7 +52,10 @@ export class LoginComponent {
 
   readonly icons = icons;
 
-  constructor(private auth: Auth, private router: Router) {}
+  constructor(
+    private auth: Auth,
+    private router: Router
+  ) {}
 
   login() {
     if (this.form.invalid) {

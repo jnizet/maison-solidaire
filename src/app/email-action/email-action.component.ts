@@ -43,7 +43,11 @@ export class EmailActionComponent {
   readonly vm$: Observable<ViewModel>;
   readonly transitionsSubject = new Subject<(vm: ViewModel) => ViewModel>();
 
-  constructor(route: ActivatedRoute, private auth: Auth, private router: Router) {
+  constructor(
+    route: ActivatedRoute,
+    private auth: Auth,
+    private router: Router
+  ) {
     const params = route.snapshot.queryParamMap;
     const mode = params.get('mode');
     if (mode !== 'resetPassword') {

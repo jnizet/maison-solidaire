@@ -17,7 +17,10 @@ export class UserCreatedModalComponent {
 
   user!: AdministeredUser;
 
-  constructor(public activeModal: NgbActiveModal, private userService: UserService) {}
+  constructor(
+    public activeModal: NgbActiveModal,
+    private userService: UserService
+  ) {}
 
   copyEmail(user: AdministeredUser) {
     return this.userService.copyEmail(user);

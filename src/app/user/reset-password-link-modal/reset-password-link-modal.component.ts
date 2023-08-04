@@ -28,7 +28,10 @@ export class ResetPasswordLinkModalComponent {
 
   user!: AdministeredUser;
 
-  constructor(public activeModal: NgbActiveModal, private userService: UserService) {
+  constructor(
+    public activeModal: NgbActiveModal,
+    private userService: UserService
+  ) {
     this.vm$ = this.generateResetPasswordLinkSubject.pipe(
       exhaustMap(() =>
         userService.generateResetPasswordLink(this.user.uid).pipe(

@@ -47,7 +47,10 @@ export class ResponsibilityService {
   private responsibilityCollection: CollectionReference<PersistentResponsibility>;
   private responsibilities$: Observable<Array<Responsibility>>;
 
-  constructor(private firestore: Firestore, private contactService: ContactService) {
+  constructor(
+    private firestore: Firestore,
+    private contactService: ContactService
+  ) {
     this.responsibilityCollection = collection(
       firestore,
       'responsibilities'

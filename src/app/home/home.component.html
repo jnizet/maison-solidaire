@@ -29,7 +29,7 @@
       <div class="activities p-2">
         <ul class="list-unstyled">
           <li *ngFor="let activity of vm.activities" class="mb-2">
-            <span class="activity-date">{{ activity.date | date : 'mediumDate' }}</span
+            <span class="activity-date">{{ activity.date | date: 'mediumDate' }}</span
             >&nbsp;: {{ activity.title }}
           </li>
         </ul>

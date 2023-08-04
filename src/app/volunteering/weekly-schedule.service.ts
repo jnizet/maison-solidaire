@@ -37,7 +37,10 @@ export interface WeeklyScheduleCommand {
 export class WeeklyScheduleService {
   private weeklyScheduleCollection: CollectionReference<PersistentWeeklySchedule>;
 
-  constructor(private firestore: Firestore, private storageService: StorageService) {
+  constructor(
+    private firestore: Firestore,
+    private storageService: StorageService
+  ) {
     this.weeklyScheduleCollection = collection(
       firestore,
       'weekly-schedules'
