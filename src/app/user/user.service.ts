@@ -22,7 +22,10 @@ export interface ResetPasswordLinkInfo {
   providedIn: 'root'
 })
 export class UserService {
-  constructor(private functions: Functions, private toastService: ToastService) {}
+  constructor(
+    private functions: Functions,
+    private toastService: ToastService
+  ) {}
 
   listUsers(): Observable<Array<AdministeredUser>> {
     const listUsers = httpsCallable<void, Array<AdministeredUser>>(this.functions, 'listUsers');

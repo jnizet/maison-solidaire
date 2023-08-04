@@ -8,7 +8,10 @@ import { MarkdownService } from './markdown.service';
 export class MarkdownDirective implements OnChanges {
   @Input({ alias: 'msMarkdown', required: true }) markdown!: string;
 
-  constructor(private element: ElementRef, private markdownService: MarkdownService) {}
+  constructor(
+    private element: ElementRef,
+    private markdownService: MarkdownService
+  ) {}
 
   ngOnChanges() {
     this.element.nativeElement.innerHTML = this.markdownService.render(this.markdown);

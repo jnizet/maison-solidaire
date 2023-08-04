@@ -42,7 +42,10 @@ export class ResetPasswordComponent {
   readonly vm$: Observable<ViewModel> = this.vmSubject.asObservable();
   readonly icons = icons;
 
-  constructor(private route: ActivatedRoute, private auth: Auth) {
+  constructor(
+    private route: ActivatedRoute,
+    private auth: Auth
+  ) {
     this.form.setValue({ email: route.snapshot.queryParamMap.get('email') || '' });
   }
 

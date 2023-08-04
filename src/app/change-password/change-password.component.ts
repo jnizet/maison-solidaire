@@ -42,7 +42,11 @@ export class ChangePasswordComponent {
   private readonly vmSubject = new BehaviorSubject<ViewModel>({ error: false });
   readonly vm$: Observable<ViewModel> = this.vmSubject.asObservable();
 
-  constructor(private auth: Auth, private router: Router, private toastService: ToastService) {}
+  constructor(
+    private auth: Auth,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   changePassword() {
     if (this.form.invalid) {
