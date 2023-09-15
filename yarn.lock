@@ -8381,10 +8381,10 @@ marked-terminal@^5.1.1:
     node-emoji "^1.11.0"
     supports-hyperlinks "^2.2.0"
 
-marked@8.0.1:
-  version "8.0.1"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-8.0.1.tgz#62005c60d88926ef4b4a45e51ac76c5076c6e63d"
-  integrity sha512-eEbeEb/mJwh+sNLEhHOWtxMgjN/NEwZUBs1nkiIH2sTQTq07KmPMQ48ihyvo5+Ya56spVOPhunfGr6406crCVA==
+marked@9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-9.0.1.tgz#1f4090f2d87b15e3da657afcbe39ede2428ed552"
+  integrity sha512-U6DB4r9D40jiszUTAB15mrNDfS7AREySx/ch7OJProHn/NebNKknQHZq7MaubLaUpL/4AkES/Osr0S6efQrtNQ==
 
 marked@^4.0.10, marked@^4.0.14:
   version "4.2.12"
