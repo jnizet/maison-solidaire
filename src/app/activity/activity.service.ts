@@ -41,7 +41,14 @@ export class ActivityService {
   }
 
   get(id: string): Observable<Activity> {
-    return docData(doc(this.activityCollection, id));
+    return docData(doc(this.activityCollection, id)).pipe(
+      map(activity => {
+        if (!activity) {
+          throw new Error(`No activity with ID ${id}`);
+        }
+        return activity;
+      })
+    );
   }
 
   create(command: ActivityCommand): Observable<Activity> {
