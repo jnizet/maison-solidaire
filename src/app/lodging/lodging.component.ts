@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   CLOTHES,
   COORDINATION,
+  CULTURE,
   FOOD,
   FRENCH,
   HEALTH,
@@ -29,6 +30,7 @@ interface ViewModel {
   french: Responsibility;
   clothes: Responsibility;
   health: Responsibility;
+  culture: Responsibility;
 
   bookUrl: string;
   rulesUrl: string;
@@ -72,6 +74,7 @@ export class LodgingComponent {
       coordination: responsibilityService.getBySlug(COORDINATION),
       clothes: responsibilityService.getBySlug(CLOTHES),
       health: responsibilityService.getBySlug(HEALTH),
+      culture: responsibilityService.getBySlug(CULTURE),
       bookUrl: storageService.downloadUrl('livret-hebergeur.pdf'),
       rulesUrl: storageService.downloadUrl('reglement.pdf'),
       legalRouteUrl: storageService.downloadUrl('parcours-juridique.pdf')

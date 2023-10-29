@@ -39,6 +39,7 @@ export const CLOTHES: ResponsibilitySlug = 'clothes';
 export const HEALTH: ResponsibilitySlug = 'health';
 export const COORDINATION: ResponsibilitySlug = 'coordination';
 export const COUNCIL: ResponsibilitySlug = 'council';
+export const CULTURE: ResponsibilitySlug = 'culture';
 
 @Injectable({
   providedIn: 'root'
