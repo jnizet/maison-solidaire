@@ -31,6 +31,11 @@
               >Ressources pour les hébergeurs</a
             >
           </li>
+          <li>
+            <a routerLink="." fragment="culture" (click)="scrollTo('culture')"
+              >Sorties culturelles</a
+            >
+          </li>
         </ul>
       </div>
     </div>
@@ -121,14 +126,6 @@
           </p>
           <ms-responsibility [responsibility]="vm.french" />
 
-          <p>
-            En outre, dans la mesure du possible, des cours de français sont aussi assurés pour les
-            jeunes non scolarisés du lundi au vendredi, de 9h00 à 11h00 à la Maison Solidaire.
-            <br />
-            Contacte le coordinateur pour toute question à se sujet&nbsp;:
-          </p>
-          <ms-responsibility [responsibility]="vm.coordination" />
-
           <h3 class="fs-5">
             Demandes concernant la situation administrative, juridique ou scolaire
           </h3>
@@ -144,8 +141,7 @@
             Pour toute question médicale, tu (ou le jeune que tu héberges) peux contacter l'une des
             personnes suivantes. Jacques est médecin et peut être contacté pour toute question. Aude
             est infirmière et peut être contactée pour des questions plus pratiques (bobologie,
-            conseils). Amandine est infirmière psy et peut être contactée pour des problèmes
-            psychologiques, relationnels, etc.
+            conseils).
           </p>
           <ms-responsibility [responsibility]="vm.health" />
         </div>
@@ -259,6 +255,17 @@
             Vous y trouverez aussi, en fin de document, un schéma tentant de résumer ce parcours en
             une page.
           </p>
+        </div>
+      </div>
+      <div class="card card-primary mb-2" id="culture">
+        <div class="card-body">
+          <h2>Sorties culturelles</h2>
+          <p>
+            Pendant les vacances scolaires, Il arrive que des sorties culturelles soient organisées
+            par Daphné pour nos jeunes hébergés. Surveillez le groupe WhatsApp des hébergeurs pour
+            être tenu au courant.
+          </p>
+          <ms-responsibility [responsibility]="vm.culture" />
         </div>
       </div>
     </div>
