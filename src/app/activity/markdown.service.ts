@@ -17,6 +17,6 @@ export class MarkdownService {
   }
 
   render(markdown: string): string {
-    return marked.parse(markdown);
+    return marked.parse(markdown) as string;
   }
 }
