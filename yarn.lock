@@ -104,18 +104,6 @@
     "@angular-devkit/architect" "0.1700.6"
     rxjs "7.8.1"
 
-"@angular-devkit/core@16.2.10":
-  version "16.2.10"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-16.2.10.tgz#a095b86ae914445fdc83221e8c37d9355168a039"
-  integrity sha512-eo7suLDjyu5bSlEr4TluYkFm4v2PVLSAPgnau8XHHlN5Yg4P/BZ00ve7LA7C9S1gzRSCrxQhK5ki4rnoFTo5zg==
-  dependencies:
-    ajv "8.12.0"
-    ajv-formats "2.1.1"
-    jsonc-parser "3.2.0"
-    picomatch "2.3.1"
-    rxjs "7.8.1"
-    source-map "0.7.4"
-
 "@angular-devkit/core@17.0.6":
   version "17.0.6"
   resolved "https://registry.yarnpkg.com/@angular-devkit/core/-/core-17.0.6.tgz#e0ec2fb38b189b0bd88ef1dec52a06369c289eac"
@@ -128,18 +116,7 @@
     rxjs "7.8.1"
     source-map "0.7.4"
 
-"@angular-devkit/schematics@16.2.10", "@angular-devkit/schematics@^16.0.0":
-  version "16.2.10"
-  resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-16.2.10.tgz#879fd0f130a00c88a57c9a8b64be3b4cd822771b"
-  integrity sha512-UCfPJKVNekb21bWRbzyx81tfHN3x8vU4ZMX/VA6xALg//QalMB7NOkkXBAssthnLastkyzkUtlvApTp2+R+EkQ==
-  dependencies:
-    "@angular-devkit/core" "16.2.10"
-    jsonc-parser "3.2.0"
-    magic-string "0.30.1"
-    ora "5.4.1"
-    rxjs "7.8.1"
-
-"@angular-devkit/schematics@17.0.6":
+"@angular-devkit/schematics@17.0.6", "@angular-devkit/schematics@^17.0.0":
   version "17.0.6"
   resolved "https://registry.yarnpkg.com/@angular-devkit/schematics/-/schematics-17.0.6.tgz#90fdba71f85edb5db88268d2e2d52b199181f368"
   integrity sha512-2g769MpazA1aOzJOm2MNGosra3kxw8CbdIQQOKkvycIzroRNgN06yHcRTDC03GADgP/CkDJ6kxwJQNG+wNFL2A==
@@ -274,14 +251,14 @@
   dependencies:
     tslib "^2.3.0"
 
-"@angular/fire@16.0.0":
-  version "16.0.0"
-  resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-16.0.0.tgz#2451bfedc77dee18cbbdfeac67c9aa116379eab9"
-  integrity sha512-JBjNfYEJT7QlO4fExs4a8XsbqWKtGPGONTQyEBfTLSKPiqVjStiW8G7QEziKNQVELZFCvTWJNZJHbkLVcS8A7g==
+"@angular/fire@17.0.0":
+  version "17.0.0"
+  resolved "https://registry.yarnpkg.com/@angular/fire/-/fire-17.0.0.tgz#b8cf8f99000f4f8e72cb61baad6d6f5466bf8a0b"
+  integrity sha512-sv9OExC87Lgac5pYuD97LMjetEk2xwrCtqedzK49CAc5T6B3vPu9ncZS+uypDFp9bmY4Wp4Du0RzeiYO2aIUjA==
   dependencies:
-    "@angular-devkit/schematics" "^16.0.0"
-    "@schematics/angular" "^16.0.0"
-    firebase "^10.5.0"
+    "@angular-devkit/schematics" "^17.0.0"
+    "@schematics/angular" "^17.0.0"
+    firebase "^10.7.0"
     fs-extra "^8.0.1"
     fuzzy "^0.1.3"
     inquirer "^8.1.1"
@@ -293,7 +270,7 @@
     rxfire "^6.0.5"
     semver "^7.1.3"
     triple-beam "^1.3.0"
-    tslib "^2.0.0"
+    tslib "^2.3.0"
     winston "^3.0.0"
 
 "@angular/forms@17.0.6":
@@ -2540,22 +2517,13 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@schematics/angular@17.0.6":
+"@schematics/angular@17.0.6", "@schematics/angular@^17.0.0":
   version "17.0.6"
   resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-17.0.6.tgz#26ce980fb8ef611a5e2844bbe991867f66172443"
   integrity sha512-AyC7Bk3Omy6PfADThhq5ci+zzdTTi2N1oZI35gw4tMK5ZxVwIACx2Zyhaz399m5c2RCDi9Hz4A2BOFq9f0j/dg==
   dependencies:
     "@angular-devkit/core" "17.0.6"
     "@angular-devkit/schematics" "17.0.6"
-    jsonc-parser "3.2.0"
-
-"@schematics/angular@^16.0.0":
-  version "16.2.10"
-  resolved "https://registry.yarnpkg.com/@schematics/angular/-/angular-16.2.10.tgz#1407a471367f0b7e1c37f9280a5756696ed8cffe"
-  integrity sha512-PXmoswvN7qknTsXDmEvhZ9UG+awwWnQ/1Jd/eqqQx08iAaAT81OsXj1bN7eSs6tEGBKGjPb6q2xzuiECAdymzg==
-  dependencies:
-    "@angular-devkit/core" "16.2.10"
-    "@angular-devkit/schematics" "16.2.10"
     jsonc-parser "3.2.0"
 
 "@sideway/address@^4.1.3":
@@ -5731,7 +5699,7 @@ firebase-tools@13.0.1:
     winston-transport "^4.4.0"
     ws "^7.2.3"
 
-firebase@10.7.1, firebase@^10.5.0:
+firebase@10.7.1, firebase@^10.7.0:
   version "10.7.1"
   resolved "https://registry.yarnpkg.com/firebase/-/firebase-10.7.1.tgz#71fa17a10146f388746ecc216a3e1e477a7bf9b5"
   integrity sha512-Mlt7y7zQ43FtKp4SCyYie3tnrOL3UMF2XXiV4ZXMrC0d0wtcOYmABuybhkJpJCKILpdekxr39wjnaai0DZlWFg==
@@ -7641,13 +7609,6 @@ lru-memoizer@^2.2.0:
     lodash.clonedeep "^4.5.0"
     lru-cache "~4.0.0"
 
-magic-string@0.30.1:
-  version "0.30.1"
-  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.1.tgz#ce5cd4b0a81a5d032bd69aab4522299b2166284d"
-  integrity sha512-mbVKXPmS0z0G4XqFDCTllmDQ6coZzn94aMlb0o/A4HEHJCKcanlDZwYJgwnkmgD3jyWhUgj9VsPrfd972yPffA==
-  dependencies:
-    "@jridgewell/sourcemap-codec" "^1.4.15"
-
 magic-string@0.30.5:
   version "0.30.5"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.30.5.tgz#1994d980bd1c8835dc6e78db7cbd4ae4f24746f9"
@@ -8761,15 +8722,15 @@ picocolors@^1.0.0:
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"
   integrity sha512-1fygroTLlHu66zi26VoTDv8yRgm0Fccecssto+MhsZ0D/DGW2sm8E8AjW7NU5VVTRt5GxbeZ5qBuJr+HyLYkjQ==
 
-picomatch@2.3.1, picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
-  integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
-
 picomatch@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-3.0.1.tgz#817033161def55ec9638567a2f3bbc876b3e7516"
   integrity sha512-I3EurrIQMlRc9IaAZnqRR044Phh2DXY+55o7uJ0V+hYZAcQYSuFWsc9q5PvyDHUSCe1Qxn/iBz+78s86zWnGag==
+
+picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.1.tgz#3ba3833733646d9d3e4995946c1365a67fb07a42"
+  integrity sha512-JU3teHTNjmE2VCGFzuY8EXzCDVwEqB2a8fsIvwaStHhAWJEeVd1o1QD80CU6+ZdEXXSLbSsuLwJjkCBWqRQUVA==
 
 pify@^4.0.1:
   version "4.0.1"
@@ -10389,7 +10350,7 @@ tsconfig-paths@^4.1.2:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@2.6.2, tslib@^2.0.0, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.0, tslib@^2.6.0:
+tslib@2.6.2, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.3.0, tslib@^2.4.0, tslib@^2.5.0, tslib@^2.6.0:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.6.2.tgz#703ac29425e7b37cd6fd456e92404d46d1f3e4ae"
   integrity sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==
