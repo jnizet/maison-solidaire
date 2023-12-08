@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { map, Observable, of, switchMap } from 'rxjs';
 import { Auth, authState, User } from '@angular/fire/auth';
-import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 import { IconDirective } from '../icon/icon.directive';
 import { RouterLink } from '@angular/router';
 import { Activity, ActivityService } from '../activity/activity.service';
@@ -18,7 +18,7 @@ interface ViewModel {
   styleUrls: ['./home.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [NgIf, AsyncPipe, RouterLink, IconDirective, DatePipe, NgFor]
+  imports: [AsyncPipe, RouterLink, IconDirective, DatePipe]
 })
 export class HomeComponent {
   vm$: Observable<ViewModel>;

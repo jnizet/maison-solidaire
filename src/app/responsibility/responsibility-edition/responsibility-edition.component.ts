@@ -39,7 +39,7 @@ import {
 import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemort';
 import * as icons from '../../icon/icons';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 interface ViewModel {
   editedResponsibility: Responsibility;
@@ -61,9 +61,7 @@ interface ViewModel {
     ValidationErrorsComponent,
     ValidationErrorDirective,
     SpinningIconComponent,
-    NgIf,
-    AsyncPipe,
-    NgFor
+    AsyncPipe
   ],
   templateUrl: './responsibility-edition.component.html',
   styleUrls: ['./responsibility-edition.component.scss'],
@@ -134,10 +132,6 @@ export class ResponsibilityEditionComponent {
         this.router.navigate(['/responsibilities']);
         this.toastService.success('Responsabilité modifiée');
       });
-  }
-
-  trackById(index: number, contact: Contact) {
-    return contact.id;
   }
 
   removeContact(contact: Contact) {

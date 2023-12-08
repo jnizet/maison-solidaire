@@ -10,7 +10,7 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
 import { MarkdownDirective } from '../markdown.directive';
-import { AsyncPipe, DatePipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe, DatePipe } from '@angular/common';
 
 interface ViewModel {
   activities: Array<Activity>;
@@ -26,10 +26,8 @@ interface ViewModel {
     IconDirective,
     RouterLink,
     MarkdownDirective,
-    NgIf,
     AsyncPipe,
-    DatePipe,
-    NgFor
+    DatePipe
   ],
   templateUrl: './future-activities.component.html',
   styleUrls: ['./future-activities.component.scss'],
@@ -59,9 +57,5 @@ export class FutureActivitiesComponent {
       })
       .pipe(switchMap(() => this.activityService.deleteActivity(activity.id)))
       .subscribe(() => this.toastService.success('Activité supprimée'));
-  }
-
-  trackById(index: number, activity: Activity) {
-    return activity.id;
   }
 }

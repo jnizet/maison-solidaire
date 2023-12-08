@@ -20,7 +20,7 @@ import { MarkdownDirective } from '../markdown.directive';
 import * as icons from '../../icon/icons';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -45,7 +45,6 @@ interface ViewModel {
     MarkdownDirective,
     NgbNavOutlet,
     SpinningIconComponent,
-    NgIf,
     AsyncPipe
   ],
   templateUrl: './activity-edition.component.html',

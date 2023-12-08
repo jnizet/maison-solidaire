@@ -19,7 +19,7 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ResponsibilityService } from '../../shared/responsibility.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 interface ViewModel {
@@ -36,9 +36,7 @@ interface ViewModel {
     ContactComponent,
     RouterLink,
     LoadingSpinnerComponent,
-    NgIf,
     AsyncPipe,
-    NgFor,
     ReactiveFormsModule
   ],
   templateUrl: './contacts.component.html',
@@ -100,10 +98,6 @@ export class ContactsComponent {
         switchMap(() => this.contactService.deleteContact(contact.id))
       )
       .subscribe(() => this.toastService.success('Contact supprimé'));
-  }
-
-  trackById(index: number, contact: Contact) {
-    return contact.id;
   }
 
   clearSearch() {

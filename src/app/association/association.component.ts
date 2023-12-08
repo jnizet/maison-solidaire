@@ -8,7 +8,7 @@ import {
 } from '../shared/responsibility.service';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
 import { PageTitleDirective } from '../page-title/page-title.directive';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -18,7 +18,7 @@ interface ViewModel {
 @Component({
   selector: 'ms-association',
   standalone: true,
-  imports: [ResponsibilityComponent, PageTitleDirective, NgIf, AsyncPipe],
+  imports: [ResponsibilityComponent, PageTitleDirective, AsyncPipe],
   templateUrl: './association.component.html',
   styleUrls: ['./association.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

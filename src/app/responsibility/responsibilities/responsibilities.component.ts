@@ -4,13 +4,12 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { combineLatest, Observable } from 'rxjs';
 import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
-import { Contact } from '../../shared/contact.service';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
 import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { ResponsibilityComponent } from '../../shared/responsibility/responsibility.component';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 interface ViewModel {
   responsibilities: Array<Responsibility>;
@@ -27,9 +26,7 @@ interface ViewModel {
     IconDirective,
     LoadingSpinnerComponent,
     ResponsibilityComponent,
-    NgIf,
-    AsyncPipe,
-    NgFor
+    AsyncPipe
   ],
   templateUrl: './responsibilities.component.html',
   styleUrls: ['./responsibilities.component.scss'],
@@ -48,9 +45,5 @@ export class ResponsibilitiesComponent {
       responsibilities: responsibilityService.list(),
       user: currentUserService.getCurrentUser()
     });
-  }
-
-  trackById(index: number, object: Responsibility | Contact) {
-    return object.id;
   }
 }

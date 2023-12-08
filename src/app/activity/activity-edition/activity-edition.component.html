@@ -1,13 +1,19 @@
-<ng-container *ngIf="vm$ | async as vm; else loading">
+@if (vm$ | async; as vm) {
   <div class="row justify-content-md-center">
     <div class="col col-md-10 col-lg-8">
       <ms-page-title
         [title]="vm.mode === 'edit' ? vm.editedActivity!.title : 'Nouvelle activité'"
       />
-      <h1 *ngIf="vm.mode === 'create'">Création d'une nouvelle activité</h1>
-      <h1 *ngIf="vm.mode === 'edit'">
-        Modification de l'activité <em>{{ vm.editedActivity!.title }}</em>
-      </h1>
+      @switch (vm.mode) {
+        @case ('create') {
+          <h1>Création d'une nouvelle activité</h1>
+        }
+        @case ('edit') {
+          <h1>
+            Modification de l'activité <em>{{ vm.editedActivity!.title }}</em>
+          </h1>
+        }
+      }
 
       <form [formGroup]="form" (ngSubmit)="save(vm)">
         <div class="row">
@@ -84,7 +90,6 @@
       </form>
     </div>
   </div>
-</ng-container>
-<ng-template #loading>
+} @else {
   <ms-loading-spinner />
-</ng-template>
+}

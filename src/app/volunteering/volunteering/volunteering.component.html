@@ -1,7 +1,7 @@
 <ms-page-title title="Bénévolat" />
 <h1>Bénévolat</h1>
 
-<ng-container *ngIf="vm$ | async as vm; else loading">
+@if (vm$ | async; as vm) {
   <div class="alert alert-dark">
     <div class="d-flex gap-3">
       <ms-icon [icon]="icons.info" class="fs-4" />
@@ -22,19 +22,23 @@
 
   <h2>Le programme de la semaine</h2>
 
-  <ng-container *ngIf="vm.weeklySchedules.length > 0; else noWeeklySchedule">
+  @if (vm.weeklySchedules.length > 0) {
     <ul>
-      <li *ngFor="let schedule of vm.weeklySchedules">
-        <a [href]="schedule.fileUrl" download>{{ schedule.week | week }}</a>
-      </li>
+      @for (schedule of vm.weeklySchedules; track schedule.id) {
+        <li>
+          <a [href]="schedule.fileUrl" download>{{ schedule.week | week }}</a>
+        </li>
+      }
     </ul>
-  </ng-container>
-  <ng-template #noWeeklySchedule>Aucun programme posté pour les semaines à venir.</ng-template>
+  } @else {
+    Aucun programme posté pour les semaines à venir.
+  }
 
-  <div *ngIf="vm.user?.admin" class="mt-2">
-    <a routerLink="edit-weekly-schedule" class="btn btn-outline-secondary">Ajouter ou modifier</a>
-  </div>
-</ng-container>
-<ng-template #loading>
+  @if (vm.user?.admin) {
+    <div class="mt-2">
+      <a routerLink="edit-weekly-schedule" class="btn btn-outline-secondary">Ajouter ou modifier</a>
+    </div>
+  }
+} @else {
   <ms-loading-spinner />
-</ng-template>
+}

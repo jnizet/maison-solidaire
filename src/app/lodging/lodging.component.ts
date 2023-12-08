@@ -17,7 +17,7 @@ import { ResponsibilityComponent } from '../shared/responsibility/responsibility
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { StorageService } from '../shared/storage.service';
 import { PageTitleDirective } from '../page-title/page-title.directive';
-import { AsyncPipe, NgIf, NgTemplateOutlet, ViewportScroller } from '@angular/common';
+import { AsyncPipe, NgTemplateOutlet, ViewportScroller } from '@angular/common';
 import * as icons from '../icon/icons';
 import { IconDirective } from '../icon/icon.directive';
 
@@ -44,7 +44,6 @@ interface ViewModel {
     ResponsibilityComponent,
     RouterLink,
     PageTitleDirective,
-    NgIf,
     AsyncPipe,
     IconDirective,
     NgTemplateOutlet

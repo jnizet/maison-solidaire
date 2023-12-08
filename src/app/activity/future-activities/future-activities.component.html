@@ -2,55 +2,60 @@
 
 <div class="row justify-content-md-center">
   <div class="col col-md-10 col-lg-8">
-    <ng-container *ngIf="vm$ | async as vm; else loading">
+    @if (vm$ | async; as vm) {
       <div class="row align-items-center mb-4">
         <div class="col">
           <h1>Futures activités</h1>
         </div>
-        <div class="col-auto" *ngIf="vm.user?.admin">
-          <a routerLink="new" class="btn btn-outline-secondary">
-            <ms-icon class="me-1" [icon]="icons.add" />
-            Créer une activité
-          </a>
-        </div>
+        @if (vm.user?.admin) {
+          <div class="col-auto">
+            <a routerLink="new" class="btn btn-outline-secondary">
+              <ms-icon class="me-1" [icon]="icons.add" />
+              Créer une activité
+            </a>
+          </div>
+        }
       </div>
 
-      <div *ngFor="let activity of vm.activities; trackBy: trackById" class="mb-2">
-        <div class="card card-primary">
-          <div class="card-body">
-            <div class="row mb-2">
-              <div class="col-sm">
-                <h2 class="fs-5">{{ activity.title }}</h2>
+      @for (activity of vm.activities; track activity.id) {
+        <div class="mb-2">
+          <div class="card card-primary">
+            <div class="card-body">
+              <div class="row mb-2">
+                <div class="col-sm">
+                  <h2 class="fs-5">{{ activity.title }}</h2>
+                </div>
+                <div class="col-sm-auto fw-semibold text-end">
+                  <ms-icon [icon]="icons.activityDate" class="me-1" />
+                  {{ activity.date | date: 'mediumDate' }}
+                </div>
               </div>
-              <div class="col-sm-auto fw-semibold text-end">
-                <ms-icon [icon]="icons.activityDate" class="me-1" />
-                {{ activity.date | date: 'mediumDate' }}
-              </div>
+              <div [msMarkdown]="activity.description"></div>
             </div>
-            <div [msMarkdown]="activity.description"></div>
-          </div>
-          <div *ngIf="vm.user?.admin" class="card-footer text-end">
-            <a
-              class="btn btn-outline-secondary btn-sm me-2"
-              [routerLink]="['/activities', activity.id, 'edit']"
-            >
-              <ms-icon [icon]="icons.edit" class="me-1" />
-              Modifier
-            </a>
-            <button
-              type="button"
-              class="btn btn-outline-danger btn-sm"
-              (click)="deleteActivity(activity)"
-            >
-              <ms-icon [icon]="icons.trash" />
-              Supprimer
-            </button>
+            @if (vm.user?.admin) {
+              <div class="card-footer text-end">
+                <a
+                  class="btn btn-outline-secondary btn-sm me-2"
+                  [routerLink]="['/activities', activity.id, 'edit']"
+                >
+                  <ms-icon [icon]="icons.edit" class="me-1" />
+                  Modifier
+                </a>
+                <button
+                  type="button"
+                  class="btn btn-outline-danger btn-sm"
+                  (click)="deleteActivity(activity)"
+                >
+                  <ms-icon [icon]="icons.trash" />
+                  Supprimer
+                </button>
+              </div>
+            }
           </div>
         </div>
-      </div>
-    </ng-container>
-    <ng-template #loading>
+      }
+    } @else {
       <ms-loading-spinner />
-    </ng-template>
+    }
   </div>
 </div>

@@ -1,18 +1,20 @@
-<div *ngFor="let channel of channels" class="row gx-2 align-items-center channel">
-  <div class="col-auto">
-    <ms-icon [icon]="channel.icon" />
-    <span class="visually-hidden">{{ channel.description }}</span>
+@for (channel of channels; track channel.label) {
+  <div class="row gx-2 align-items-center channel">
+    <div class="col-auto">
+      <ms-icon [icon]="channel.icon" />
+      <span class="visually-hidden">{{ channel.description }}</span>
+    </div>
+    <div class="col">
+      <a [href]="channel.href">{{ channel.label }}</a>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-link" (click)="copy(channel.label)">
+        <ms-icon [icon]="icons.copy" />
+        <span class="visually-hidden">Copier dans le presse-papier</span>
+      </button>
+    </div>
   </div>
-  <div class="col">
-    <a [href]="channel.href">{{ channel.label }}</a>
-  </div>
-  <div class="col-auto">
-    <button class="btn btn-link" (click)="copy(channel.label)">
-      <ms-icon [icon]="icons.copy" />
-      <span class="visually-hidden">Copier dans le presse-papier</span>
-    </button>
-  </div>
-</div>
-<div *ngIf="channels.length === 0" class="text-danger">
-  Aucun moyen configuré pour contacter {{ contact.name }}
-</div>
+}
+@if (channels.length === 0) {
+  <div class="text-danger">Aucun moyen configuré pour contacter {{ contact.name }}</div>
+}

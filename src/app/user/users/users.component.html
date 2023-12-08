@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <ng-container *ngIf="users$ | async as users; else loading">
+    @if (users$ | async; as users) {
       <div class="mb-3">
         <label for="search" class="visually-hidden">Rechercher</label>
         <input
@@ -26,57 +26,62 @@
         />
       </div>
 
-      <div *ngFor="let user of users; trackBy: trackByUid" class="card card-primary mb-2">
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h2 class="fs-5" [class.disabled]="user.disabled">{{ user.displayName }}</h2>
-              <div class="text-body-secondary">{{ user.email }}</div>
-            </div>
-            <div class="col-auto">
-              <div *ngIf="user.admin">
-                <ms-icon [icon]="icons.administratorUser" class="me-1" />
-                Administrateur
+      @for (user of users; track user.uid) {
+        <div class="card card-primary mb-2">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h2 class="fs-5" [class.disabled]="user.disabled">{{ user.displayName }}</h2>
+                <div class="text-body-secondary">{{ user.email }}</div>
               </div>
-              <div *ngIf="user.disabled">
-                <ms-icon [icon]="icons.disabledUser" class="me-1" />
-                Utilisateur désactivé
+              <div class="col-auto">
+                @if (user.admin) {
+                  <div>
+                    <ms-icon [icon]="icons.administratorUser" class="me-1" />
+                    Administrateur
+                  </div>
+                }
+                @if (user.disabled) {
+                  <div>
+                    <ms-icon [icon]="icons.disabledUser" class="me-1" />
+                    Utilisateur désactivé
+                  </div>
+                }
+              </div>
+            </div>
+            <div class="mt-1">
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-link btn-sm text-start"
+                  (click)="copyEmail(user)"
+                >
+                  <ms-icon [icon]="icons.resetPasswordEmail" class="me-1" />
+                  Choix du mot de passe
+                </button>
+              </div>
+              <div>
+                <button
+                  type="button"
+                  class="btn btn-link btn-sm text-start"
+                  (click)="generateResetPasswordLink(user)"
+                >
+                  <ms-icon [icon]="icons.resetPasswordLink" class="me-1" />
+                  Demander un lien de réinitialisation de mot de passe
+                </button>
               </div>
             </div>
           </div>
-          <div class="mt-1">
-            <div>
-              <button
-                type="button"
-                class="btn btn-link btn-sm text-start"
-                (click)="copyEmail(user)"
-              >
-                <ms-icon [icon]="icons.resetPasswordEmail" class="me-1" />
-                Choix du mot de passe
-              </button>
-            </div>
-            <div>
-              <button
-                type="button"
-                class="btn btn-link btn-sm text-start"
-                (click)="generateResetPasswordLink(user)"
-              >
-                <ms-icon [icon]="icons.resetPasswordLink" class="me-1" />
-                Demander un lien de réinitialisation de mot de passe
-              </button>
-            </div>
+          <div class="card-footer text-end">
+            <a class="btn btn-outline-secondary btn-sm" [routerLink]="['/users', user.uid, 'edit']">
+              <ms-icon [icon]="icons.edit" class="me-1" />
+              Modifier
+            </a>
           </div>
         </div>
-        <div class="card-footer text-end">
-          <a class="btn btn-outline-secondary btn-sm" [routerLink]="['/users', user.uid, 'edit']">
-            <ms-icon [icon]="icons.edit" class="me-1" />
-            Modifier
-          </a>
-        </div>
-      </div>
-    </ng-container>
-    <ng-template #loading>
+      }
+    } @else {
       <ms-loading-spinner />
-    </ng-template>
+    }
   </div>
 </div>

@@ -13,7 +13,7 @@ import { ToastService } from '../../toast/toast.service';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -32,7 +32,6 @@ interface ViewModel {
     LoadingSpinnerComponent,
     RouterLink,
     SpinningIconComponent,
-    NgIf,
     AsyncPipe
   ],
   templateUrl: './my-contact-edition.component.html',
