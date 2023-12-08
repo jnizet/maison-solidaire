@@ -9,7 +9,7 @@ import {
 } from '@angular/fire/auth';
 import { BehaviorSubject, from, Observable, switchMap } from 'rxjs';
 import { Router } from '@angular/router';
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ValidationErrorsComponent } from 'ngx-valdemort';
 import { FormControlValidationDirective } from '../validation/form-control-validation.directive';
 import { PageTitleDirective } from '../page-title/page-title.directive';
@@ -25,7 +25,6 @@ interface ViewModel {
   styleUrls: ['./change-password.component.scss'],
   standalone: true,
   imports: [
-    NgIf,
     ReactiveFormsModule,
     ValidationErrorsComponent,
     FormControlValidationDirective,

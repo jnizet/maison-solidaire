@@ -1,4 +1,4 @@
-<ng-container *ngIf="vm$ | async as vm; else loading">
+@if (vm$ | async; as vm) {
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
       <ms-page-title title="Modification de responsabilité" />
@@ -27,19 +27,20 @@
             class="contact-list"
             (cdkDropListDropped)="drop($event)"
           >
-            <div
-              *ngFor="let contact of contacts; index as i; trackBy: trackById"
-              cdkDrag
-              cdkDragBoundary=".contact-list"
-              class="border bg-light row p-1 gx-1 align-items-center contact-box"
-            >
-              <div cdkDragHandle class="col" style="cursor: move">{{ contact.name }}</div>
-              <div class="col-auto">
-                <button (click)="removeContact(contact)" class="btn btn-sm btn-link text-danger">
-                  <ms-icon [icon]="icons.trash" />
-                </button>
+            @for (contact of contacts; track contact.id) {
+              <div
+                cdkDrag
+                cdkDragBoundary=".contact-list"
+                class="border bg-light row p-1 gx-1 align-items-center contact-box"
+              >
+                <div cdkDragHandle class="col" style="cursor: move">{{ contact.name }}</div>
+                <div class="col-auto">
+                  <button (click)="removeContact(contact)" class="btn btn-sm btn-link text-danger">
+                    <ms-icon [icon]="icons.trash" />
+                  </button>
+                </div>
               </div>
-            </div>
+            }
           </div>
           <div class="form-text">Tu peux glisser/déposer les contacts pour les réordonner</div>
           <val-errors controlName="contacts">
@@ -64,7 +65,6 @@
       </form>
     </div>
   </div>
-</ng-container>
-<ng-template #loading>
+} @else {
   <ms-loading-spinner />
-</ng-template>
+}

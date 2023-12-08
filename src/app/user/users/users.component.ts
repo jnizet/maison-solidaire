@@ -6,7 +6,7 @@ import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { IconDirective } from '../../icon/icon.directive';
 import { RouterLink } from '@angular/router';
-import { AsyncPipe, NgFor, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { ToastService } from '../../toast/toast.service';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -19,8 +19,6 @@ import { ResetPasswordLinkModalComponent } from '../reset-password-link-modal/re
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    NgIf,
-    NgFor,
     AsyncPipe,
     RouterLink,
     PageTitleDirective,
@@ -53,10 +51,6 @@ export class UsersComponent {
 
   copyEmail(user: AdministeredUser) {
     return this.userService.copyEmail(user);
-  }
-
-  trackByUid(index: number, user: AdministeredUser) {
-    return user.uid;
   }
 
   clearSearch() {

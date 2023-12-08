@@ -1,16 +1,18 @@
 <ul class="list-unstyled">
-  <li *ngFor="let contact of responsibility.contacts" class="ms-3">
-    <ng-template #contactContent>
-      <ms-contact [contact]="contact" />
-    </ng-template>
+  @for (contact of responsibility.contacts; track contact.id) {
+    <li class="ms-3">
+      <ng-template #contactContent>
+        <ms-contact [contact]="contact" />
+      </ng-template>
 
-    <button
-      type="button"
-      class="btn btn-link p-0"
-      [ngbPopover]="contactContent"
-      [popoverTitle]="'Contacter ' + contact.name"
-    >
-      <ms-icon [icon]="icons.contact" class="me-1" />{{ contact.name }}
-    </button>
-  </li>
+      <button
+        type="button"
+        class="btn btn-link p-0"
+        [ngbPopover]="contactContent"
+        [popoverTitle]="'Contacter ' + contact.name"
+      >
+        <ms-icon [icon]="icons.contact" class="me-1" />{{ contact.name }}
+      </button>
+    </li>
+  }
 </ul>

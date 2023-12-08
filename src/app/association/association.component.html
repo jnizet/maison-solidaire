@@ -1,6 +1,6 @@
 <ms-page-title title="L'association" />
 
-<ng-container *ngIf="vm$ | async as vm">
+@if (vm$ | async; as vm) {
   <h1>L'association ATPAC Maison Solidaire</h1>
 
   <h2>Horaires d'ouverture</h2>
@@ -34,4 +34,4 @@
   <h2>Le conseil d'administration</h2>
   <p>L'association est gérée par un conseil d'administration collégial:</p>
   <ms-responsibility [responsibility]="vm.council" />
-</ng-container>
+}

@@ -1,4 +1,4 @@
-<ng-container *ngIf="vm$ | async as vm">
+@if (vm$ | async; as vm) {
   <h1 class="text-center">La Maison Solidaire</h1>
 
   <div class="row justify-content-evenly">
@@ -11,100 +11,106 @@
           class="img-fluid w-100"
           alt="quatre jeunes jouant ensemble dans un jardin"
         />
-        <p
-          *ngIf="vm.user"
-          class="m-3 p-2 rounded lead text-white fs-4 darken"
-          style="position: absolute; left: 0; bottom: 0"
-        >
-          Bienvenue {{ vm.user.displayName }}&nbsp;!
-          <br />
-          Et merci encore pour ton engagement&nbsp;!
-        </p>
-      </div>
-    </div>
-    <div
-      *ngIf="vm.user && vm.activities.length > 0"
-      class="col-12 col-lg-4 d-flex justify-content-center"
-    >
-      <div class="activities p-2">
-        <ul class="list-unstyled">
-          <li *ngFor="let activity of vm.activities" class="mb-2">
-            <span class="activity-date">{{ activity.date | date: 'mediumDate' }}</span
-            >&nbsp;: {{ activity.title }}
-          </li>
-        </ul>
-        <div class="text-center">
-          <a routerLink="/activities">Toutes les activités</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="!vm.user" class="row justify-content-center">
-    <div class="col col-lg-6">
-      <div class="alert alert-dark">
-        <div class="d-flex gap-3">
-          <ms-icon [icon]="icons.info" class="fs-4" />
-          <p class="flex-grow-1">
-            Ce site est réservé aux membres et bénévoles de la Maison Solidaire.<br />
-            <a href="https://atpac-maisonsolidaire.fr/"
-              >Clique ici pour accéder au site public de la Maison Solidaire</a
-            >.
+        @if (vm.user) {
+          <p
+            class="m-3 p-2 rounded lead text-white fs-4 darken"
+            style="position: absolute; left: 0; bottom: 0"
+          >
+            Bienvenue {{ vm.user.displayName }}&nbsp;!
+            <br />
+            Et merci encore pour ton engagement&nbsp;!
           </p>
+        }
+      </div>
+    </div>
+    @if (vm.user && vm.activities.length > 0) {
+      <div class="col-12 col-lg-4 d-flex justify-content-center">
+        <div class="activities p-2">
+          <ul class="list-unstyled">
+            @for (activity of vm.activities; track activity.id) {
+              <li class="mb-2">
+                <span class="activity-date">{{ activity.date | date: 'mediumDate' }}</span
+                >&nbsp;: {{ activity.title }}
+              </li>
+            }
+          </ul>
+          <div class="text-center">
+            <a routerLink="/activities">Toutes les activités</a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (!vm.user) {
+    <div class="row justify-content-center">
+      <div class="col col-lg-6">
+        <div class="alert alert-dark">
+          <div class="d-flex gap-3">
+            <ms-icon [icon]="icons.info" class="fs-4" />
+            <p class="flex-grow-1">
+              Ce site est réservé aux membres et bénévoles de la Maison Solidaire.<br />
+              <a href="https://atpac-maisonsolidaire.fr/"
+                >Clique ici pour accéder au site public de la Maison Solidaire</a
+              >.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  } @else {
+    <div class="text-center">
+      <div>
+        <a class="btn btn-primary btn-lg" routerLink="/login">
+          <ms-icon class="me-1" [icon]="icons.login" />
+          Identification
+        </a>
+      </div>
+    </div>
+  }
 
-  <div *ngIf="!vm.user" class="text-center">
-    <div>
-      <a class="btn btn-primary btn-lg" routerLink="/login">
-        <ms-icon class="me-1" [icon]="icons.login" />
-        Identification
-      </a>
+  @if (vm.user) {
+    <div class="row mt-2 g-3">
+      <div class="col-12 col-lg">
+        <a routerLink="/lodging" class="d-block btn btn-link border-0 h-100">
+          <div class="fs-1">
+            <ms-icon [icon]="icons.lodging" />
+          </div>
+          <div class="fs-6">Informations et ressources pour les hébergeurs</div>
+        </a>
+      </div>
+      <div class="col-12 col-lg">
+        <a routerLink="/association" class="d-block btn btn-link border-0 h-100">
+          <div class="fs-1">
+            <ms-icon [icon]="icons.association" />
+          </div>
+          <div class="fs-6">L'association ATPAC Maison Solidaire</div>
+        </a>
+      </div>
+      <div class="col-12 col-lg">
+        <a routerLink="/contacts" class="d-block btn btn-link border-0 h-100">
+          <div class="fs-1">
+            <ms-icon [icon]="icons.contacts" />
+          </div>
+          <div class="fs-6">Liste des contacts</div>
+        </a>
+      </div>
+      <div class="col-12 col-lg">
+        <a routerLink="/activities" class="d-block btn btn-link border-0 h-100">
+          <div class="fs-1">
+            <ms-icon [icon]="icons.activities" />
+          </div>
+          <div class="fs-6">Agenda des activités</div>
+        </a>
+      </div>
+      <div class="col-12 col-lg">
+        <a routerLink="/volunteering" class="d-block btn btn-link border-0 h-100">
+          <div class="fs-1">
+            <ms-icon [icon]="icons.volunteering" />
+          </div>
+          <div class="fs-6">Bénévolat</div>
+        </a>
+      </div>
     </div>
-  </div>
-
-  <div *ngIf="vm.user" class="row mt-2 g-3">
-    <div class="col-12 col-lg">
-      <a routerLink="/lodging" class="d-block btn btn-link border-0 h-100">
-        <div class="fs-1">
-          <ms-icon [icon]="icons.lodging" />
-        </div>
-        <div class="fs-6">Informations et ressources pour les hébergeurs</div>
-      </a>
-    </div>
-    <div class="col-12 col-lg">
-      <a routerLink="/association" class="d-block btn btn-link border-0 h-100">
-        <div class="fs-1">
-          <ms-icon [icon]="icons.association" />
-        </div>
-        <div class="fs-6">L'association ATPAC Maison Solidaire</div>
-      </a>
-    </div>
-    <div class="col-12 col-lg">
-      <a routerLink="/contacts" class="d-block btn btn-link border-0 h-100">
-        <div class="fs-1">
-          <ms-icon [icon]="icons.contacts" />
-        </div>
-        <div class="fs-6">Liste des contacts</div>
-      </a>
-    </div>
-    <div class="col-12 col-lg">
-      <a routerLink="/activities" class="d-block btn btn-link border-0 h-100">
-        <div class="fs-1">
-          <ms-icon [icon]="icons.activities" />
-        </div>
-        <div class="fs-6">Agenda des activités</div>
-      </a>
-    </div>
-    <div class="col-12 col-lg">
-      <a routerLink="/volunteering" class="d-block btn btn-link border-0 h-100">
-        <div class="fs-1">
-          <ms-icon [icon]="icons.volunteering" />
-        </div>
-        <div class="fs-6">Bénévolat</div>
-      </a>
-    </div>
-  </div>
-</ng-container>
+  }
+}

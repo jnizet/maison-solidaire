@@ -1,34 +1,34 @@
 <ms-page-title title="Responsabilités" />
 <div class="row justify-content-md-center">
   <div class="col col-md-8 col-lg-6">
-    <ng-container *ngIf="vm$ | async as vm; else loading">
+    @if (vm$ | async; as vm) {
       <h1>Responsabilités</h1>
 
-      <div
-        *ngFor="let responsibility of vm.responsibilities; trackBy: trackById"
-        class="card card-primary mb-2"
-      >
-        <div class="card-body">
-          <div class="row">
-            <div class="col">
-              <h2 class="fs-5">{{ responsibility.name }}</h2>
-              <ms-responsibility [responsibility]="responsibility" />
+      @for (responsibility of vm.responsibilities; track responsibility.id) {
+        <div class="card card-primary mb-2">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h2 class="fs-5">{{ responsibility.name }}</h2>
+                <ms-responsibility [responsibility]="responsibility" />
+              </div>
             </div>
           </div>
+          @if (vm.user?.admin) {
+            <div class="card-footer text-end">
+              <a
+                class="btn btn-outline-secondary btn-sm"
+                [routerLink]="['/responsibilities', responsibility.slug, 'edit']"
+              >
+                <ms-icon [icon]="icons.edit" class="me-1" />
+                Modifier
+              </a>
+            </div>
+          }
         </div>
-        <div class="card-footer text-end" *ngIf="vm.user?.admin">
-          <a
-            class="btn btn-outline-secondary btn-sm"
-            [routerLink]="['/responsibilities', responsibility.slug, 'edit']"
-          >
-            <ms-icon [icon]="icons.edit" class="me-1" />
-            Modifier
-          </a>
-        </div>
-      </div>
-    </ng-container>
-    <ng-template #loading>
+      }
+    } @else {
       <ms-loading-spinner />
-    </ng-template>
+    }
   </div>
 </div>

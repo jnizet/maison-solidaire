@@ -8,11 +8,16 @@
       <div class="mb-3">
         <label class="form-label" for="week">Semaine</label>
         <select formControlName="week" class="form-select" id="week">
-          <option *ngFor="let week of weeks; index as i" [ngValue]="week">
-            {{ week | week }}
-            <ng-container *ngIf="i === 0"> (semaine en cours)</ng-container>
-            <ng-container *ngIf="i === 1"> (semaine prochaine)</ng-container>
-          </option>
+          @for (week of weeks; track week) {
+            <option [ngValue]="week">
+              {{ week | week }}
+              @if ($index === 0) {
+                (semaine en cours)
+              } @else if ($index === 1) {
+                (semaine prochaine)
+              }
+            </option>
+          }
         </select>
       </div>
       <div class="mb-3">
