@@ -58,7 +58,6 @@
         </div>
       </div>
     </div>
-  } @else {
     <div class="text-center">
       <div>
         <a class="btn btn-primary btn-lg" routerLink="/login">
@@ -67,9 +66,7 @@
         </a>
       </div>
     </div>
-  }
-
-  @if (vm.user) {
+  } @else {
     <div class="row mt-2 g-3">
       <div class="col-12 col-lg">
         <a routerLink="/lodging" class="d-block btn btn-link border-0 h-100">
