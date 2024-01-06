@@ -7,7 +7,6 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 import { IconDirective } from '../../icon/icon.directive';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { ToastService } from '../../toast/toast.service';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ResetPasswordLinkModalComponent } from '../reset-password-link-modal/reset-password-link-modal.component';
@@ -35,7 +34,6 @@ export class UsersComponent {
   constructor(
     private fb: NonNullableFormBuilder,
     private userService: UserService,
-    private toastService: ToastService,
     private ngbModal: NgbModal
   ) {
     const filter$ = this.searchControl.valueChanges.pipe(
