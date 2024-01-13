@@ -1,5 +1,5 @@
 <ul class="list-unstyled">
-  @for (contact of responsibility.contacts; track contact.id) {
+  @for (contact of responsibility().contacts; track contact.id) {
     <li class="ms-3">
       <ng-template #contactContent>
         <ms-contact [contact]="contact" />

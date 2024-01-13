@@ -48,7 +48,8 @@
           { "ignoreParameters": true }
         ],
         "no-fallthrough": "error",
-        "@angular-eslint/no-input-rename": "off"
+        "@angular-eslint/no-input-rename": "off",
+        "@angular-eslint/no-host-metadata-property": "off"
       }
     },
     {
