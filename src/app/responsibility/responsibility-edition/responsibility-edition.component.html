@@ -1,4 +1,4 @@
-@if (vm$ | async; as vm) {
+@if (vm(); as vm) {
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
       <ms-page-title title="Modification de responsabilité" />
@@ -6,7 +6,7 @@
         Modification des responsables de <em>{{ vm.editedResponsibility.name }}</em>
       </h1>
 
-      <form [formGroup]="form" (ngSubmit)="save(vm)">
+      <form [formGroup]="form" (ngSubmit)="save()">
         <div class="col col-md-6 mb-3">
           <label class="form-label" for="contact">Ajouter un responsable</label>
           <input

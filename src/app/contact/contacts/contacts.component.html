@@ -1,12 +1,12 @@
 <ms-page-title title="Contacts" />
 <div class="row justify-content-md-center">
   <div class="col col-md-8 col-lg-6">
-    @if (vm$ | async; as vm) {
+    @if (contacts(); as contacts) {
       <div class="row align-items-center mb-4">
         <div class="col">
           <h1>Contacts</h1>
         </div>
-        @if (vm.user?.admin) {
+        @if (user()?.admin) {
           <div class="col-auto">
             <a routerLink="new" class="btn btn-outline-secondary">
               <ms-icon class="me-1" [icon]="icons.add" />
@@ -27,7 +27,7 @@
           (keydown.escape)="clearSearch()"
         />
       </div>
-      @for (contact of vm.contacts; track contact.id) {
+      @for (contact of contacts; track contact.id) {
         <div class="card card-primary mb-2">
           <div class="card-body">
             <div class="row">
@@ -39,7 +39,7 @@
               </div>
             </div>
           </div>
-          @if (vm.user?.admin) {
+          @if (user()?.admin) {
             <div class="card-footer text-end">
               <a
                 class="btn btn-outline-secondary btn-sm me-2"

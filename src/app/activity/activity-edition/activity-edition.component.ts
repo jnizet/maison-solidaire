@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -20,7 +20,7 @@ import { MarkdownDirective } from '../markdown.directive';
 import * as icons from '../../icon/icons';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
-import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -44,8 +44,7 @@ interface ViewModel {
     NgbNavContent,
     MarkdownDirective,
     NgbNavOutlet,
-    SpinningIconComponent,
-    AsyncPipe
+    SpinningIconComponent
   ],
   templateUrl: './activity-edition.component.html',
   styleUrls: ['./activity-edition.component.scss'],
@@ -58,7 +57,7 @@ export class ActivityEditionComponent {
     description: ['', Validators.required]
   });
 
-  vm$: Observable<ViewModel>;
+  vm: Signal<ViewModel | undefined>;
   icons = icons;
   saving = new Spinner();
 
@@ -69,29 +68,31 @@ export class ActivityEditionComponent {
     private fb: NonNullableFormBuilder,
     private toastService: ToastService
   ) {
-    this.vm$ = route.paramMap.pipe(
-      map(paramMap => paramMap.get('activityId')),
-      switchMap(activityId => (activityId ? activityService.get(activityId) : of(undefined))),
-      first(),
-      tap(activity => {
-        if (activity) {
-          const formValue = {
-            title: activity.title,
-            description: activity.description,
-            date: activity.date
-          };
+    this.vm = toSignal(
+      route.paramMap.pipe(
+        map(paramMap => paramMap.get('activityId')),
+        switchMap(activityId => (activityId ? activityService.get(activityId) : of(undefined))),
+        first(),
+        tap(activity => {
+          if (activity) {
+            const formValue = {
+              title: activity.title,
+              description: activity.description,
+              date: activity.date
+            };
 
-          this.form.setValue(formValue);
-        }
-      }),
-      map(activity => ({
-        mode: activity ? 'edit' : 'create',
-        editedActivity: activity
-      }))
+            this.form.setValue(formValue);
+          }
+        }),
+        map(activity => ({
+          mode: activity ? 'edit' : 'create',
+          editedActivity: activity
+        }))
+      )
     );
   }
 
-  save(vm: ViewModel) {
+  save() {
     if (this.form.invalid) {
       return;
     }
@@ -102,6 +103,7 @@ export class ActivityEditionComponent {
       description: formValue.description,
       date: formValue.date!
     };
+    const vm = this.vm()!;
     const result$: Observable<unknown> =
       vm.mode === 'create'
         ? this.activityService.create(command)

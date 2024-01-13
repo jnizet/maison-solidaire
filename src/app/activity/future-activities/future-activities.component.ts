@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { Activity, ActivityService } from '../activity.service';
-import { combineLatest, Observable, switchMap } from 'rxjs';
+import { switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { IconDirective } from '../../icon/icon.directive';
@@ -10,13 +10,8 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
 import { MarkdownDirective } from '../markdown.directive';
-import { AsyncPipe, DatePipe } from '@angular/common';
-import { toObservable } from '@angular/core/rxjs-interop';
-
-interface ViewModel {
-  activities: Array<Activity>;
-  user: CurrentUser | null;
-}
+import { DatePipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ms-future-activities',
@@ -27,7 +22,6 @@ interface ViewModel {
     IconDirective,
     RouterLink,
     MarkdownDirective,
-    AsyncPipe,
     DatePipe
   ],
   templateUrl: './future-activities.component.html',
@@ -35,7 +29,8 @@ interface ViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FutureActivitiesComponent {
-  vm$: Observable<ViewModel>;
+  activities: Signal<Array<Activity> | undefined>;
+  user: Signal<CurrentUser | null>;
 
   icons = icons;
 
@@ -45,10 +40,8 @@ export class FutureActivitiesComponent {
     private confirmService: ConfirmService,
     private toastService: ToastService
   ) {
-    this.vm$ = combineLatest({
-      activities: activityService.listFuture(),
-      user: toObservable(currentUserService.currentUser)
-    });
+    this.user = currentUserService.currentUser;
+    this.activities = toSignal(activityService.listFuture());
   }
 
   deleteActivity(activity: Activity) {
