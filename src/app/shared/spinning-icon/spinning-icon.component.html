@@ -1,8 +1,8 @@
-@if ((spinner.isSpinning | async) === false) {
-  <ms-icon [icon]="icon" class="me-1" />
+@if ((spinner().isSpinning | async) === false) {
+  <ms-icon [icon]="icon()" class="me-1" />
 }
-@if ((spinner.isSpinning | async) === true) {
+@if ((spinner().isSpinning | async) === true) {
   <div class="spinner-border spinner-border-sm me-1" role="status">
-    <span class="visually-hidden">{{ message }}</span>
+    <span class="visually-hidden">{{ message() }}</span>
   </div>
 }

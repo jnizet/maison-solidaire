@@ -1,4 +1,4 @@
-@for (channel of channels; track channel.label) {
+@for (channel of channels(); track channel.label) {
   <div class="row gx-2 align-items-center channel">
     <div class="col-auto">
       <ms-icon [icon]="channel.icon" />
@@ -14,7 +14,6 @@
       </button>
     </div>
   </div>
-}
-@if (channels.length === 0) {
-  <div class="text-danger">Aucun moyen configuré pour contacter {{ contact.name }}</div>
+} @empty {
+  <div class="text-danger">Aucun moyen configuré pour contacter {{ contact().name }}</div>
 }

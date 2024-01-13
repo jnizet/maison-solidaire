@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Responsibility } from '../responsibility.service';
 import { NgbPopover } from '@ng-bootstrap/ng-bootstrap';
 import { IconDirective } from '../../icon/icon.directive';
@@ -17,5 +17,5 @@ import * as icons from '../../icon/icons';
 export class ResponsibilityComponent {
   readonly icons = icons;
 
-  @Input({ required: true }) responsibility!: Responsibility;
+  responsibility = input.required<Responsibility>();
 }
