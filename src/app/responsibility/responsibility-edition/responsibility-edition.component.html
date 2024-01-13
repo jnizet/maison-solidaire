@@ -49,7 +49,7 @@
         </div>
 
         <div class="mb-3 text-end">
-          <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
+          <button class="btn btn-primary me-2" [disabled]="saving.isSpinning()">
             <ms-spinning-icon
               [icon]="icons.save"
               [spinner]="saving"
