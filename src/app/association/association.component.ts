@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { combineLatest, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { combineLatest } from 'rxjs';
 import {
   COORDINATION,
   COUNCIL,
@@ -8,7 +8,7 @@ import {
 } from '../shared/responsibility.service';
 import { ResponsibilityComponent } from '../shared/responsibility/responsibility.component';
 import { PageTitleDirective } from '../page-title/page-title.directive';
-import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -18,18 +18,20 @@ interface ViewModel {
 @Component({
   selector: 'ms-association',
   standalone: true,
-  imports: [ResponsibilityComponent, PageTitleDirective, AsyncPipe],
+  imports: [ResponsibilityComponent, PageTitleDirective],
   templateUrl: './association.component.html',
   styleUrls: ['./association.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AssociationComponent {
-  vm$: Observable<ViewModel>;
+  vm: Signal<ViewModel | undefined>;
 
   constructor(responsibilityService: ResponsibilityService) {
-    this.vm$ = combineLatest({
-      coordination: responsibilityService.getBySlug(COORDINATION),
-      council: responsibilityService.getBySlug(COUNCIL)
-    });
+    this.vm = toSignal(
+      combineLatest({
+        coordination: responsibilityService.getBySlug(COORDINATION),
+        council: responsibilityService.getBySlug(COUNCIL)
+      })
+    );
   }
 }

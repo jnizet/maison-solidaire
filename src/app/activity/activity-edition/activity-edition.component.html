@@ -1,4 +1,4 @@
-@if (vm$ | async; as vm) {
+@if (vm(); as vm) {
   <div class="row justify-content-md-center">
     <div class="col col-md-10 col-lg-8">
       <ms-page-title
@@ -15,7 +15,7 @@
         }
       }
 
-      <form [formGroup]="form" (ngSubmit)="save(vm)">
+      <form [formGroup]="form" (ngSubmit)="save()">
         <div class="row">
           <div class="col-md-8">
             <div class="mb-3">

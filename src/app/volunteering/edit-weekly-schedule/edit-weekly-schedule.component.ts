@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
 import { WeeklyScheduleService } from '../weekly-schedule.service';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { WeekPipe } from '../week.pipe';
@@ -20,7 +19,6 @@ import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.
     IconDirective,
     RouterLink,
     PageTitleDirective,
-    AsyncPipe,
     SpinningIconComponent
   ],
   templateUrl: './edit-weekly-schedule.component.html',

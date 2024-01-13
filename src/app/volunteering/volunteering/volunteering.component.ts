@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
 import { ResponsibilityComponent } from '../../shared/responsibility/responsibility.component';
 import {
@@ -7,7 +6,7 @@ import {
   Responsibility,
   ResponsibilityService
 } from '../../shared/responsibility.service';
-import { combineLatest, Observable } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import { WeeklySchedule, WeeklyScheduleService } from '../weekly-schedule.service';
 import { WeekPipe } from '../week.pipe';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
@@ -17,12 +16,11 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 import { StorageService } from '../../shared/storage.service';
 import * as icons from '../../icon/icons';
 import { IconDirective } from '../../icon/icon.directive';
-import { toObservable } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   coordination: Responsibility;
   weeklySchedules: Array<WeeklySchedule>;
-  user: CurrentUser | null;
   conventionUrl: string;
 }
 
@@ -32,7 +30,6 @@ interface ViewModel {
   imports: [
     ContactComponent,
     ResponsibilityComponent,
-    AsyncPipe,
     WeekPipe,
     RouterLink,
     PageTitleDirective,
@@ -44,8 +41,8 @@ interface ViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class VolunteeringComponent {
-  readonly vm$: Observable<ViewModel>;
-
+  readonly vm: Signal<ViewModel | undefined>;
+  readonly user: Signal<CurrentUser | null>;
   readonly icons = icons;
 
   constructor(
@@ -54,11 +51,13 @@ export class VolunteeringComponent {
     currentUserService: CurrentUserService,
     storageService: StorageService
   ) {
-    this.vm$ = combineLatest({
-      coordination: responsibilityService.getBySlug(COORDINATION),
-      weeklySchedules: weeklyScheduleService.listFutureSchedules(),
-      user: toObservable(currentUserService.currentUser),
-      conventionUrl: storageService.downloadUrl('charte-benevoles.pdf')
-    });
+    this.user = currentUserService.currentUser;
+    this.vm = toSignal(
+      combineLatest({
+        coordination: responsibilityService.getBySlug(COORDINATION),
+        weeklySchedules: weeklyScheduleService.listFutureSchedules(),
+        conventionUrl: storageService.downloadUrl('charte-benevoles.pdf')
+      })
+    );
   }
 }

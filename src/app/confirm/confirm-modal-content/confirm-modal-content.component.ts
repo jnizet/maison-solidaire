@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

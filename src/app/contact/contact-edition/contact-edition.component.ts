@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as icons from '../../icon/icons';
 import { Spinner } from '../../shared/spinner';
@@ -12,7 +12,7 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 import { ToastService } from '../../toast/toast.service';
 import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
-import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   mode: 'create' | 'edit';
@@ -30,8 +30,7 @@ interface ViewModel {
     IconDirective,
     LoadingSpinnerComponent,
     RouterLink,
-    SpinningIconComponent,
-    AsyncPipe
+    SpinningIconComponent
   ],
   templateUrl: './contact-edition.component.html',
   styleUrls: ['./contact-edition.component.scss'],
@@ -46,7 +45,7 @@ export class ContactEditionComponent {
     whatsapp: ''
   });
 
-  readonly vm$: Observable<ViewModel>;
+  readonly vm: Signal<ViewModel | undefined>;
   readonly icons = icons;
   readonly saving = new Spinner();
 
@@ -57,36 +56,39 @@ export class ContactEditionComponent {
     private fb: NonNullableFormBuilder,
     private toastService: ToastService
   ) {
-    this.vm$ = route.paramMap.pipe(
-      map(paramMap => paramMap.get('contactId')),
-      switchMap(contactId => (contactId ? contactService.get(contactId) : of(undefined))),
-      first(),
-      tap(contact => {
-        if (contact) {
-          const formValue = {
-            name: contact.name,
-            email: contact.email ?? '',
-            phone: contact.phone ?? '',
-            mobile: contact.mobile ?? '',
-            whatsapp: contact.whatsapp ?? ''
-          };
+    this.vm = toSignal(
+      route.paramMap.pipe(
+        map(paramMap => paramMap.get('contactId')),
+        switchMap(contactId => (contactId ? contactService.get(contactId) : of(undefined))),
+        first(),
+        tap(contact => {
+          if (contact) {
+            const formValue = {
+              name: contact.name,
+              email: contact.email ?? '',
+              phone: contact.phone ?? '',
+              mobile: contact.mobile ?? '',
+              whatsapp: contact.whatsapp ?? ''
+            };
 
-          this.form.setValue(formValue);
-        }
-      }),
-      map(contact => ({
-        mode: contact ? 'edit' : 'create',
-        editedContact: contact
-      }))
+            this.form.setValue(formValue);
+          }
+        }),
+        map(contact => ({
+          mode: contact ? 'edit' : 'create',
+          editedContact: contact
+        }))
+      )
     );
   }
 
-  save(vm: ViewModel) {
+  save() {
     if (this.form.invalid) {
       return;
     }
 
     const command: ContactCommand = this.form.getRawValue();
+    const vm = this.vm()!;
     const result$: Observable<unknown> =
       vm.mode === 'create'
         ? this.contactService.create(command)

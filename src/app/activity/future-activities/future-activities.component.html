@@ -2,12 +2,12 @@
 
 <div class="row justify-content-md-center">
   <div class="col col-md-10 col-lg-8">
-    @if (vm$ | async; as vm) {
+    @if (activities(); as activities) {
       <div class="row align-items-center mb-4">
         <div class="col">
           <h1>Futures activités</h1>
         </div>
-        @if (vm.user?.admin) {
+        @if (user()?.admin) {
           <div class="col-auto">
             <a routerLink="new" class="btn btn-outline-secondary">
               <ms-icon class="me-1" [icon]="icons.add" />
@@ -17,7 +17,7 @@
         }
       </div>
 
-      @for (activity of vm.activities; track activity.id) {
+      @for (activity of activities; track activity.id) {
         <div class="mb-2">
           <div class="card card-primary">
             <div class="card-body">
@@ -32,7 +32,7 @@
               </div>
               <div [msMarkdown]="activity.description"></div>
             </div>
-            @if (vm.user?.admin) {
+            @if (user()?.admin) {
               <div class="card-footer text-end">
                 <a
                   class="btn btn-outline-secondary btn-sm me-2"

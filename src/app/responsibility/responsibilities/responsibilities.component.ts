@@ -1,7 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { Responsibility, ResponsibilityService } from '../../shared/responsibility.service';
 import { CurrentUser, CurrentUserService } from '../../current-user.service';
-import { combineLatest, Observable } from 'rxjs';
 import * as icons from '../../icon/icons';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { ContactComponent } from '../../shared/responsibility/contact/contact.component';
@@ -9,13 +8,7 @@ import { RouterLink } from '@angular/router';
 import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { ResponsibilityComponent } from '../../shared/responsibility/responsibility.component';
-import { AsyncPipe } from '@angular/common';
-import { toObservable } from '@angular/core/rxjs-interop';
-
-interface ViewModel {
-  responsibilities: Array<Responsibility>;
-  user: CurrentUser | null;
-}
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ms-responsibilities',
@@ -26,25 +19,22 @@ interface ViewModel {
     RouterLink,
     IconDirective,
     LoadingSpinnerComponent,
-    ResponsibilityComponent,
-    AsyncPipe
+    ResponsibilityComponent
   ],
   templateUrl: './responsibilities.component.html',
   styleUrls: ['./responsibilities.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResponsibilitiesComponent {
-  vm$: Observable<ViewModel>;
-
+  readonly responsibilities: Signal<Array<Responsibility> | undefined>;
+  user: Signal<CurrentUser | null>;
   icons = icons;
 
   constructor(
     responsibilityService: ResponsibilityService,
     currentUserService: CurrentUserService
   ) {
-    this.vm$ = combineLatest({
-      responsibilities: responsibilityService.list(),
-      user: toObservable(currentUserService.currentUser)
-    });
+    this.user = currentUserService.currentUser;
+    this.responsibilities = toSignal(responsibilityService.list());
   }
 }

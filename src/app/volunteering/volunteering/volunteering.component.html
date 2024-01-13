@@ -1,7 +1,7 @@
 <ms-page-title title="Bénévolat" />
 <h1>Bénévolat</h1>
 
-@if (vm$ | async; as vm) {
+@if (vm(); as vm) {
   <div class="alert alert-dark">
     <div class="d-flex gap-3">
       <ms-icon [icon]="icons.info" class="fs-4" />
@@ -34,7 +34,7 @@
     Aucun programme posté pour les semaines à venir.
   }
 
-  @if (vm.user?.admin) {
+  @if (user()?.admin) {
     <div class="mt-2">
       <a routerLink="edit-weekly-schedule" class="btn btn-outline-secondary">Ajouter ou modifier</a>
     </div>

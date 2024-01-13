@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
@@ -8,7 +8,6 @@ import {
   distinctUntilChanged,
   first,
   map,
-  Observable,
   OperatorFunction,
   switchMap,
   tap
@@ -39,7 +38,7 @@ import {
 import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemort';
 import * as icons from '../../icon/icons';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
-import { AsyncPipe } from '@angular/common';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   editedResponsibility: Responsibility;
@@ -60,8 +59,7 @@ interface ViewModel {
     CdkDragHandle,
     ValidationErrorsComponent,
     ValidationErrorDirective,
-    SpinningIconComponent,
-    AsyncPipe
+    SpinningIconComponent
   ],
   templateUrl: './responsibility-edition.component.html',
   styleUrls: ['./responsibility-edition.component.scss'],
@@ -74,7 +72,7 @@ export class ResponsibilityEditionComponent {
   readonly icons = icons;
   readonly saving = new Spinner();
 
-  readonly vm$: Observable<ViewModel>;
+  readonly vm: Signal<ViewModel | undefined>;
 
   readonly contactFormControl = new FormControl('');
   readonly contactFormatter = (contact: Contact) => contact.name;
@@ -105,26 +103,29 @@ export class ResponsibilityEditionComponent {
     private contactService: ContactService,
     private toastService: ToastService
   ) {
-    this.vm$ = route.paramMap.pipe(
-      map(paramMap => paramMap.get('responsibilitySlug')),
-      switchMap(responsibilitySlug => responsibilityService.getBySlug(responsibilitySlug!)),
-      first(),
-      tap(responsibility => {
-        this.form.setValue({
-          contacts: responsibility.contacts
-        });
-      }),
-      map(responsibility => ({ editedResponsibility: responsibility }))
+    this.vm = toSignal(
+      route.paramMap.pipe(
+        map(paramMap => paramMap.get('responsibilitySlug')),
+        switchMap(responsibilitySlug => responsibilityService.getBySlug(responsibilitySlug!)),
+        first(),
+        tap(responsibility => {
+          this.form.setValue({
+            contacts: responsibility.contacts
+          });
+        }),
+        map(responsibility => ({ editedResponsibility: responsibility }))
+      )
     );
   }
 
-  save(vm: ViewModel) {
+  save() {
     if (!this.form.valid) {
       return;
     }
     const command: ResponsibilityCommand = {
       contacts: this.form.controls.contacts.value.map(c => c.id)
     };
+    const vm = this.vm()!;
     this.responsibilityService
       .update(vm.editedResponsibility.id, command)
       .pipe(this.saving.spinUntilFinalization())

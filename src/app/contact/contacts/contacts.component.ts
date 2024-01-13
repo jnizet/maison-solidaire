@@ -1,14 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
 import { Contact, ContactService } from '../../shared/contact.service';
-import {
-  combineLatest,
-  distinctUntilChanged,
-  first,
-  map,
-  Observable,
-  startWith,
-  switchMap
-} from 'rxjs';
+import { combineLatest, distinctUntilChanged, first, map, startWith, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
 import { IconDirective } from '../../icon/icon.directive';
 import * as icons from '../../icon/icons';
@@ -19,14 +11,8 @@ import { CurrentUser, CurrentUserService } from '../../current-user.service';
 import { ResponsibilityService } from '../../shared/responsibility.service';
 import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
-import { AsyncPipe } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { toObservable } from '@angular/core/rxjs-interop';
-
-interface ViewModel {
-  contacts: Array<Contact>;
-  user: CurrentUser | null;
-}
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'ms-contacts',
@@ -37,7 +23,6 @@ interface ViewModel {
     ContactComponent,
     RouterLink,
     LoadingSpinnerComponent,
-    AsyncPipe,
     ReactiveFormsModule
   ],
   templateUrl: './contacts.component.html',
@@ -45,8 +30,8 @@ interface ViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactsComponent {
-  vm$: Observable<ViewModel>;
-
+  contacts: Signal<Array<Contact> | undefined>;
+  user: Signal<CurrentUser | null>;
   searchControl = this.fb.control('');
 
   icons = icons;
@@ -59,24 +44,21 @@ export class ContactsComponent {
     private toastService: ToastService,
     private fb: NonNullableFormBuilder
   ) {
+    this.user = currentUserService.currentUser;
     const filter$ = this.searchControl.valueChanges.pipe(
       startWith(this.searchControl.value),
       map(f => f.trim()),
       distinctUntilChanged()
     );
-    this.vm$ = combineLatest([
-      contactService.list(),
-      toObservable(currentUserService.currentUser),
-      filter$
-    ]).pipe(
-      map(([contacts, user, filter]) => {
-        const displayableContacts = user?.admin ? contacts : contacts.filter(c => !this.isEmpty(c));
-        const filteredContacts = this.filterContacts(displayableContacts, filter);
-        return {
-          contacts: filteredContacts,
-          user
-        };
-      })
+    this.contacts = toSignal(
+      combineLatest([contactService.list(), currentUserService.currentUser$, filter$]).pipe(
+        map(([contacts, user, filter]) => {
+          const displayableContacts = user?.admin
+            ? contacts
+            : contacts.filter(c => !this.isEmpty(c));
+          return this.filterContacts(displayableContacts, filter);
+        })
+      )
     );
   }
 

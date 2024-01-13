@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CurrentUser, CurrentUserService } from '../current-user.service';
-import { AsyncPipe, ViewportScroller } from '@angular/common';
+import { ViewportScroller } from '@angular/common';
 import {
   NgbCollapse,
   NgbDropdown,

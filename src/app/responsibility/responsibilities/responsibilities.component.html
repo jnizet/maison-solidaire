@@ -1,10 +1,10 @@
 <ms-page-title title="Responsabilités" />
 <div class="row justify-content-md-center">
   <div class="col col-md-8 col-lg-6">
-    @if (vm$ | async; as vm) {
+    @if (responsibilities(); as responsibilities) {
       <h1>Responsabilités</h1>
 
-      @for (responsibility of vm.responsibilities; track responsibility.id) {
+      @for (responsibility of responsibilities; track responsibility.id) {
         <div class="card card-primary mb-2">
           <div class="card-body">
             <div class="row">
@@ -14,7 +14,7 @@
               </div>
             </div>
           </div>
-          @if (vm.user?.admin) {
+          @if (user()?.admin) {
             <div class="card-footer text-end">
               <a
                 class="btn btn-outline-secondary btn-sm"

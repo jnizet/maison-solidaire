@@ -1,52 +1,50 @@
 <ms-page-title title="Identification" />
-@if (vm$ | async; as vm) {
-  <div class="row justify-content-md-center">
-    <div class="col col-md-6 col-lg-4">
-      <h1 class="fs-4">Identification</h1>
-      <form [formGroup]="form" (ngSubmit)="login()">
-        <div class="mb-3">
-          <label for="email" class="form-label">Adresse email</label>
-          <input formControlName="email" type="email" class="form-control" id="email" />
-          <val-errors controlName="email" label="L'adresse email" />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Mot de passe</label>
-          <input formControlName="password" type="password" class="form-control" id="password" />
-          <val-errors controlName="password" label="Le mot de passe" />
-        </div>
+<div class="row justify-content-md-center">
+  <div class="col col-md-6 col-lg-4">
+    <h1 class="fs-4">Identification</h1>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Adresse email</label>
+        <input formControlName="email" type="email" class="form-control" id="email" />
+        <val-errors controlName="email" label="L'adresse email" />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input formControlName="password" type="password" class="form-control" id="password" />
+        <val-errors controlName="password" label="Le mot de passe" />
+      </div>
 
-        <div class="row align-items-center">
-          <div class="col-sm-auto">
-            <button class="btn btn-primary">S'identifier</button>
-          </div>
-          <div class="col-sm">
-            @if (vm.loginError) {
-              <div class="text-danger">L'adresse email ou le mot de passe est incorrect.</div>
-            }
-          </div>
+      <div class="row align-items-center">
+        <div class="col-sm-auto">
+          <button class="btn btn-primary">S'identifier</button>
         </div>
-
-        <div class="mt-4 text-center">
-          <a routerLink="/reset-password">Oops, j'ai oublié mon mot de passe&nbsp;!</a>
-        </div>
-      </form>
-
-      <div class="my-4">
-        <hr />
-        <div class="d-flex justify-content-center">
-          <div class="border bg-light text-body-secondary text-center or">ou</div>
+        <div class="col-sm">
+          @if (loginError()) {
+            <div class="text-danger">L'adresse email ou le mot de passe est incorrect.</div>
+          }
         </div>
       </div>
 
-      <div class="d-grid gap-1">
-        <button class="btn btn-secondary" (click)="googleLogin()">
-          <ms-icon [icon]="icons.google" class="me-1" />
-          Identification avec Google
-        </button>
-        @if (vm.googleLoginError) {
-          <div class="text-danger">L'identification a échoué.</div>
-        }
+      <div class="mt-4 text-center">
+        <a routerLink="/reset-password">Oops, j'ai oublié mon mot de passe&nbsp;!</a>
+      </div>
+    </form>
+
+    <div class="my-4">
+      <hr />
+      <div class="d-flex justify-content-center">
+        <div class="border bg-light text-body-secondary text-center or">ou</div>
       </div>
     </div>
+
+    <div class="d-grid gap-1">
+      <button class="btn btn-secondary" (click)="googleLogin()">
+        <ms-icon [icon]="icons.google" class="me-1" />
+        Identification avec Google
+      </button>
+      @if (googleLoginError()) {
+        <div class="text-danger">L'identification a échoué.</div>
+      }
+    </div>
   </div>
-}
+</div>

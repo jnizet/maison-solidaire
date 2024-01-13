@@ -1,4 +1,4 @@
-@if (vm$ | async; as vm) {
+@if (vm(); as vm) {
   <div class="row justify-content-md-center">
     <div class="col col-md-8 col-lg-6">
       <ms-page-title
@@ -14,7 +14,7 @@
           </h1>
         }
       }
-      <form [formGroup]="form" (ngSubmit)="save(vm)">
+      <form [formGroup]="form" (ngSubmit)="save()">
         <div class="mb-3">
           <label for="display-name" class="form-label">Nom</label>
           <input formControlName="displayName" class="form-control" id="display-name" />

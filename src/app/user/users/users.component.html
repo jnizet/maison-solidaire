@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    @if (users$ | async; as users) {
+    @if (users(); as users) {
       <div class="mb-3">
         <label for="search" class="visually-hidden">Rechercher</label>
         <input

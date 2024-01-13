@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import * as icons from '../../icon/icons';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { IconDirective } from '../../icon/icon.directive';
@@ -15,14 +15,14 @@ import { AdministeredUser, UserService } from '../user.service';
 export class UserCreatedModalComponent {
   icons = icons;
 
-  user!: AdministeredUser;
+  readonly user = signal<AdministeredUser>(undefined!);
 
   constructor(
     public activeModal: NgbActiveModal,
     private userService: UserService
   ) {}
 
-  copyEmail(user: AdministeredUser) {
-    return this.userService.copyEmail(user);
+  copyEmail() {
+    return this.userService.copyEmail(this.user());
   }
 }
