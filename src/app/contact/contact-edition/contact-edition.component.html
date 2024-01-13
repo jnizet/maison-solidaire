@@ -68,7 +68,7 @@
           <val-errors controlName="whatsapp" label="Le n° de téléphone Whatsapp" />
         </div>
         <div class="text-end">
-          <button class="btn btn-primary me-2" [disabled]="(saving.isSpinning | async) === true">
+          <button class="btn btn-primary me-2" [disabled]="saving.isSpinning()">
             <ms-spinning-icon
               [icon]="icons.save"
               [spinner]="saving"
