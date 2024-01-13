@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, ElementRef, Signal } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CurrentUser, CurrentUserService } from '../current-user.service';
 import { AsyncPipe, ViewportScroller } from '@angular/common';
@@ -20,7 +19,6 @@ import * as icons from '../icon/icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
-    AsyncPipe,
     RouterLink,
     NgbCollapse,
     NgbDropdown,
@@ -32,9 +30,7 @@ import * as icons from '../icon/icons';
 })
 export class NavbarComponent {
   expanded = false;
-  vm$: Observable<{
-    user: CurrentUser | null;
-  }>;
+  user: Signal<CurrentUser | null>;
   icons = icons;
 
   constructor(
@@ -43,7 +39,7 @@ export class NavbarComponent {
     viewportScroller: ViewportScroller,
     elementRef: ElementRef<HTMLElement>
   ) {
-    this.vm$ = currentUserService.getCurrentUser().pipe(map(user => ({ user })));
+    this.user = currentUserService.currentUser;
     viewportScroller.setOffset(() => [0, elementRef?.nativeElement?.offsetHeight ?? 0]);
   }
 

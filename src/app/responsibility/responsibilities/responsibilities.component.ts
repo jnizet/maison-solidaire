@@ -10,6 +10,7 @@ import { IconDirective } from '../../icon/icon.directive';
 import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.component';
 import { ResponsibilityComponent } from '../../shared/responsibility/responsibility.component';
 import { AsyncPipe } from '@angular/common';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   responsibilities: Array<Responsibility>;
@@ -43,7 +44,7 @@ export class ResponsibilitiesComponent {
   ) {
     this.vm$ = combineLatest({
       responsibilities: responsibilityService.list(),
-      user: currentUserService.getCurrentUser()
+      user: toObservable(currentUserService.currentUser)
     });
   }
 }

@@ -17,6 +17,7 @@ import { LoadingSpinnerComponent } from '../../loading-spinner/loading-spinner.c
 import { StorageService } from '../../shared/storage.service';
 import * as icons from '../../icon/icons';
 import { IconDirective } from '../../icon/icon.directive';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   coordination: Responsibility;
@@ -56,7 +57,7 @@ export class VolunteeringComponent {
     this.vm$ = combineLatest({
       coordination: responsibilityService.getBySlug(COORDINATION),
       weeklySchedules: weeklyScheduleService.listFutureSchedules(),
-      user: currentUserService.getCurrentUser(),
+      user: toObservable(currentUserService.currentUser),
       conventionUrl: storageService.downloadUrl('charte-benevoles.pdf')
     });
   }
