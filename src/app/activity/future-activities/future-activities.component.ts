@@ -11,6 +11,7 @@ import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
 import { MarkdownDirective } from '../markdown.directive';
 import { AsyncPipe, DatePipe } from '@angular/common';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   activities: Array<Activity>;
@@ -46,7 +47,7 @@ export class FutureActivitiesComponent {
   ) {
     this.vm$ = combineLatest({
       activities: activityService.listFuture(),
-      user: currentUserService.getCurrentUser()
+      user: toObservable(currentUserService.currentUser)
     });
   }
 

@@ -21,6 +21,7 @@ import { ConfirmService } from '../../confirm/confirm.service';
 import { ToastService } from '../../toast/toast.service';
 import { AsyncPipe } from '@angular/common';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 interface ViewModel {
   contacts: Array<Contact>;
@@ -65,7 +66,7 @@ export class ContactsComponent {
     );
     this.vm$ = combineLatest([
       contactService.list(),
-      currentUserService.getCurrentUser(),
+      toObservable(currentUserService.currentUser),
       filter$
     ]).pipe(
       map(([contacts, user, filter]) => {
