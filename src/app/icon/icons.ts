@@ -1,73 +1,70 @@
-import {
-  at,
-  bank,
-  boxArrowInRight,
-  calendar2EventFill,
-  calendar2WeekFill,
-  checkCircleFill,
-  clipboard2,
-  clipboardCheck,
-  cloudArrowUp,
-  envelope,
-  exclamationTriangleFill,
-  google as googleIcon,
-  housesFill,
-  hSquareFill,
-  infoCircleFill,
-  key,
-  lightbulb,
-  pencilSquare,
-  peopleFill,
-  personCircle,
-  personVcard,
-  personVcardFill,
-  personWorkspace,
-  phone as phoneIcon,
-  plusCircle,
-  power,
-  shieldFill,
-  shieldLock,
-  telephone,
-  trash as trashIcon,
-  whatsapp as whatsappIcon,
-  xOctagonFill,
-  xSquare
-} from '../bootstrap-icons/bootstrap-icons';
+import bsAt from 'bootstrap-icons/icons/at.svg';
+import bsBank from 'bootstrap-icons/icons/bank.svg';
+import bsBoxArrowInRight from 'bootstrap-icons/icons/box-arrow-in-right.svg';
+import bsCalendar2EventFill from 'bootstrap-icons/icons/calendar2-event-fill.svg';
+import bsCalendar2WeekFill from 'bootstrap-icons/icons/calendar2-week-fill.svg';
+import bsCheckCircleFill from 'bootstrap-icons/icons/check-circle-fill.svg';
+import bsClipboard2 from 'bootstrap-icons/icons/clipboard2.svg';
+import bsClipboardCheck from 'bootstrap-icons/icons/clipboard-check.svg';
+import bsCloudArrowUp from 'bootstrap-icons/icons/cloud-arrow-up.svg';
+import bsEnvelope from 'bootstrap-icons/icons/envelope.svg';
+import bsExclamationTriangleFill from 'bootstrap-icons/icons/exclamation-triangle-fill.svg';
+import bsGoogle from 'bootstrap-icons/icons/google.svg';
+import bsHousesFill from 'bootstrap-icons/icons/houses-fill.svg';
+import bsHSquareFill from 'bootstrap-icons/icons/h-square-fill.svg';
+import bsInfoCircleFill from 'bootstrap-icons/icons/info-circle-fill.svg';
+import bsKey from 'bootstrap-icons/icons/key.svg';
+import bsLightbulb from 'bootstrap-icons/icons/lightbulb.svg';
+import bsPencilSquare from 'bootstrap-icons/icons/pencil-square.svg';
+import bsPeopleFill from 'bootstrap-icons/icons/people-fill.svg';
+import bsPersonCircle from 'bootstrap-icons/icons/person-circle.svg';
+import bsPersonVcard from 'bootstrap-icons/icons/person-vcard.svg';
+import bsPersonVcardFill from 'bootstrap-icons/icons/person-vcard-fill.svg';
+import bsPersonWorkspace from 'bootstrap-icons/icons/person-workspace.svg';
+import bsPhone from 'bootstrap-icons/icons/phone.svg';
+import bsPlusCircle from 'bootstrap-icons/icons/plus-circle.svg';
+import bsPower from 'bootstrap-icons/icons/power.svg';
+import bsShieldFill from 'bootstrap-icons/icons/shield-fill.svg';
+import bsShieldLock from 'bootstrap-icons/icons/shield-lock.svg';
+import bsTelephone from 'bootstrap-icons/icons/telephone.svg';
+import bsTrash from 'bootstrap-icons/icons/trash.svg';
+import bsWhatsapp from 'bootstrap-icons/icons/whatsapp.svg';
+import bsXOctagonFill from 'bootstrap-icons/icons/x-octagon-fill.svg';
+import bsXSquare from 'bootstrap-icons/icons/x-square.svg';
 
-export const save = cloudArrowUp;
-export const cancel = xSquare;
-export const add = plusCircle;
-export const edit = pencilSquare;
-export const trash = trashIcon;
-export const info = infoCircleFill;
-export const warning = exclamationTriangleFill;
-export const copy = clipboard2;
-export const copied = clipboardCheck;
-export const success = checkCircleFill;
-
-export const email = at;
-export const phone = telephone;
-export const mobile = phoneIcon;
-export const whatsapp = whatsappIcon;
-export const lodging = housesFill;
-export const association = peopleFill;
-export const contacts = personVcard;
-export const activities = calendar2WeekFill;
-export const activityDate = calendar2EventFill;
-export const google = googleIcon;
-export const login = boxArrowInRight;
-export const logout = power;
-export const users = personWorkspace;
-export const user = personCircle;
-export const changePassword = key;
-export const myContact = personVcard;
-export const responsibilities = bank;
-export const administration = shieldFill;
-export const resetPasswordEmail = envelope;
-export const resetPasswordLink = shieldLock;
-export const administratorUser = shieldFill;
-export const disabledUser = xOctagonFill;
-export const volunteering = hSquareFill;
-export const upload = cloudArrowUp;
-export const idea = lightbulb;
-export const contact = personVcardFill;
+export const save = bsCloudArrowUp;
+export const cancel = bsXSquare;
+export const add = bsPlusCircle;
+export const edit = bsPencilSquare;
+export const trash = bsTrash;
+export const info = bsInfoCircleFill;
+export const warning = bsExclamationTriangleFill;
+export const copy = bsClipboard2;
+export const copied = bsClipboardCheck;
+export const success = bsCheckCircleFill;
+export const email = bsAt;
+export const phone = bsTelephone;
+export const mobile = bsPhone;
+export const whatsapp = bsWhatsapp;
+export const lodging = bsHousesFill;
+export const association = bsPeopleFill;
+export const contacts = bsPersonVcard;
+export const activities = bsCalendar2WeekFill;
+export const activityDate = bsCalendar2EventFill;
+export const google = bsGoogle;
+export const login = bsBoxArrowInRight;
+export const logout = bsPower;
+export const users = bsPersonWorkspace;
+export const user = bsPersonCircle;
+export const changePassword = bsKey;
+export const myContact = bsPersonVcard;
+export const responsibilities = bsBank;
+export const administration = bsShieldFill;
+export const resetPasswordEmail = bsEnvelope;
+export const resetPasswordLink = bsShieldLock;
+export const administratorUser = bsShieldFill;
+export const disabledUser = bsXOctagonFill;
+export const volunteering = bsHSquareFill;
+export const upload = bsCloudArrowUp;
+export const idea = bsLightbulb;
+export const contact = bsPersonVcardFill;
