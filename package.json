@@ -53,7 +53,7 @@
     "@angular/cli": "17.3.2",
     "@angular/compiler-cli": "17.3.2",
     "@angular/localize": "17.3.2",
-    "@axe-core/playwright": "4.8.5",
+    "@axe-core/playwright": "4.9.0",
     "@playwright/test": "1.42.1",
     "@types/jasmine": "5.1.4",
     "@types/marked": "6.0.0",
