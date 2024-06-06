@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import * as icons from '../../icon/icons';
 import { Spinner } from '../../shared/spinner';
@@ -37,7 +37,7 @@ interface ViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ContactEditionComponent {
-  readonly form = this.fb.group({
+  readonly form = inject(NonNullableFormBuilder).group({
     name: ['', Validators.required],
     email: ['', Validators.email],
     phone: '',
@@ -53,7 +53,6 @@ export class ContactEditionComponent {
     route: ActivatedRoute,
     private router: Router,
     private contactService: ContactService,
-    private fb: NonNullableFormBuilder,
     private toastService: ToastService
   ) {
     this.vm = toSignal(

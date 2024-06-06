@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
@@ -51,9 +51,9 @@ interface ViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ActivityEditionComponent {
-  form = this.fb.group({
+  form = inject(NonNullableFormBuilder).group({
     title: ['', Validators.required],
-    date: this.fb.control<string | null>(null, Validators.required),
+    date: [null as string | null, Validators.required],
     description: ['', Validators.required]
   });
 
@@ -65,7 +65,6 @@ export class ActivityEditionComponent {
     route: ActivatedRoute,
     private router: Router,
     private activityService: ActivityService,
-    private fb: NonNullableFormBuilder,
     private toastService: ToastService
   ) {
     this.vm = toSignal(

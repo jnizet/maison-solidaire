@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { WeeklyScheduleService } from '../weekly-schedule.service';
 import { NonNullableFormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { WeekPipe } from '../week.pipe';
@@ -26,16 +26,15 @@ import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditWeeklyScheduleComponent {
+  private weeklyScheduleService = inject(WeeklyScheduleService);
   readonly weeks = this.weeklyScheduleService.nextWeeks();
-  form = this.fb.group({
+  form = inject(NonNullableFormBuilder).group({
     week: [this.weeks[1]]
   });
   readonly icons = icons;
   readonly saving = new Spinner();
 
   constructor(
-    private fb: NonNullableFormBuilder,
-    private weeklyScheduleService: WeeklyScheduleService,
     private toastService: ToastService,
     private router: Router
   ) {}
