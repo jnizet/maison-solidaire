@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { Contact, ContactService } from '../../shared/contact.service';
 import { combineLatest, distinctUntilChanged, first, map, startWith, switchMap } from 'rxjs';
 import { PageTitleDirective } from '../../page-title/page-title.directive';
@@ -32,17 +32,16 @@ import { toSignal } from '@angular/core/rxjs-interop';
 export class ContactsComponent {
   contacts: Signal<Array<Contact> | undefined>;
   user: Signal<CurrentUser | null>;
-  searchControl = this.fb.control('');
+  searchControl = inject(NonNullableFormBuilder).control('');
 
   icons = icons;
 
   constructor(
     private contactService: ContactService,
-    private currentUserService: CurrentUserService,
+    currentUserService: CurrentUserService,
     private responsibilityService: ResponsibilityService,
     private confirmService: ConfirmService,
-    private toastService: ToastService,
-    private fb: NonNullableFormBuilder
+    private toastService: ToastService
   ) {
     this.user = currentUserService.currentUser;
     const filter$ = this.searchControl.valueChanges.pipe(

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { Spinner } from '../../shared/spinner';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ToastService } from '../../toast/toast.service';
@@ -66,6 +66,7 @@ interface ViewModel {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ResponsibilityEditionComponent {
+  private fb = inject(NonNullableFormBuilder);
   readonly form = this.fb.group({
     contacts: this.fb.control<Array<Contact>>([], Validators.required)
   });
@@ -97,7 +98,6 @@ export class ResponsibilityEditionComponent {
 
   constructor(
     route: ActivatedRoute,
-    private fb: NonNullableFormBuilder,
     private router: Router,
     private responsibilityService: ResponsibilityService,
     private contactService: ContactService,

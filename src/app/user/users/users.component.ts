@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
 import { AdministeredUser, UserService } from '../user.service';
 import { combineLatest, distinctUntilChanged, map, startWith } from 'rxjs';
 import * as icons from '../../icon/icons';
@@ -27,11 +27,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 })
 export class UsersComponent {
   users: Signal<Array<AdministeredUser> | undefined>;
-  searchControl = this.fb.control('');
+  searchControl = inject(NonNullableFormBuilder).control('');
   icons = icons;
 
   constructor(
-    private fb: NonNullableFormBuilder,
     private userService: UserService,
     private ngbModal: NgbModal
   ) {
