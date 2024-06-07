@@ -39,6 +39,7 @@ import { ValidationErrorDirective, ValidationErrorsComponent } from 'ngx-valdemo
 import * as icons from '../../icon/icons';
 import { SpinningIconComponent } from '../../shared/spinning-icon/spinning-icon.component';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { FormControlValidationDirective } from '../../validation/form-control-validation.directive';
 
 interface ViewModel {
   editedResponsibility: Responsibility;
@@ -59,6 +60,7 @@ interface ViewModel {
     CdkDragHandle,
     ValidationErrorsComponent,
     ValidationErrorDirective,
+    FormControlValidationDirective,
     SpinningIconComponent
   ],
   templateUrl: './responsibility-edition.component.html',
