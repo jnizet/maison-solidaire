@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { marked, Renderer } from 'marked';
+import { marked, MarkedExtension } from 'marked';
 
 @Injectable({
   providedIn: 'root'
@@ -7,13 +7,16 @@ import { marked, Renderer } from 'marked';
 export class MarkdownService {
   constructor() {
     // Override function
-    const renderer: Partial<Renderer> = {
-      heading(text, level) {
-        const renderedLevel = Math.min(level + 2, 6);
-        return `<h${renderedLevel}>${text}</h${renderedLevel}>`;
+    const extension: MarkedExtension = {
+      useNewRenderer: true,
+      renderer: {
+        heading({ text, depth }) {
+          const renderedLevel = Math.min(depth + 2, 6);
+          return `<h${renderedLevel}>${text}</h${renderedLevel}>`;
+        }
       }
     };
-    marked.use({ renderer });
+    marked.use(extension);
   }
 
   render(markdown: string): string {
