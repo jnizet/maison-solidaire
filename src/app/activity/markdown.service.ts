@@ -8,7 +8,6 @@ export class MarkdownService {
   constructor() {
     // Override function
     const extension: MarkedExtension = {
-      useNewRenderer: true,
       renderer: {
         heading({ text, depth }) {
           const renderedLevel = Math.min(depth + 2, 6);
