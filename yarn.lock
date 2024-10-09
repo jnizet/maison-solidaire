@@ -229,10 +229,10 @@
     vite "5.3.2"
     watchpack "2.4.1"
 
-"@angular/cdk@18.1.4":
-  version "18.1.4"
-  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-18.1.4.tgz#d315976f638e6a762dad0010c0d16501f6b5fe44"
-  integrity sha512-xFOg2wT2iLyJXqgeNRK1uF4Lxn0B1wzBjaEQoOwFm1EHOdu5D4mNOTwfuB3DkH4KWM+mI3Qtxd7vOhOXNwB3Dg==
+"@angular/cdk@18.2.8":
+  version "18.2.8"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-18.2.8.tgz#fc3f27bd821bb83b6cd3249b7e512777d28fbc20"
+  integrity sha512-J8A2FkwTBzLleAEWz6EgW73dEoeq87GREBPjTv8+2JV09LX+V3hnbgNk6zWq5k4OXtQNg9WrWP9QyRbUyA597g==
   dependencies:
     tslib "^2.3.0"
   optionalDependencies:
