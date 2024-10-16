@@ -54,7 +54,7 @@
     "@angular/compiler-cli": "18.1.4",
     "@angular/localize": "18.1.4",
     "@axe-core/playwright": "4.9.1",
-    "@playwright/test": "1.46.0",
+    "@playwright/test": "1.48.1",
     "@types/jasmine": "5.1.4",
     "@types/marked": "6.0.0",
     "@typescript-eslint/eslint-plugin": "7.18.0",
